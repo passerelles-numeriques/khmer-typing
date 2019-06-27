@@ -135,7 +135,7 @@ if (process.env.NODE_ENV === 'production') {
     new CopyWebpackPlugin([
       {
         from: path.join(__dirname, '../static'),
-        to: path.join(__dirname, '../dist/web/static'),
+        to: path.join(__dirname, '../dist/web'),
         ignore: ['.*']
       }
     ]),
