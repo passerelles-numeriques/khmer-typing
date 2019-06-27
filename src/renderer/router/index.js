@@ -13,6 +13,16 @@ export default new Router({
     {
       path: '*',
       redirect: '/'
+    },
+    {
+      path: '/visual-keyboard',
+      name: 'visual-keyboard',
+      component: require('@/components/VisualKeyboard/VisualKeyboard').default
+    },
+    {
+      path: '/typefast',
+      name: 'typefast',
+      component: require('@/components/Typefast/Typefast').default
     }
   ]
 })
