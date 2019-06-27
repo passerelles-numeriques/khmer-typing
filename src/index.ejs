@@ -18,6 +18,12 @@
         if (process.env.NODE_ENV !== 'development') window.__static = require('path').join(__dirname, '/static').replace(/\\/g, '\\\\')
       </script>
     <% } %>
+    <% if (process.browser) { %>
+      <link rel="manifest" href="/manifest.json">
+      <script>
+        
+      </script>
+    <% } %>
 
     <!-- webpack builds are automatically injected -->
   </body>
