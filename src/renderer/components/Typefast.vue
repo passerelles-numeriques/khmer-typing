@@ -3,7 +3,7 @@
     <main>
       <h1 id="lblGameTitle-tf">Typing game</h1>
       <p id="lblGameDescription-tf">Type as many words as you can until time runs out!</p>
-      <button id="cmdTyping-tf" v-on:click="startGame">START</button>
+      <button id="cmdTyping-tf" v-on:click="startGame">Start</button>
       <div id="gameWrap-tf" style="display:none">
         <div class="outerWrap">
           <div class="scoreWrap">
@@ -19,7 +19,7 @@
           <p class="words">
             <span>​</span>
             <!-- This span makes sure that the room for the word doesn't disappear even when transitionning -->
-            <span class="spans" v-for="span in spans">{{ span }}</span>
+            <span class="spans" v-for="span in spans" v-bind:key="span.id">{{ span }}</span>
           </p>
         </div>
         <h3 style="color:bisque margin-top: 30px" id="lblGameBuffer-tf">What you are typing:</h3>
@@ -58,7 +58,7 @@
         document.getElementById('gameWrap-tf').style.display = 'inline'
         // Start the timer
         clearInterval(timer)
-        timer = setInterval(() => {
+        this.timer = timer = setInterval(() => {
           this.seconds--
           if (this.seconds === 0) {
             this.spans = ''
@@ -71,32 +71,8 @@
         this.random()
         this.buffer = ''
         // Listen to typing events
-        document.addEventListener('keypress', this.typing, false)
-        document.addEventListener('keydown', this.clear, false)
-      },
-      /**
-       * Splits a text in khmer into an array of separate graphemes
-       * Each grapheme is what would normally be considered as a "letter", but can be the result of multiple typed keys
-       * Uses grapheme.splitter and corrects its mistakes related to khmer
-       * @param text the text to split
-       * @return an array of graphemes
-       */
-      splitKhmerRunes: function (text) {
-        text.normalize()
-        var GraphemeSplitter = require('grapheme-splitter')
-        const splitter = new GraphemeSplitter()
-        let graphemes = splitter.splitGraphemes(text)
-        // Correct one mistake that happens in Khmer language
-        let previousCodePoint = null
-        for (let i = 0; i < graphemes.length; i++) {
-          if (previousCodePoint === 0x17D2) {
-            graphemes[i - 1] += graphemes[i]
-            graphemes.splice(i, 1)
-            i-- // decrement
-          }
-          previousCodePoint = [...graphemes[i]].pop().charCodeAt(0) // get last codepoint
-        }
-        return graphemes
+        this.keypress = document.addEventListener('keypress', this.typing, false)
+        this.keydown = document.addEventListener('keydown', this.clear, false)
       },
       /**
        * Selects a random word from the words list and displays it
@@ -104,7 +80,7 @@
       random: function () {
         var random = Math.floor(Math.random() * (this.list.length))
         const word = this.list[random]
-        let graphemes = this.splitKhmerRunes(word)
+        let graphemes = this.$splitKhmerRunes(word)
         this.spans = [] // resets spans
         for (let i = 0; i < graphemes.length; i++) { // building the word with spans around the letters
           this.spans.push(graphemes[i])
@@ -138,7 +114,7 @@
         if (!noChars.includes(e.key)) {
           let typed = e.key
           this.buffer = typed
-          let graphemes = this.splitKhmerRunes(this.buffer)
+          let graphemes = this.$splitKhmerRunes(this.buffer)
           let lastGrapheme = graphemes[graphemes.length - 1]
           // Check all span elements one by one as each one contains one letter of the word
           for (let i = 0; i < spans.length; i++) {
@@ -171,11 +147,16 @@
                 }
                 vue.random() // pick another word
                 document.getElementsByClassName('words')[0].classList = 'words'
-              }, 400) // happen when the word has finished disappearing
+              }, 300) // happen when the word has finished disappearing
             }
           }
         }
       }
+    },
+    beforeDestroy () {
+      document.removeEventListener('keypress', this.keypress)
+      document.removeEventListener('keydown', this.keydown)
+      clearInterval(this.timer)
     }
   }
 </script>
@@ -184,7 +165,7 @@
 .fadeout {
   visibility: hidden;
   opacity: 0;
-  transition: visibility 0s 0.4s, opacity 0.4s linear;
+  transition: visibility 0s 0.3s, opacity 0.3s linear;
 }
 
 .scoreWrap {
@@ -232,4 +213,3 @@
   color: #ffc10a;
 }
 </style>
-

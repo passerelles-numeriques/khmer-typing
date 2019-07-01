@@ -25,7 +25,7 @@
 <style>
 @font-face {
   font-family: "Noto Sans Khmer";
-  src: url("./assets/fonts/NotoSansKhmer-Regular.ttf") format("truetype");
+  src: url("../../static/fonts/NotoSansKhmer-Regular.ttf") format("truetype");
 }
 
 body {

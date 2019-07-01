@@ -20,7 +20,7 @@
 
 <script>
 import VisualKeyboard from './VisualKeyboard/VisualKeyboard'
-import Typefast from './Typefast/Typefast'
+import Typefast from './Typefast'
 
 export default {
   name: 'landing-page',
