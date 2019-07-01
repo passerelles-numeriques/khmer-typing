@@ -27,6 +27,26 @@ body {
   font-family: "Noto Sans Khmer", Arial, Helvetica, sans-serif;
 }
 
+.wrapper {
+  max-width: 800px;
+  margin: 0 auto;
+  width: 100%;
+  text-align: center;
+  padding: 2%;
+  background-color: #fff;
+  height: 600px;
+}
+
+h1 {
+  color: #3f51b5;
+  margin: 0;
+}
+
+h1 + p {
+  margin-bottom: 5%;
+  margin-top: 0%;
+}
+
 .top-nav {
   overflow: hidden;
   background-color: #3f51b5;
@@ -34,7 +54,7 @@ body {
 
 .nav-item {
   float: left;
-  color: #f2f2f2;
+  color: #fff;
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;

@@ -181,31 +181,10 @@
 </script>
 
 <style>
-.wrapper {
-  max-width: 800px;
-  margin: 0 auto;
-  width: 100%;
-  text-align: center;
-  padding: 2%;
-  background-color: #fff;
-  height: 600px;
-}
-
 .fadeout {
   visibility: hidden;
   opacity: 0;
   transition: visibility 0s 0.4s, opacity 0.4s linear;
-}
-
-h1 {
-  color: #3f51b5;
-  margin-bottom: 0;
-}
-
-h1 + p {
-  margin-bottom: 5%;
-  margin-top: 0%;
-  color: #3f51b5;
 }
 
 .scoreWrap {
