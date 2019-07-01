@@ -21,7 +21,7 @@ export default new Router({
   {
     path: '/typefast',
     name: 'typefast',
-    component: require('@/components/Typefast/Typefast').default
+    component: require('@/components/Typefast').default
   },
   {
     path: '/about',
