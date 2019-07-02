@@ -7,11 +7,11 @@
 
       <div id="gameWrap-vk" style="display:none;">
         <div class="row">
-          <div class="col-6 my-1 runesWrap">
+          <div class="runesWrap">
             <strong>{{ runesCounter }}</strong>
             / {{ totalRunes }}
           </div>
-          <div id="lblErrors-vk" class="col-6 my-1 text-right errorsWrap">
+          <div id="lblErrors-vk" class="errorsWrap">
             <strong id="lblCurrentErrors-vk" v-bind:class="{'error': alertError}">{{ errors }}</strong> errors
           </div>
         </div>
@@ -28,12 +28,10 @@
         </div>
 
         <div id="handsAndKeyboardWrap-vk">
-          <div class="col-12 card-box">
-            <h4
-              id="decomposition-vk"
-              class="col-12 text-center mt-0 mb-1 py-1"
-              style="font-size: 20px; border-bottom: 1px;"
-            >
+          <div>
+            <h4 id="decomposition-vk">
+              <span>​</span>
+              <!-- This span makes sure that the room for the decompisition doesn't disappear -->
               <span
                 v-for="letter in letters"
                 v-bind:key="letter.id"
@@ -46,31 +44,20 @@
                 data="static/svg/left-hand.svg"
                 type="image/svg+xml"
                 id="leftHand-vk"
-                class="col-2 m-0 p-0"
               >Your browser doesn't support SVG</object>
               <object
                 data="static/svg/Khmer_unicode_NiDA_layout.svg"
                 type="image/svg+xml"
                 id="keyboard-vk"
-                class="col-8 m-0 p-0"
               >Your browser doesn't support SVG</object>
               <object
                 data="static/svg/right-hand.svg"
                 type="image/svg+xml"
                 id="rightHand-vk"
-                class="col-2 m-0 p-0"
               >Your browser doesn't support SVG</object>
             </div>
           </div>
         </div>
-      </div>
-
-      <div id="finalScoreWrap-vk" style="display:none;">
-        <h5 class="text-center">The exercise is over!</h5>
-        <hr />
-        <div id="completeText" class="text-center"></div>
-        <hr />
-        <div id="message" class="text-center"></div>
       </div>
     </main>
   </div>
@@ -238,7 +225,6 @@
       },
       /**
        * Computes where the overflowed text is broken to begin new lines
-       * @return the list of ids of the runes that are at the beginnig of each line
        */
       getRunesIdsBreakBefore: function () {
         var idBreakBefore = []
@@ -399,24 +385,20 @@
 </script>
 
 <style scoped>
-.row {
-  display: flex;
-  flex-wrap: wrap;
-}
 .hidden {
   display: none;
 }
 .current {
-  color: #ffab40;
+  color: #ffc10a;
 }
 
 .correct {
-  color: #64b5f6;
+  color: #3f51b5;
 }
 
 .runesWrap,
 .errorsWrap {
-  font-size: 26px;
+  font-size: 1.5em;
   width: 50%;
   color: #ffc10a;
   margin-bottom: 1%;
@@ -431,16 +413,39 @@
 
 #leftHand-vk,
 #rightHand-vk {
-  width: 20%;
+  width: 15%;
 }
 #keyboard-vk {
-  width: 60%;
+  width: 70%;
 }
 
 #keyboard-vk,
 #leftHand-vk,
 #rightHand-vk {
-  height: 200px;
+  height: 250px;
+}
+
+#decomposition-vk,
+#text-vk {
+  font-weight: normal;
+}
+
+#text-vk {
+  line-height: 1.5em;
+  font-size: 3em;
+  max-height: 3em;
+  overflow: hidden;
+  margin: 0 auto;
+}
+
+#decomposition-vk {
+  font-size: 2em;
+  margin: 1% auto 3% auto;
+}
+
+#textWrap-vk {
+  background-color: #ddd;
+  border-radius: 5px;
 }
 
 .error-bg {
@@ -449,13 +454,13 @@
 
 @keyframes errorAnimationBackground {
   0% {
-    background-color: white;
+    background-color: #ddd;
   }
   33% {
-    background-color: #ffab40;
+    background-color: #ffc10a;
   }
   100% {
-    background-color: white;
+    background-color: #ddd;
   }
 }
 
@@ -465,13 +470,13 @@
 
 @keyframes errorAnimation {
   0% {
-    color: #ffab40;
+    color: #ffc10a;
   }
   33% {
     color: black;
   }
   100% {
-    color: #ffab40;
+    color: #ffc10a;
   }
 }
 </style>
