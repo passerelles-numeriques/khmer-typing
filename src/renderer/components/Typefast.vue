@@ -161,7 +161,7 @@
   }
 </script>
 
-<style>
+<style scoped>
 .fadeout {
   visibility: hidden;
   opacity: 0;

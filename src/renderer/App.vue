@@ -28,13 +28,12 @@ body {
 }
 
 .wrapper {
-  max-width: 800px;
-  margin: 0 auto;
+  margin: auto;
+  max-width: 1000px;
   width: 100%;
   text-align: center;
   padding: 2%;
   background-color: #fff;
-  height: 600px;
 }
 
 h1 {
