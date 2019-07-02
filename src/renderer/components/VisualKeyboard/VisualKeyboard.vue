@@ -16,15 +16,12 @@
           </div>
         </div>
         <div id="textWrap-vk" v-bind:class="{'error-bg': alertError}">
-          <h2
-            id="text-vk"
-            class="col-12 text-left mx-auto my-0"
-            style="line-height: 30px; font-size: 20px; max-height: 60px; overflow:hidden;"
-          >
+          <h2 id="text-vk">
             <span
               v-for="rune in runes"
               v-bind:key="rune.id"
-              v-bind:class="{current: rune.isCurrent, correct: rune.isCorrect}"
+              class="runes"
+              v-bind:class="{current: rune.isCurrent, correct: rune.isCorrect, hidden: rune.isHidden}"
               :id="rune.id"
             >{{ rune.rune }}</span>
           </h2>
@@ -88,13 +85,17 @@
     name: 'visual-keyboard',
     data () {
       return {
-        parameters: {'text': 'សូមស្វាគមន៍', 'minWpm': 0, 'maxErrors': 5},
+        parameters: {
+          'text': 'លោក គួច ចំរើន បាន​ប្រកា​​​ស​​ក្នុង​គេហទំព័រ​ហ្វេ​ស​ប៊ុក​របស់​លោ​ក​ កាលពី​ថ្ងៃអា​ទិត្យ ស្រប​​ពេល​លោក​បាន​ចុះ​ពិនិត្យ​ឆ្នេរ​ឯករាជ្យ និង​ជួប​សំណេះ​សំណា​​ល​​​ជាមួយ​ភ្ញៀវទេសចរ ដែល​មក​កម្សាន្ដ​នៅតាម​តំបន់ឆ្នេរ​ថា នឹ​ង​​រៀបចំ​កែលម្អ​សួនកន្លែង​ដើរ​​ថ្មើ​រ​​ជើង និង​មាន​អ្នក​សម្អាត​សួន​ឆ្នេរ​​ជាប្រចាំ ធានា​​ឲ្យ​មាន​ភាព​ស្រស់ស្អាត​របស់​ឆ្នេរ ពិសេស​ការចូលរួម​លើក​កម្ពស់ និងថែរក្សា​បរិស្ថាន​ឆ្នេរ​​ឲ្យ​កាន់តែ​មាន​សោ​ភ​ណភាព ដើម្បី​ទាក់​ទាញ​ភ្ញៀវទេសចរ​ជាតិ និង​អន្តរជាតិ មក​លេង​កម្សាន្ដ។',
+          'minWpm': 0,
+          'maxErrors': 5},
         runes: [],
         letters: [],
         runesCounter: 0,
         totalRunes: 0,
         errors: 0,
-        alertError: false
+        alertError: false,
+        idsBreakBefore: null
       }
     },
     methods: {
@@ -151,7 +152,6 @@
         this.splitRuneIntoSpannedLetters(listRunes[this.runesCounter])
         var listKeys = this.getAllKeys(text)
         var currentLetters = ''
-        var idsBreakBefore = this.getRunesIdsBreakBefore()
         // Highlights
         this.runes[this.runesCounter].isCurrent = true
         this.letters[currentLetters.length].isCurrent = true
@@ -184,8 +184,8 @@
               if (vue.runesCounter < listRunes.length) {
                 vue.splitRuneIntoSpannedLetters(listRunes[vue.runesCounter])
               }
-              // If we arrive at the end of a line, scroll to display the next one
-              vue.scrollSync(idsBreakBefore, vue.runesCounter)
+              // If we arrive at the end of a line, hide it
+              vue.scrollSync()
             }
             // Current action is done
             listKeys.shift()
@@ -215,7 +215,7 @@
         // Split the string to an array of grapheme clusters (one string each)
         var graphemes = splitKhmerRunes(text)
         for (var i = 0; i < graphemes.length; i++) {
-          this.runes.push({'id': 'rune-' + i, 'rune': graphemes[i], 'isCurrent': false, 'isCorrect': false})
+          this.runes.push({'id': 'rune-' + i, 'rune': graphemes[i], 'isCurrent': false, 'isCorrect': false, 'isHidden': false})
         }
       },
       /**
@@ -242,17 +242,13 @@
        */
       getRunesIdsBreakBefore: function () {
         var idBreakBefore = []
-        var offset = document.getElementById('text-vk').offsetLeft
-        var rune
-        var i = 0
+        var runes = document.getElementsByClassName('runes')
         // Loop through all the runes
-        while (document.getElementById('rune' + i) !== null) {
-          rune = document.getElementById('rune' + i)
+        for (var i = 0; i < runes.length; i++) {
           // If a rune has minimal offsetLeft, it means it's on the left of the element, ie at the beginning of a new line
-          if (rune.offsetLeft <= offset) {
+          if ((!runes[i - 1]) || (runes[i].offsetLeft <= runes[i - 1].offsetLeft)) {
             idBreakBefore.push(i)
           }
-          i++
         }
         return idBreakBefore
       },
@@ -262,11 +258,13 @@
        * @param ids the list of ids of the runes that are at the beginnig of each line
        * @param currentId the id of the current rune, ie the one after the last rune validated
        */
-      scrollSync: function (ids, currentId) {
-        var textEl = document.getElementById('text-vk')
-        if (ids.includes(currentId)) {
-          // The current rune is at the beginning of a new line, meaning the previous line can be scrolled over
-          textEl.scrollTop += 30
+      scrollSync: function (currentId) {
+        // We are at a break point
+        if (this.idsBreakBefore.includes(this.runesCounter)) {
+          // Hide all the runes before the current one, ie hide the line
+          for (var i = 0; i < this.runesCounter; i++) {
+            this.runes[i].isHidden = true
+          }
         }
       },
       /**
@@ -390,8 +388,12 @@
         }
       }
     },
-    mounted () {
+    beforeDestroy () {
       // todo
+    },
+    updated () {
+      // The dom hass changed, update the list of breaking points in case it's needed
+      this.idsBreakBefore = this.getRunesIdsBreakBefore()
     }
   }
 </script>
@@ -401,7 +403,9 @@
   display: flex;
   flex-wrap: wrap;
 }
-
+.hidden {
+  display: none;
+}
 .current {
   color: #ffab40;
 }
