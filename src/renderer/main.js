@@ -1,10 +1,6 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-<<<<<<< HEAD
-// Translation of the application
-=======
->>>>>>> 12c00afb931b83960827779cbe29cead80f2d8b3
 import VueI18n from 'vue-i18n'
 import {messages} from './i18n-messages.js'
 
