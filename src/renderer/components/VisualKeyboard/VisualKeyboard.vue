@@ -232,7 +232,7 @@
         // Loop through all the runes
         for (var i = 0; i < runes.length; i++) {
           // If a rune has minimal offsetLeft, it means it's on the left of the element, ie at the beginning of a new line
-          if ((!runes[i - 1]) || (runes[i].offsetLeft <= runes[i - 1].offsetLeft)) {
+          if ((!runes[i - 1]) || (runes[i].offsetLeft < runes[i - 1].offsetLeft)) {
             idBreakBefore.push(i)
           }
         }
