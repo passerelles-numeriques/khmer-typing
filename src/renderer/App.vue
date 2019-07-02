@@ -1,12 +1,16 @@
 <template>
   <div id="app">
     <nav>
-      <div class="top-nav">
-        <select v-model="$i18n.locale">
-          <option v-for="(lang, i) in langs" :key="`Lang${i}`" :value="lang">{{ lang }}</option>
-        </select>
-        <router-link class="nav-item" v-bind:to="'/'">{{ $t("Home") }}</router-link>
-        <router-link class="nav-item" v-bind:to="'/about'">{{ $t("About") }}</router-link>
+      <div class="top-nav row">
+        <div>
+          <router-link class="nav-item" v-bind:to="'/'">{{ $t("Home") }}</router-link>
+          <router-link class="nav-item" v-bind:to="'/about'">{{ $t("About") }}</router-link>
+        </div>
+        <div>
+          <select v-model="$i18n.locale">
+            <option v-for="(lang, i) in langs" :key="`Lang${i}`" :value="lang">{{ lang }}</option>
+          </select>
+        </div>
       </div>
     </nav>
     <router-view></router-view>
@@ -30,6 +34,7 @@
 
 body {
   margin: 0;
+  padding: 0 30;
   font-family: "Noto Sans Khmer", Arial, Helvetica, sans-serif;
 }
 
@@ -38,23 +43,40 @@ body {
   max-width: 1000px;
   width: 100%;
   text-align: center;
-  padding: 2%;
   background-color: #fff;
+  font-family: "Noto Sans Khmer";
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
 }
 
 h1 {
   color: #3f51b5;
-  margin: 0;
+  margin: 2% 0 0 0;
 }
 
 h1 + p {
-  margin-bottom: 5%;
-  margin-top: 0%;
+  margin: 0;
+}
+
+select {
+  margin: 10px;
+  height: 30px;
+  border: none;
+  border-radius: 4px;
+  background-color: #ddd;
+  font-size: 1em;
 }
 
 .top-nav {
+  height: 50px;
   overflow: hidden;
   background-color: #3f51b5;
+  width: 100%;
+  margin: auto;
+  justify-content: space-between;
 }
 
 .nav-item {
@@ -63,7 +85,7 @@ h1 + p {
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
-  font-size: 17px;
+  font-size: 1em;
 }
 
 .nav-item:hover {
@@ -79,7 +101,7 @@ button,
   outline: none;
   border-radius: 5px;
   padding: 10px 15px;
-  font-size: 22px;
+  font-size: 1.5em;
   text-decoration: none;
   margin: 20px;
   color: #fff;
