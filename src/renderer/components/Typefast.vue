@@ -34,6 +34,7 @@
 </template>
 
 <script>
+  import splitKhmerRunes from '../split-khmer'
   export default {
     name: 'typefast',
     data () {
@@ -80,7 +81,7 @@
       random: function () {
         var random = Math.floor(Math.random() * (this.list.length))
         const word = this.list[random]
-        let graphemes = this.$splitKhmerRunes(word)
+        let graphemes = splitKhmerRunes(word)
         this.spans = [] // resets spans
         for (let i = 0; i < graphemes.length; i++) { // building the word with spans around the letters
           this.spans.push(graphemes[i])
@@ -114,7 +115,7 @@
         if (!noChars.includes(e.key)) {
           let typed = e.key
           this.buffer = typed
-          let graphemes = this.$splitKhmerRunes(this.buffer)
+          let graphemes = splitKhmerRunes(this.buffer)
           let lastGrapheme = graphemes[graphemes.length - 1]
           // Check all span elements one by one as each one contains one letter of the word
           for (let i = 0; i < spans.length; i++) {
