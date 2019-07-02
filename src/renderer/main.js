@@ -2,13 +2,10 @@ import Vue from 'vue'
 
 import App from './App'
 import router from './router'
-import myPlugin from './grapheme-splitter-plugin.js'
 import VueI18n from 'vue-i18n'
 import {
   messages
 } from './i18n-messages.js'
-
-Vue.use(myPlugin)
 
 if (!process.env.IS_WEB) Vue.use(require('vue-electron'))
 Vue.config.productionTip = false
