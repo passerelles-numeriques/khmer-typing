@@ -10,27 +10,15 @@
       </script>
     <% } %>
     <% if (process.browser) { %>
+      <!-- Progressive WepApp -->
       <link rel="manifest" href="/manifest.json">
       <meta name="description" content="Learn Khmer Typing">
       <meta name="theme-color" content="#3F51B5" />
-
-      <!-- Add iOS meta tags and icons -->
+      <meta name="viewport" content="width=device-width, initial-scale=1">
       <meta name="apple-mobile-web-app-capable" content="yes">
       <meta name="apple-mobile-web-app-status-bar-style" content="black">
       <meta name="apple-mobile-web-app-title" content="Khmer Typing">
       <link rel="apple-touch-icon" href="/images/icons/icon-152x152.png">
-
-      <!-- PWA: Install and Service worker -->
-      <script>
-      if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-          navigator.serviceWorker.register('/service-worker.js')
-              .then((reg) => {
-                console.log('Service worker registered.', reg);
-              });
-        });
-      }
-      </script>
     <% } %>
   </head>
   <body>
@@ -40,6 +28,11 @@
       <script>
         if (process.env.NODE_ENV !== 'development') window.__static = require('path').join(__dirname, '/static').replace(/\\/g, '\\\\')
       </script>
+    <% } %>
+    <% if (process.browser) { %>
+      <noscript>
+        Khmer Typing application requires Javascript to run.<br />
+      </noscript>
     <% } %>
     <!-- webpack builds are automatically injected -->
   </body>

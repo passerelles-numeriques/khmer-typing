@@ -9,6 +9,7 @@ const BabiliWebpackPlugin = require('babili-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const {GenerateSW} = require('workbox-webpack-plugin')
 const { VueLoaderPlugin } = require('vue-loader')
 
 let webConfig = {
@@ -132,13 +133,24 @@ if (process.env.NODE_ENV === 'production') {
 
   webConfig.plugins.push(
     new BabiliWebpackPlugin(),
+    //General configuration
     new CopyWebpackPlugin([
       {
         from: path.join(__dirname, '../static'),
+        to: path.join(__dirname, '../dist/web/static'),
+        ignore: ['.*']
+      }
+    ]),
+    //Specific to web / PWA apps (icons, manifests, etc.)
+    new CopyWebpackPlugin([
+      {
+        from: path.join(__dirname, '../public'),
         to: path.join(__dirname, '../dist/web'),
         ignore: ['.*']
       }
     ]),
+    //Generate Service worker, see https://developers.google.com/web/tools/workbox/modules/workbox-webpack-plugin
+    new GenerateSW(),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': '"production"'
     }),
