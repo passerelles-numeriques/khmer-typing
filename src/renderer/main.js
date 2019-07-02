@@ -5,7 +5,7 @@ import VueI18n from 'vue-i18n'
 import {messages} from './i18n-messages.js'
 
 // Service worker for Progressive Web Application
-if (typeof process.env.BASE_URL === 'undefined') process.env.BASE_URL = './'
+if (typeof process.env.BASE_URL === 'undefined') process.env.BASE_URL = '/'
 if (process.env.IS_WEB) import('../registerServiceWorker.js')
 
 if (!process.env.IS_WEB) Vue.use(require('vue-electron'))
