@@ -1,15 +1,473 @@
 <template>
-  <div id="wrapper">
+  <div class="wrapper">
     <main>
-      Test
+      <h1 id="lblGameTitle-vk">Visual Keyboard</h1>
+      <p id="lblGameDescription-vk">xxxxx</p>
+      <button id="cmdTyping-vk" v-on:click="startGame">Start</button>
+
+      <div id="gameWrap-vk" style="display:none;">
+        <div class="row">
+          <div class="col-6 my-1 runesWrap">
+            <strong>{{ runesCounter }}</strong>
+            / {{ totalRunes }}
+          </div>
+          <div id="lblErrors-vk" class="col-6 my-1 text-right errorsWrap">
+            <strong id="lblCurrentErrors-vk" v-bind:class="{'error': alertError}">{{ errors }}</strong> errors
+          </div>
+        </div>
+        <div id="textWrap-vk" v-bind:class="{'error-bg': alertError}">
+          <h2
+            id="text-vk"
+            class="col-12 text-left mx-auto my-0"
+            style="line-height: 30px; font-size: 20px; max-height: 60px; overflow:hidden;"
+          >
+            <span
+              v-for="rune in runes"
+              v-bind:key="rune.id"
+              v-bind:class="{current: rune.isCurrent, correct: rune.isCorrect}"
+              :id="rune.id"
+            >{{ rune.rune }}</span>
+          </h2>
+        </div>
+
+        <div id="handsAndKeyboardWrap-vk">
+          <div class="col-12 card-box">
+            <h4
+              id="decomposition-vk"
+              class="col-12 text-center mt-0 mb-1 py-1"
+              style="font-size: 20px; border-bottom: 1px;"
+            >
+              <span
+                v-for="letter in letters"
+                v-bind:key="letter.id"
+                v-bind:class="{current: letter.isCurrent, correct: letter.isCorrect}"
+                :id="letter.id"
+              >{{ letter.letter }}</span>
+            </h4>
+            <div class="row">
+              <object
+                data="static/svg/left-hand.svg"
+                type="image/svg+xml"
+                id="leftHand-vk"
+                class="col-2 m-0 p-0"
+              >Your browser doesn't support SVG</object>
+              <object
+                data="static/svg/Khmer_unicode_NiDA_layout.svg"
+                type="image/svg+xml"
+                id="keyboard-vk"
+                class="col-8 m-0 p-0"
+              >Your browser doesn't support SVG</object>
+              <object
+                data="static/svg/right-hand.svg"
+                type="image/svg+xml"
+                id="rightHand-vk"
+                class="col-2 m-0 p-0"
+              >Your browser doesn't support SVG</object>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="finalScoreWrap-vk" style="display:none;">
+        <h5 class="text-center">The exercise is over!</h5>
+        <hr />
+        <div id="completeText" class="text-center"></div>
+        <hr />
+        <div id="message" class="text-center"></div>
+      </div>
     </main>
   </div>
 </template>
 
 <script>
+  import splitKhmerRunes from '../../split-khmer'
+  import mapping from '../../assets/mapping'
+  import hands from '../../assets/hands'
+
   export default {
     name: 'visual-keyboard',
+    data () {
+      return {
+        parameters: {'text': 'សូមស្វាគមន៍', 'minWpm': 0, 'maxErrors': 5},
+        runes: [],
+        letters: [],
+        runesCounter: 0,
+        totalRunes: 0,
+        errors: 0,
+        alertError: false
+      }
+    },
     methods: {
+      /**
+       * Initializes the game by changing the DOM
+       */
+      startGame: function () {
+        var vue = this
+        var left = false
+        var keyboard = false
+        var right = false
+        // Change the visible elements
+        document.getElementById('cmdTyping-vk').style.display = 'none'
+        document.getElementById('gameWrap-vk').style.display = 'inline'
+        // Start playing only when all svg images are loaded
+        document.getElementById('leftHand-vk').onload = function () {
+          left = true
+          if (left && right && keyboard) {
+            vue.play()
+          }
+        }
+        document.getElementById('keyboard-vk').onload = function () {
+          keyboard = true
+          if (left && right && keyboard) {
+            vue.play()
+          }
+        }
+        document.getElementById('rightHand-vk').onload = function () {
+          right = true
+          if (left && right && keyboard) {
+            vue.play()
+          }
+        }
+        // After 5s, alert user something went wrong if still not loaded
+        setTimeout(function () {
+          if (!(left && right && keyboard)) {
+            alert('Oops, something went wrong.')
+          }
+        }, 5000)
+      },
+      /**
+       * Play the game
+       * The user has to type a text in khmer
+       */
+      play: function () {
+        var vue = this
+        var text = (this.parameters.text !== undefined) ? this.parameters.text : ''
+        // Initialization
+        var completeText = ''
+        this.runesCounter = 0
+        var listRunes = splitKhmerRunes(text)
+        this.totalRunes = listRunes.length
+        this.splitTextIntoSpannedRunes(text)
+        this.splitRuneIntoSpannedLetters(listRunes[this.runesCounter])
+        var listKeys = this.getAllKeys(text)
+        var currentLetters = ''
+        var idsBreakBefore = this.getRunesIdsBreakBefore()
+        // Highlights
+        this.runes[this.runesCounter].isCurrent = true
+        this.letters[currentLetters.length].isCurrent = true
+        // Display the first hints
+        this.resetHints()
+        this.nextHint(listKeys)
+
+        // Game progress
+        document.onkeypress = function (ev) {
+          ev.preventDefault()
+          var isCorrect = vue.areRightKeysPressed(ev, listKeys)
+          // Pressed key is correct
+          if (isCorrect) {
+            completeText += ev.key
+            currentLetters += ev.key
+            // Highlight correct letter
+            vue.letters[currentLetters.length - 1].isCurrent = false
+            vue.letters[currentLetters.length - 1].isCorrect = true
+            // Check if a grapheme has been completed
+            var graphemes = splitKhmerRunes(currentLetters)
+            if (graphemes[0] === listRunes[vue.runesCounter]) {
+              // We show to the user that the grapheme is completed
+              vue.runes[vue.runesCounter].isCurrent = false
+              vue.runes[vue.runesCounter].isCorrect = true
+              // Current grapheme is completed, we start again to track the next one
+              currentLetters = ''
+              vue.letters = []
+              vue.runesCounter++
+              // Display decomposition of the next grapheme if exists
+              if (vue.runesCounter < listRunes.length) {
+                vue.splitRuneIntoSpannedLetters(listRunes[vue.runesCounter])
+              }
+              // If we arrive at the end of a line, scroll to display the next one
+              vue.scrollSync(idsBreakBefore, vue.runesCounter)
+            }
+            // Current action is done
+            listKeys.shift()
+            // No next action, game is won
+            if (listKeys.length === 0) {
+              vue.runesCounter = 0
+              currentLetters = ''
+              alert('yay', completeText)
+            } else { // We display hints for the next action
+              vue.runes[vue.runesCounter].isCurrent = true
+              vue.letters[currentLetters.length].isCurrent = true
+              vue.resetHints()
+              vue.nextHint(listKeys)
+            }
+          } else { // Pressed key is wrong
+            vue.alertWrongKey()
+          }
+        }
+      },
+      /**
+       * Display the text to be typed by the user
+       * with each rune encapsulated in a span and with a specific id
+       * to facilitate their highlighting later
+       * @param text the text to be typed by the user
+       */
+      splitTextIntoSpannedRunes: function (text) {
+        // Split the string to an array of grapheme clusters (one string each)
+        var graphemes = splitKhmerRunes(text)
+        for (var i = 0; i < graphemes.length; i++) {
+          this.runes.push({'id': 'rune-' + i, 'rune': graphemes[i], 'isCurrent': false, 'isCorrect': false})
+        }
+      },
+      /**
+       * Display the rune to be typed by the user
+       * with each letter encapsulated in a span and with a specific id
+       * to facilitate their highlighting later
+       * @param text the text to be typed by the user
+       */
+      splitRuneIntoSpannedLetters: function (rune) {
+        // Split the graph to an array of strings
+        var letters = rune.split('')
+        for (var i = 0; i < letters.length; i++) {
+          var letter = letters[i]
+          // Add a space before this specific character, otherwise it doesn't stand out
+          if (letter === '្') {
+            letter = ' ្'
+          }
+          this.letters.push({'id': 'letter-' + i, 'letter': letter, 'isCurrent': false, 'isCorrect': false})
+        }
+      },
+      /**
+       * Computes where the overflowed text is broken to begin new lines
+       * @return the list of ids of the runes that are at the beginnig of each line
+       */
+      getRunesIdsBreakBefore: function () {
+        var idBreakBefore = []
+        var offset = document.getElementById('text-vk').offsetLeft
+        var rune
+        var i = 0
+        // Loop through all the runes
+        while (document.getElementById('rune' + i) !== null) {
+          rune = document.getElementById('rune' + i)
+          // If a rune has minimal offsetLeft, it means it's on the left of the element, ie at the beginning of a new line
+          if (rune.offsetLeft <= offset) {
+            idBreakBefore.push(i)
+          }
+          i++
+        }
+        return idBreakBefore
+      },
+      /**
+       * When the user arrives at the end of a line
+       * Scroll to display the next one
+       * @param ids the list of ids of the runes that are at the beginnig of each line
+       * @param currentId the id of the current rune, ie the one after the last rune validated
+       */
+      scrollSync: function (ids, currentId) {
+        var textEl = document.getElementById('text-vk')
+        if (ids.includes(currentId)) {
+          // The current rune is at the beginning of a new line, meaning the previous line can be scrolled over
+          textEl.scrollTop += 30
+        }
+      },
+      /**
+       * Get the list of ordered keys to type
+       * @param text the text to be typed by the user
+       * @param hands the object defining which key should be typed with which finger
+       * @return an array containing the ordered list of keys to type
+       */
+      getAllKeys: function (text) {
+        // Array of arrays
+        var listKeys = []
+        // Get the list of actions to be done by the user
+        for (var i = 0; i < text.length; i++) {
+          var letter = text.substring(i, i + 1)
+          var keys = mapping[letter]
+          if (keys === undefined) {
+            console.log('Error: mapping not defined')
+          } else {
+            listKeys.push(keys)
+          }
+        }
+        return listKeys
+      },
+      /**
+       * Checks if the keys the user typed fit with what the action should be
+       * @param event the pressedKey event generated when the user typed a new character
+       * @param listKeys the current ordered list of keys to type
+       * @return a boolean, true if the right keys have have been pressed, false otherwise
+       */
+      areRightKeysPressed: function (event, listKeys) {
+        var keyPressed = mapping[event.key]
+        var isCorrect = true
+        var keyToPress = listKeys[0]
+
+        // Careful if typing in english letters
+        if (keyPressed === undefined) {
+          isCorrect = false
+        } else if (keyToPress.length > 1) {
+        // More than one key to press means the first key is ALT or SHIFT
+          if (keyToPress[0].split('_')[1] === 'SHIFT') {
+            isCorrect = event.shiftKey
+          }
+          // We've checked SHIFT and ALT, we move on to checking the second key
+          keyPressed = keyPressed[1]
+          keyToPress = keyToPress[1]
+        } else {
+          keyPressed = keyPressed[0]
+          keyToPress = keyToPress[0]
+        }
+        isCorrect = ((keyPressed === keyToPress) && (isCorrect))
+        return isCorrect
+      },
+      /**
+       * When the user makes a mistake, the text area and error counter blinks in orange
+       * and the error counter is incremented
+       */
+      alertWrongKey: function () {
+        var vue = this
+        vue.alertError = true
+        // Back to normal after 0.5s
+        setTimeout(function () {
+          vue.alertError = false
+        }, 500)
+        // Incrementation
+        this.errors++
+      },
+      /**
+       * Highlights the fingers and keys to use for the current action in orange
+       * To help the user type the text correctly
+       * @param listKeys the current ordered list of keys to type
+       */
+      nextHint: function (listKeys) {
+        // These are arrays
+        var currentKeys = listKeys[0]
+        var currentFingers = []
+        for (var j = 0; j < currentKeys.length; j++) {
+          currentFingers.push(hands[currentKeys[j]])
+        }
+        var color = '#ffab40'
+        for (var i = 0; i < currentFingers.length; i++) {
+          var finger = currentFingers[i]
+          var key = currentKeys[i]
+          // Space is the only key where we can use two fingers
+          if (key === 'SPACE') {
+            document.getElementById('leftHand-vk').contentDocument.getElementById('left-finger-1').setAttributeNS(null, 'fill', color)
+            document.getElementById('rightHand-vk').contentDocument.getElementById('right-finger-1').setAttributeNS(null, 'fill', color)
+          } else {
+            var hand = finger.split('-')[0]
+            // Highlight the correct finger on the correct hand
+            var svgHand = document.getElementById(hand + 'Hand-vk').contentDocument
+            svgHand.getElementById(finger).setAttributeNS(null, 'fill', color)
+          }
+          // Highlight the correct key on the keyboard
+          var svgKeyboard = document.getElementById('keyboard-vk').contentDocument
+          svgKeyboard.getElementById(key).setAttributeNS(null, 'fill', color)
+        }
+      },
+      /**
+      * Resets all the fingers and keys to their default color
+      */
+      resetHints: function () {
+        var keys = Object.keys(hands)
+        var fingers = ['right-finger-1', 'left-finger-1', 'right-finger-2', 'left-finger-2', 'right-finger-3', 'left-finger-3', 'right-finger-4', 'left-finger-4', 'right-finger-5', 'left-finger-5']
+        var greyKeys = ['BACKSPACE', 'MENU', 'FN', 'WINDOWS', 'path5784', 'SPACE', 'ALT_GR', 'ENTER', 'RIGHT_SHIFT', 'RIGHT_CTRL', 'ALT', 'TAB', 'CAPS_LOCK', 'LEFT_SHIFT', 'LEFT_CTRL']
+        var hand
+        var svgHand
+        // Loop through all the fingers
+        for (var i = 0; i < fingers.length; i++) {
+          hand = fingers[i].split('-')[0]
+          svgHand = document.getElementById(hand + 'Hand-vk').contentDocument
+          svgHand.getElementById(fingers[i]).setAttributeNS(null, 'fill', 'none')
+        }
+        var svgKeyboard = document.getElementById('keyboard-vk').contentDocument
+        // Loop through all the normal keys
+        for (i = 0; i < keys.length; i++) {
+          svgKeyboard.getElementById(keys[i]).setAttributeNS(null, 'fill', 'white')
+        }
+        // Loop through all the grey keys
+        for (i = 0; i < greyKeys.length; i++) {
+          svgKeyboard.getElementById(greyKeys[i]).setAttributeNS(null, 'fill', '#C1C0C0')
+        }
+      }
+    },
+    mounted () {
+      // todo
     }
   }
 </script>
+
+<style scoped>
+.row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.current {
+  color: #ffab40;
+}
+
+.correct {
+  color: #64b5f6;
+}
+
+.runesWrap,
+.errorsWrap {
+  font-size: 26px;
+  width: 50%;
+  color: #ffc10a;
+  margin-bottom: 1%;
+}
+
+.runesWrap {
+  text-align: start;
+}
+.errorsWrap {
+  text-align: end;
+}
+
+#leftHand-vk,
+#rightHand-vk {
+  width: 20%;
+}
+#keyboard-vk {
+  width: 60%;
+}
+
+#keyboard-vk,
+#leftHand-vk,
+#rightHand-vk {
+  height: 200px;
+}
+
+.error-bg {
+  animation: errorAnimationBackground 0.5s;
+}
+
+@keyframes errorAnimationBackground {
+  0% {
+    background-color: white;
+  }
+  33% {
+    background-color: #ffab40;
+  }
+  100% {
+    background-color: white;
+  }
+}
+
+.error {
+  animation: errorAnimation 0.5s;
+}
+
+@keyframes errorAnimation {
+  0% {
+    color: #ffab40;
+  }
+  33% {
+    color: black;
+  }
+  100% {
+    color: #ffab40;
+  }
+}
+</style>

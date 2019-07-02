@@ -2,7 +2,7 @@
   <div class="wrapper">
     <main>
       <h1 id="lblWelcome">Welcome!</h1>
-      <p id="lblDescription">Choose what you would like to do to practise Khmer typing today.</p>
+      <p id="lblDescription">Choose what you would like to do to practice Khmer typing today.</p>
       <br>
       <router-link
         class="button"
