@@ -1,6 +1,6 @@
 <template>
   <div id="wrapper">
-    <main>About</main>
+    <main>{{ $t("About") }}</main>
   </div>
 </template>
 

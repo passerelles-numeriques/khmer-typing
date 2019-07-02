@@ -2,8 +2,11 @@
   <div id="app">
     <nav>
       <div class="top-nav">
-        <router-link class="nav-item" id="lblHome" v-bind:to="'/'">Home</router-link>
-        <router-link class="nav-item" id="lblAbout" v-bind:to="'/about'">About</router-link>
+        <select v-model="$i18n.locale">
+          <option v-for="(lang, i) in langs" :key="`Lang${i}`" :value="lang">{{ lang }}</option>
+        </select>
+        <router-link class="nav-item" v-bind:to="'/'">{{ $t("Home") }}</router-link>
+        <router-link class="nav-item" v-bind:to="'/about'">{{ $t("About") }}</router-link>
       </div>
     </nav>
     <router-view></router-view>
@@ -12,7 +15,10 @@
 
 <script>
   export default {
-    name: 'khmer-typing'
+    name: 'khmer-typing',
+    data () {
+      return { langs: ['km', 'en', 'fr'] }
+    }
   }
 </script>
 
