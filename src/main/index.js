@@ -28,7 +28,7 @@ function createWindow () {
     height: 563,
     useContentSize: true,
     width: 1000,
-    icon: path.join(__dirname, '../../static/images/icons/icon-256x256.png')
+    icon: path.join(__dirname, '../../public/images/icons/icon-256x256.png')
   })
 
   mainWindow.loadURL(winURL)

@@ -25,7 +25,7 @@
         <h3 style="color:bisque margin-top: 30px" id="lblGameBuffer-tf">What you are typing:</h3>
         <div class="buffer" id="lblBuffer-tf">
           <span>​</span>
-          <!-- This span makes sure that the room for the word doesn't disappear even when transitionning -->
+          <!-- This span makes sure that the room for the buffer doesn't disappear even when transitionning -->
           {{ buffer }}
         </div>
       </div>
@@ -190,7 +190,7 @@
 .scoreWrap span,
 .timeWrap p,
 .timeWrap span {
-  font-size: 26px;
+  font-size: 1.5em;
   color: #ffc10a;
   margin-bottom: 1%;
 }
@@ -201,16 +201,17 @@
 
 .words span {
   font-family: "Noto Sans Khmer";
-  font-size: 60px;
+  font-size: 3em;
   letter-spacing: 1px;
-  color: #ddd;
+  color: #000;
 }
 
 .buffer {
   font-family: "Noto Sans Khmer";
-  font-size: 60px;
+  font-size: 3em;
   letter-spacing: 1px;
   background-color: #ddd;
-  color: #ffc10a;
+  color: #3f51b5;
+  border-radius: 5px;
 }
 </style>
