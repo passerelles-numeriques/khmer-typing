@@ -8,7 +8,7 @@ A free and open source cross platform and a progressive web application (you can
  - Windows Store (coming soon)
  - Portable Windows Application
 
-#### Build Setup
+#### Build
 
 ``` bash
 # install dependencies
@@ -26,6 +26,15 @@ npm run lint
 ```
 
 ---
+
+#### Docker image
+
+The web application is a client side only VueJS SPA. You can run build and a small docker image running nginx on port 80 with the sample Docker file provided:
+
+    docker build -t typing_image .
+    docker run -p 80:80 typing_image
+
+And then open your browser on http://localhost/
 
 ## Credits
 
