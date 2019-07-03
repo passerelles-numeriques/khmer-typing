@@ -27,35 +27,24 @@
           </h2>
         </div>
 
+        <div id="decompositionWrap-vk">
+          <h4 id="decomposition-vk">
+            <span>​</span>
+            <!-- This span makes sure that the room for the decompisition doesn't disappear -->
+            <span
+              v-for="letter in letters"
+              v-bind:key="letter.id"
+              v-bind:class="{current: letter.isCurrent, correct: letter.isCorrect}"
+              :id="letter.id"
+            >{{ letter.letter }}</span>
+          </h4>
+        </div>
+
         <div id="handsAndKeyboardWrap-vk">
-          <div>
-            <h4 id="decomposition-vk">
-              <span>​</span>
-              <!-- This span makes sure that the room for the decompisition doesn't disappear -->
-              <span
-                v-for="letter in letters"
-                v-bind:key="letter.id"
-                v-bind:class="{current: letter.isCurrent, correct: letter.isCorrect}"
-                :id="letter.id"
-              >{{ letter.letter }}</span>
-            </h4>
-            <div class="row">
-              <object
-                data="static/svg/left-hand.svg"
-                type="image/svg+xml"
-                id="leftHand-vk"
-              >Your browser doesn't support SVG</object>
-              <object
-                data="static/svg/Khmer_unicode_NiDA_layout.svg"
-                type="image/svg+xml"
-                id="keyboard-vk"
-              >Your browser doesn't support SVG</object>
-              <object
-                data="static/svg/right-hand.svg"
-                type="image/svg+xml"
-                id="rightHand-vk"
-              >Your browser doesn't support SVG</object>
-            </div>
+          <div class="row">
+            <left-hand id="leftHand-vk"></left-hand>
+            <keyboard id="keyboard-vk"></keyboard>
+            <right-hand id="rightHand-vk"></right-hand>
           </div>
         </div>
       </div>
@@ -67,9 +56,17 @@
   import splitKhmerRunes from '../../split-khmer'
   import mapping from '../../assets/mapping'
   import hands from '../../assets/hands'
+  import leftHand from './LeftHand'
+  import rightHand from './RightHand'
+  import keyboard from './Keyboard'
 
   export default {
     name: 'visual-keyboard',
+    components: {
+      leftHand,
+      rightHand,
+      keyboard
+    },
     data () {
       return {
         parameters: {
@@ -90,38 +87,11 @@
        * Initializes the game by changing the DOM
        */
       startGame: function () {
-        var vue = this
-        var left = false
-        var keyboard = false
-        var right = false
         // Change the visible elements
         document.getElementById('cmdTyping-vk').style.display = 'none'
         document.getElementById('gameWrap-vk').style.display = 'inline'
-        // Start playing only when all svg images are loaded
-        document.getElementById('leftHand-vk').onload = function () {
-          left = true
-          if (left && right && keyboard) {
-            vue.play()
-          }
-        }
-        document.getElementById('keyboard-vk').onload = function () {
-          keyboard = true
-          if (left && right && keyboard) {
-            vue.play()
-          }
-        }
-        document.getElementById('rightHand-vk').onload = function () {
-          right = true
-          if (left && right && keyboard) {
-            vue.play()
-          }
-        }
-        // After 5s, alert user something went wrong if still not loaded
-        setTimeout(function () {
-          if (!(left && right && keyboard)) {
-            alert('Oops, something went wrong.')
-          }
-        }, 5000)
+        // Start playing
+        this.play()
       },
       /**
        * Play the game
@@ -335,17 +305,15 @@
           var key = currentKeys[i]
           // Space is the only key where we can use two fingers
           if (key === 'SPACE') {
-            document.getElementById('leftHand-vk').contentDocument.getElementById('left-finger-1').setAttributeNS(null, 'fill', color)
-            document.getElementById('rightHand-vk').contentDocument.getElementById('right-finger-1').setAttributeNS(null, 'fill', color)
+            document.getElementById('leftHand').getElementById('left-finger-1').setAttributeNS(null, 'fill', color)
+            document.getElementById('rightHand').getElementById('right-finger-1').setAttributeNS(null, 'fill', color)
           } else {
             var hand = finger.split('-')[0]
             // Highlight the correct finger on the correct hand
-            var svgHand = document.getElementById(hand + 'Hand-vk').contentDocument
-            svgHand.getElementById(finger).setAttributeNS(null, 'fill', color)
+            document.getElementById(hand + 'Hand').getElementById(finger).setAttributeNS(null, 'fill', color)
           }
           // Highlight the correct key on the keyboard
-          var svgKeyboard = document.getElementById('keyboard-vk').contentDocument
-          svgKeyboard.getElementById(key).setAttributeNS(null, 'fill', color)
+          document.getElementById('keyboard').getElementById(key).setAttributeNS(null, 'fill', color)
         }
       },
       /**
@@ -356,14 +324,12 @@
         var fingers = ['right-finger-1', 'left-finger-1', 'right-finger-2', 'left-finger-2', 'right-finger-3', 'left-finger-3', 'right-finger-4', 'left-finger-4', 'right-finger-5', 'left-finger-5']
         var greyKeys = ['BACKSPACE', 'MENU', 'FN', 'WINDOWS', 'path5784', 'SPACE', 'ALT_GR', 'ENTER', 'RIGHT_SHIFT', 'RIGHT_CTRL', 'ALT', 'TAB', 'CAPS_LOCK', 'LEFT_SHIFT', 'LEFT_CTRL']
         var hand
-        var svgHand
         // Loop through all the fingers
         for (var i = 0; i < fingers.length; i++) {
           hand = fingers[i].split('-')[0]
-          svgHand = document.getElementById(hand + 'Hand-vk').contentDocument
-          svgHand.getElementById(fingers[i]).setAttributeNS(null, 'fill', 'none')
+          document.getElementById(hand + 'Hand').getElementById(fingers[i]).setAttributeNS(null, 'fill', 'none')
         }
-        var svgKeyboard = document.getElementById('keyboard-vk').contentDocument
+        var svgKeyboard = document.getElementById('keyboard')
         // Loop through all the normal keys
         for (i = 0; i < keys.length; i++) {
           svgKeyboard.getElementById(keys[i]).setAttributeNS(null, 'fill', 'white')
