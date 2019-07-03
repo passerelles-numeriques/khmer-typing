@@ -1,17 +1,17 @@
 <template>
   <div class="wrapper">
     <main>
-      <h1 id="lblGameTitle-tf">Typing game</h1>
-      <p id="lblGameDescription-tf">Type as many words as you can until time runs out!</p>
-      <button id="cmdTyping-tf" v-on:click="startGame">Start</button>
+      <h1 id="lblGameTitle-tf">{{ $t("Typing game") }}</h1>
+      <p id="lblGameDescription-tf">{{ $t("Type as many words as you can until time runs out!") }}</p>
+      <button id="cmdTyping-tf" v-on:click="startGame">{{ $t("Start") }}</button>
       <div id="gameWrap-tf" style="display:none">
         <div class="outerWrap">
           <div class="scoreWrap">
-            <p id="lblGameScore-tf">Score</p>
+            <p id="lblGameScore-tf">{{ $t("Score") }}</p>
             <span class="score" id="lblScore-tf">{{ score }}</span>
           </div>
           <div class="timeWrap">
-            <p id="lblGameTimeLeft-tf">Time left</p>
+            <p id="lblGameTimeLeft-tf">{{ $t("Time left") }}</p>
             <span class="time" id="lblTimer-tf">{{ seconds }}</span>
           </div>
         </div>
@@ -22,7 +22,7 @@
             <span class="spans" v-for="span in spans" v-bind:key="span.id">{{ span }}</span>
           </p>
         </div>
-        <h3 style="color:bisque margin-top: 30px" id="lblGameBuffer-tf">What you are typing:</h3>
+        <h3 style="color:bisque margin-top: 30px" id="lblGameBuffer-tf">{{ $t("What you are typing:") }}</h3>
         <div class="buffer" id="lblBuffer-tf">
           <span>​</span>
           <!-- This span makes sure that the room for the buffer doesn't disappear even when transitionning -->
