@@ -2,7 +2,9 @@
   <div class="wrapper">
     <main>
       <h1 id="lblGameTitle-vk">Visual Keyboard</h1>
-      <p id="lblGameDescription-vk">xxxxx</p>
+      <p
+        id="lblGameDescription-vk"
+      >Write the whole text as fast as you can with as few mistakes as possible</p>
       <button id="cmdTyping-vk" v-on:click="startGame">Start</button>
 
       <div id="gameWrap-vk" style="display:none;">
@@ -73,6 +75,7 @@
           'text': 'លោក គួច ចំរើន បាន​ប្រកា​​​ស​​ក្នុង​គេហទំព័រ​ហ្វេ​ស​ប៊ុក​របស់​លោ​ក​ កាលពី​ថ្ងៃអា​ទិត្យ ស្រប​​ពេល​លោក​បាន​ចុះ​ពិនិត្យ​ឆ្នេរ​ឯករាជ្យ និង​ជួប​សំណេះ​សំណា​​ល​​​ជាមួយ​ភ្ញៀវទេសចរ ដែល​មក​កម្សាន្ដ​នៅតាម​តំបន់ឆ្នេរ​ថា នឹ​ង​​រៀបចំ​កែលម្អ​សួនកន្លែង​ដើរ​​ថ្មើ​រ​​ជើង និង​មាន​អ្នក​សម្អាត​សួន​ឆ្នេរ​​ជាប្រចាំ ធានា​​ឲ្យ​មាន​ភាព​ស្រស់ស្អាត​របស់​ឆ្នេរ ពិសេស​ការចូលរួម​លើក​កម្ពស់ និងថែរក្សា​បរិស្ថាន​ឆ្នេរ​​ឲ្យ​កាន់តែ​មាន​សោ​ភ​ណភាព ដើម្បី​ទាក់​ទាញ​ភ្ញៀវទេសចរ​ជាតិ និង​អន្តរជាតិ មក​លេង​កម្សាន្ដ។',
           'minWpm': 0,
           'maxErrors': 5},
+        seconds: 0,
         runes: [],
         letters: [],
         runesCounter: 0,
@@ -90,6 +93,12 @@
         // Change the visible elements
         document.getElementById('cmdTyping-vk').style.display = 'none'
         document.getElementById('gameWrap-vk').style.display = 'inline'
+        // Start the timer
+        clearInterval(this.timer)
+        var vue = this
+        this.timer = setInterval(() => {
+          vue.seconds++
+        }, 1000)
         // Start playing
         this.play()
       },
@@ -101,7 +110,7 @@
         var vue = this
         var text = (this.parameters.text !== undefined) ? this.parameters.text : ''
         // Initialization
-        var completeText = ''
+        // var completeText = ''
         this.runesCounter = 0
         var listRunes = splitKhmerRunes(text)
         this.totalRunes = listRunes.length
@@ -122,7 +131,7 @@
           var isCorrect = vue.areRightKeysPressed(ev, listKeys)
           // Pressed key is correct
           if (isCorrect) {
-            completeText += ev.key
+            // completeText += ev.key
             currentLetters += ev.key
             // Highlight correct letter
             vue.letters[currentLetters.length - 1].isCurrent = false
@@ -148,9 +157,12 @@
             listKeys.shift()
             // No next action, game is won
             if (listKeys.length === 0) {
-              vue.runesCounter = 0
+              vue.runesCounter++
               currentLetters = ''
-              alert('yay', completeText)
+              clearInterval(vue.timer)
+              // TODO wpm
+              var minutes = Math.round((vue.seconds / 60) * 100) / 100
+              alert('Congrats! You finished in ' + minutes + ' minutes with ' + vue.errors + ' errors.')
             } else { // We display hints for the next action
               vue.runes[vue.runesCounter].isCurrent = true
               vue.letters[currentLetters.length].isCurrent = true
