@@ -22,11 +22,17 @@
             <span class="spans" v-for="span in spans" v-bind:key="span.id">{{ span }}</span>
           </p>
         </div>
-        <h3 style="color:bisque margin-top: 30px" id="lblGameBuffer-tf">{{ $t("What you are typing:") }}</h3>
+        <h3
+          style="color:bisque margin-top: 30px"
+          id="lblGameBuffer-tf"
+        >{{ $t("What you are typing:") }}</h3>
         <div class="buffer" id="lblBuffer-tf">
           <span>​</span>
           <!-- This span makes sure that the room for the buffer doesn't disappear even when transitionning -->
           {{ buffer }}
+        </div>
+        <div id="keyboardWrap-tf" class="row" v-on:click="zoomKeyboard">
+          <keyboard id="keyboard-tf"></keyboard>
         </div>
       </div>
     </main>
@@ -35,8 +41,13 @@
 
 <script>
   import splitKhmerRunes from '../split-khmer'
+  import keyboard from './VisualKeyboard/Keyboard'
+
   export default {
     name: 'typefast',
+    components: {
+      keyboard
+    },
     data () {
       return {
         list: ['test', 'does', 'it', 'work'],
@@ -152,6 +163,16 @@
             }
           }
         }
+      },
+      zoomKeyboard: function () {
+        var kb = document.getElementById('keyboard-tf')
+        if (kb.style.width === '100%') { // it's big, make smaller
+          kb.style.width = '10%'
+          kb.style.cursor = 'zoom-in'
+        } else { // it's small, make bigger
+          kb.style.width = '100%'
+          kb.style.cursor = 'zoom-out'
+        }
       }
     },
     beforeDestroy () {
@@ -195,8 +216,9 @@
   margin-bottom: 1%;
 }
 
-.wordsWrap {
-  margin-top: 40px;
+.wordsWrap,
+.wordsWrap p {
+  margin: 0;
 }
 
 .words span {
@@ -213,5 +235,17 @@
   background-color: #ddd;
   color: #3f51b5;
   border-radius: 5px;
+}
+
+#keyboardWrap-tf {
+  display: flex;
+  margin-top: 3%;
+  justify-content: flex-end;
+}
+
+#keyboard-tf {
+  width: 10%;
+  height: 15%;
+  cursor: zoom-in;
 }
 </style>
