@@ -169,9 +169,11 @@
         var kb = document.getElementById('keyboard-tf')
         if (kb.style.width === '100%') { // it's big, make smaller
           kb.style.width = '10%'
+          kb.style.height = 'auto'
           kb.style.cursor = 'zoom-in'
         } else { // it's small, make bigger
           kb.style.width = '100%'
+          kb.style.height = (screen.availHeight - kb.offsetTop) + 'px'
           kb.style.cursor = 'zoom-out'
         }
       }
@@ -199,6 +201,7 @@
 }
 
 .outerWrap:after {
+  font-size: 1em;
   content: "";
   display: block;
   clear: both;
@@ -246,7 +249,6 @@
 
 #keyboard-tf {
   width: 10%;
-  height: 15%;
   cursor: zoom-in;
 }
 </style>
