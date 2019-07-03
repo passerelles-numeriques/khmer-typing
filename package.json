@@ -22,7 +22,8 @@
     "pack:renderer": "cross-env NODE_ENV=production webpack --progress --colors --config .electron-vue/webpack.renderer.config.js",
     "postinstall": "npm run lint:fix",
     "start": "electron .",
-    "dist": "build --linux snap"
+    "dist": "build --linux snap",
+    "portable": "build --win portable"
   },
   "dependencies": {
     "grapheme-splitter": "^1.0.4",

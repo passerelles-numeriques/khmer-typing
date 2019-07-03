@@ -42,6 +42,7 @@
 <script>
   import splitKhmerRunes from '../split-khmer'
   import keyboard from './VisualKeyboard/Keyboard'
+  import {wordsList} from './words-list'
 
   export default {
     name: 'typefast',
@@ -50,7 +51,7 @@
     },
     data () {
       return {
-        list: ['test', 'does', 'it', 'work'],
+        list: wordsList[this.$i18n.locale],
         score: 0,
         seconds: 60,
         spans: [],
