@@ -40,7 +40,7 @@ body {
 
 .wrapper {
   margin: auto;
-  max-width: 90vh;
+  max-width: 70vw;
   max-height: 100vh;
   text-align: center;
   background-color: #fff;
