@@ -1,16 +1,16 @@
 <template>
   <div class="wrapper">
     <main>
-      <h1 id="lblWelcome">Welcome!</h1>
-      <p id="lblDescription">Choose what you would like to do to practice Khmer typing today.</p>
+      <h1 id="lblWelcome">{{ $t("Welcome!") }}</h1>
+      <p id="lblDescription">{{ $t("Choose what you would like to do to practice Khmer typing today.") }}</p>
       <br>
       <router-link
         class="button"
         id="lblVisualKeyboard-menu"
         v-bind:to="'/visual-keyboard'"
-      >Practise with Visual Keyboard</router-link>
+      >{{ $t("Practise with Visual Keyboard") }}</router-link>
       <br>
-      <router-link class="button" id="lblTypefast-menu" v-bind:to="'/typefast'">Play Typefast game</router-link>
+      <router-link class="button" id="lblTypefast-menu" v-bind:to="'/typefast'">{{ $t("Play Typefast game") }}</router-link>
       <div>
         <router-view></router-view>
       </div>
