@@ -40,8 +40,8 @@ body {
 
 .wrapper {
   margin: auto;
-  max-width: 1000px;
-  width: 100%;
+  max-width: 90vh;
+  max-height: 100vh;
   text-align: center;
   background-color: #fff;
   font-family: "Noto Sans Khmer";
