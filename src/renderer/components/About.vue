@@ -19,8 +19,6 @@
     name: 'about'
   }
 </script>
-<<<<<<< HEAD
-=======
 
 <style lang="scss" scoped>
 img {
@@ -35,4 +33,3 @@ a {
   margin: 1% auto;
 }
 </style>
->>>>>>> aae38d10fd0a2b23be98252b0d774fcba93b27ab
