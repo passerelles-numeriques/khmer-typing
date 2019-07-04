@@ -61,6 +61,7 @@
   import leftHand from './LeftHand'
   import rightHand from './RightHand'
   import keyboard from './Keyboard'
+  import {textsList} from '../texts-list'
 
   export default {
     name: 'visual-keyboard',
@@ -71,10 +72,7 @@
     },
     data () {
       return {
-        parameters: {
-          'text': 'លោក គួច ចំរើន បាន​ប្រកា​​​ស​​ក្នុង​គេហទំព័រ​ហ្វេ​ស​ប៊ុក​របស់​លោ​ក​ កាលពី​ថ្ងៃអា​ទិត្យ ស្រប​​ពេល​លោក​បាន​ចុះ​ពិនិត្យ​ឆ្នេរ​ឯករាជ្យ និង​ជួប​សំណេះ​សំណា​​ល​​​ជាមួយ​ភ្ញៀវទេសចរ ដែល​មក​កម្សាន្ដ​នៅតាម​តំបន់ឆ្នេរ​ថា នឹ​ង​​រៀបចំ​កែលម្អ​សួនកន្លែង​ដើរ​​ថ្មើ​រ​​ជើង និង​មាន​អ្នក​សម្អាត​សួន​ឆ្នេរ​​ជាប្រចាំ ធានា​​ឲ្យ​មាន​ភាព​ស្រស់ស្អាត​របស់​ឆ្នេរ ពិសេស​ការចូលរួម​លើក​កម្ពស់ និងថែរក្សា​បរិស្ថាន​ឆ្នេរ​​ឲ្យ​កាន់តែ​មាន​សោ​ភ​ណភាព ដើម្បី​ទាក់​ទាញ​ភ្ញៀវទេសចរ​ជាតិ និង​អន្តរជាតិ មក​លេង​កម្សាន្ដ។',
-          'minWpm': 0,
-          'maxErrors': 5},
+        text: '',
         seconds: 0,
         runes: [],
         letters: [],
@@ -93,6 +91,10 @@
         // Change the visible elements
         document.getElementById('cmdTyping-vk').style.display = 'none'
         document.getElementById('gameWrap-vk').style.display = 'inline'
+        // Select random text from the texts list
+        var random = Math.floor(Math.random() * (textsList.list.length))
+        console.log('--- ' + random + ' ---')
+        this.text = textsList.list[random]
         // Start the timer
         clearInterval(this.timer)
         var vue = this
@@ -108,15 +110,14 @@
        */
       play: function () {
         var vue = this
-        var text = (this.parameters.text !== undefined) ? this.parameters.text : ''
         // Initialization
         // var completeText = ''
         this.runesCounter = 0
-        var listRunes = splitKhmerRunes(text)
+        var listRunes = splitKhmerRunes(this.text)
         this.totalRunes = listRunes.length
-        this.splitTextIntoSpannedRunes(text)
+        this.splitTextIntoSpannedRunes(this.text)
         this.splitRuneIntoSpannedLetters(listRunes[this.runesCounter])
-        var listKeys = this.getAllKeys(text)
+        var listKeys = this.getAllKeys(this.text)
         var currentLetters = ''
         // Highlights
         this.runes[this.runesCounter].isCurrent = true
@@ -249,7 +250,7 @@
           var letter = text.substring(i, i + 1)
           var keys = mapping[letter]
           if (keys === undefined) {
-            console.log('Error: mapping not defined')
+            console.log('Mapping undefined: ' + letter)
           } else {
             listKeys.push(keys)
           }
@@ -269,6 +270,7 @@
 
         // Careful if typing in english letters
         if (keyPressed === undefined) {
+          alert('Careful! Remember to switch your keyboard to Khmer language.')
           isCorrect = false
         } else if (keyToPress.length > 1) {
         // More than one key to press means the first key is ALT or SHIFT
@@ -395,12 +397,6 @@
 }
 #keyboard-vk {
   width: 70%;
-}
-
-#keyboard-vk,
-#leftHand-vk,
-#rightHand-vk {
-  height: 250px;
 }
 
 #decomposition-vk,
