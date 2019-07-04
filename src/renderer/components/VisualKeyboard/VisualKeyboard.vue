@@ -93,7 +93,6 @@
         document.getElementById('gameWrap-vk').style.display = 'inline'
         // Select random text from the texts list
         var random = Math.floor(Math.random() * (textsList.list.length))
-        console.log('--- ' + random + ' ---')
         this.text = textsList.list[random]
         // Start the timer
         clearInterval(this.timer)
