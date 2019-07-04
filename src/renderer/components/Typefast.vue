@@ -1,42 +1,32 @@
 <template>
-  <div class="wrapper">
-    <main>
-      <h1 id="lblGameTitle-tf">{{ $t("Typing game") }}</h1>
-      <p id="lblGameDescription-tf">{{ $t("Type as many words as you can until time runs out!") }}</p>
-      <button id="cmdTyping-tf" v-on:click="startGame">{{ $t("Start") }}</button>
-      <div id="gameWrap-tf" style="display:none">
-        <div class="outerWrap">
-          <div class="scoreWrap">
-            <p id="lblGameScore-tf">{{ $t("Score") }}</p>
-            <span class="score" id="lblScore-tf">{{ score }}</span>
-          </div>
-          <div class="timeWrap">
-            <p id="lblGameTimeLeft-tf">{{ $t("Time left") }}</p>
-            <span class="time" id="lblTimer-tf">{{ seconds }}</span>
-          </div>
+  <section>
+    <h1>{{ $t("Typing game") }}</h1>
+    <p>{{ $t("Type as many words as you can until time runs out!") }}</p>
+    <button v-if="seconds == 0" v-on:click="startGame">{{ $t("Start") }}</button>
+    <div v-if="seconds > 0">
+      <div class="outerWrap">
+        <div class="scoreWrap">
+          <p>{{ $t("Score") }}</p>
+          <span class="score">{{ score }}</span>
         </div>
-        <div class="wordsWrap">
-          <p class="words">
-            <span>​</span>
-            <!-- This span makes sure that the room for the word doesn't disappear even when transitionning -->
-            <span class="spans" v-for="span in spans" v-bind:key="span.id">{{ span }}</span>
-          </p>
-        </div>
-        <h3
-          style="color:bisque margin-top: 30px"
-          id="lblGameBuffer-tf"
-        >{{ $t("What you are typing:") }}</h3>
-        <div class="buffer" id="lblBuffer-tf">
-          <span>​</span>
-          <!-- This span makes sure that the room for the buffer doesn't disappear even when transitionning -->
-          {{ buffer }}
-        </div>
-        <div id="keyboardWrap-tf" class="row" v-on:click="zoomKeyboard">
-          <keyboard id="keyboard-tf"></keyboard>
+        <div class="timeWrap">
+          <p>{{ $t("Time left") }}</p>
+          <span class="time">{{ seconds }}</span>
         </div>
       </div>
-    </main>
-  </div>
+      <div class="wordsWrap">
+        <p class="words">
+          <span class="spans" v-for="span in spans" v-bind:key="span.id">{{ span }}</span>
+        </p>
+      </div>
+      <h3 class="buffer-title">{{ $t("What you are typing:") }}</h3>
+      <div class="buffer">{{ buffer }}</div>
+      <div id="keyboardWrap-tf" v-on:click="zoomKeyboard">
+        <keyboard id="keyboard-tf"></keyboard>
+      </div>
+    </div>
+    <v-dialog/>
+  </section>
 </template>
 
 <script>
@@ -53,7 +43,7 @@
       return {
         list: wordsList[this.$i18n.locale],
         score: 0,
-        seconds: 60,
+        seconds: 0,
         spans: [],
         buffer: ''
       }
@@ -66,18 +56,18 @@
       startGame: function () {
         var timer
         this.seconds = 60
-        // Hide the start button and display the game
-        document.getElementById('cmdTyping-tf').style.display = 'none'
-        document.getElementById('gameWrap-tf').style.display = 'inline'
+        this.score = 0
         // Start the timer
         clearInterval(timer)
         this.timer = timer = setInterval(() => {
           this.seconds--
+          // Here is the end of the game, do something for final score
           if (this.seconds === 0) {
             this.spans = ''
             clearInterval(timer)
-            // Here is the end of the game, do something for final score
-            alert('you wrote ' + this.score + ' words!')
+            this.$modal.show('dialog', {
+              text: this.$i18n.t('message.scoreTypeFats', { score: this.score })
+            })
           }
         }, 1000)
         // Sets the first word to type
@@ -193,6 +183,11 @@
   transition: visibility 0s 0.3s, opacity 0.3s linear;
 }
 
+.buffer-title {
+  color:bisque;
+  margin-top: 30px;
+}
+
 .scoreWrap {
   float: left;
 }
@@ -226,14 +221,13 @@
 }
 
 .words span {
-  font-family: "Noto Sans Khmer";
   font-size: 3em;
   letter-spacing: 1px;
   color: #000;
 }
 
 .buffer {
-  font-family: "Noto Sans Khmer";
+  min-height: 1em;
   font-size: 3em;
   letter-spacing: 1px;
   background-color: #ddd;
@@ -243,7 +237,6 @@
 
 #keyboardWrap-tf {
   display: flex;
-  margin-top: 3%;
   justify-content: flex-end;
 }
 

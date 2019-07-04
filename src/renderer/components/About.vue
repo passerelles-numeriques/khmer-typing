@@ -1,13 +1,11 @@
 <template>
-  <div id="wrapper">
-    <main>{{ $t("About") }}</main>
-  </div>
+  <section>
+    <p>{{ $t("About") }}</p>
+  </section>
 </template>
 
 <script>
   export default {
-    name: 'about',
-    methods: {
-    }
+    name: 'about'
   }
 </script>

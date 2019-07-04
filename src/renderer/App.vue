@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div class="container">
     <nav>
       <div class="top-nav row">
         <div>
@@ -13,7 +13,9 @@
         </div>
       </div>
     </nav>
-    <router-view></router-view>
+    <main>
+      <router-view></router-view>
+    </main>
   </div>
 </template>
 
@@ -35,16 +37,15 @@
 body {
   margin: 0;
   padding: 0 30;
-  font-family: "Noto Sans Khmer", Arial, Helvetica, sans-serif;
+  font-family: "Noto Sans Khmer";
 }
 
-.wrapper {
+main {
   margin: auto;
   max-width: 70vw;
   max-height: 100vh;
   text-align: center;
   background-color: #fff;
-  font-family: "Noto Sans Khmer";
 }
 
 .row {

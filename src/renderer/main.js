@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import vmodal from 'vue-js-modal'
 import VueI18n from 'vue-i18n'
 import {messages} from './i18n-messages.js'
 
@@ -12,6 +13,7 @@ if (!process.env.IS_WEB) Vue.use(require('vue-electron'))
 Vue.config.productionTip = false
 
 Vue.use(VueI18n)
+Vue.use(vmodal, { dialog: true })
 
 const i18n = new VueI18n({
   locale: 'en', // set locale

@@ -1,57 +1,55 @@
 <template>
-  <div class="wrapper">
-    <main>
-      <h1 id="lblGameTitle-vk">Visual Keyboard</h1>
-      <p
-        id="lblGameDescription-vk"
-      >Write the whole text as fast as you can with as few mistakes as possible</p>
-      <button id="cmdTyping-vk" v-on:click="startGame">Start</button>
+  <section>
+    <h1 id="lblGameTitle-vk">Visual Keyboard</h1>
+    <p
+      id="lblGameDescription-vk"
+    >Write the whole text as fast as you can with as few mistakes as possible</p>
+    <button id="cmdTyping-vk" v-on:click="startGame">Start</button>
 
-      <div id="gameWrap-vk" style="display:none;">
-        <div class="row">
-          <div class="runesWrap">
-            <strong>{{ runesCounter }}</strong>
-            / {{ totalRunes }}
-          </div>
-          <div id="lblErrors-vk" class="errorsWrap">
-            <strong id="lblCurrentErrors-vk" v-bind:class="{'error': alertError}">{{ errors }}</strong> errors
-          </div>
+    <div id="gameWrap-vk" style="display:none;">
+      <div class="row">
+        <div class="runesWrap">
+          <strong>{{ runesCounter }}</strong>
+          / {{ totalRunes }}
         </div>
-        <div id="textWrap-vk" v-bind:class="{'error-bg': alertError}">
-          <h2 id="text-vk">
-            <span
-              v-for="rune in runes"
-              v-bind:key="rune.id"
-              class="runes"
-              v-bind:class="{current: rune.isCurrent, correct: rune.isCorrect, hidden: rune.isHidden}"
-              :id="rune.id"
-            >{{ rune.rune }}</span>
-          </h2>
-        </div>
-
-        <div id="decompositionWrap-vk">
-          <h4 id="decomposition-vk">
-            <span>​</span>
-            <!-- This span makes sure that the room for the decompisition doesn't disappear -->
-            <span
-              v-for="letter in letters"
-              v-bind:key="letter.id"
-              v-bind:class="{current: letter.isCurrent, correct: letter.isCorrect}"
-              :id="letter.id"
-            >{{ letter.letter }}</span>
-          </h4>
-        </div>
-
-        <div id="handsAndKeyboardWrap-vk">
-          <div class="row">
-            <left-hand id="leftHand-vk"></left-hand>
-            <keyboard id="keyboard-vk"></keyboard>
-            <right-hand id="rightHand-vk"></right-hand>
-          </div>
+        <div id="lblErrors-vk" class="errorsWrap">
+          <strong id="lblCurrentErrors-vk" v-bind:class="{'error': alertError}">{{ errors }}</strong> errors
         </div>
       </div>
-    </main>
-  </div>
+      <div id="textWrap-vk" v-bind:class="{'error-bg': alertError}">
+        <h2 id="text-vk">
+          <span
+            v-for="rune in runes"
+            v-bind:key="rune.id"
+            class="runes"
+            v-bind:class="{current: rune.isCurrent, correct: rune.isCorrect, hidden: rune.isHidden}"
+            :id="rune.id"
+          >{{ rune.rune }}</span>
+        </h2>
+      </div>
+
+      <div id="decompositionWrap-vk">
+        <h4 id="decomposition-vk">
+          <span>​</span>
+          <!-- This span makes sure that the room for the decompisition doesn't disappear -->
+          <span
+            v-for="letter in letters"
+            v-bind:key="letter.id"
+            v-bind:class="{current: letter.isCurrent, correct: letter.isCorrect}"
+            :id="letter.id"
+          >{{ letter.letter }}</span>
+        </h4>
+      </div>
+
+      <div id="handsAndKeyboardWrap-vk">
+        <div class="row">
+          <left-hand id="leftHand-vk"></left-hand>
+          <keyboard id="keyboard-vk"></keyboard>
+          <right-hand id="rightHand-vk"></right-hand>
+        </div>
+      </div>
+    </div>
+  </section>
 </template>
 
 <script>

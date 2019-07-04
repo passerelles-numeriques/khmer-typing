@@ -15,7 +15,10 @@ export const messages = {
     'Start': 'Start',
     'Score': 'Score',
     'Time left': 'Time left',
-    'What you are typing:': 'What you are typing:'
+    'What you are typing:': 'What you are typing:',
+    message: {
+      scoreTypeFats: 'you wrote {score} words!'
+    }
   },
   fr: {
     'Home': 'Accueil',
@@ -33,7 +36,10 @@ export const messages = {
     'Start': 'Démarrer',
     'Score': 'Score',
     'Time left': 'Temps restant',
-    'What you are typing:': 'Votre saisie :'
+    'What you are typing:': 'Votre saisie :',
+    message: {
+      scoreTypeFats: 'vous avez saisi {score} mots !'
+    }
   },
   km: {
     'Home': 'ផ្ទះ',
@@ -51,6 +57,9 @@ export const messages = {
     'Start': 'ចាប់ផ្តើម',
     'Score': 'ពិន្ទុ',
     'Time left': 'ប្រើរយៈពេលអស់',
-    'What you are typing:': 'ពាក្យដែលអ្នកបានវាយ:'
+    'What you are typing:': 'ពាក្យដែលអ្នកបានវាយ:',
+    message: {
+      scoreTypeFats: 'you wrote {score} words!'
+    }
   }
 }
