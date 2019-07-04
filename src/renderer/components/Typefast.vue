@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <main>
     <h1>{{ $t("Typing game") }}</h1>
     <p>{{ $t("Type as many words as you can until time runs out!") }}</p>
     <button v-if="seconds == 0" v-on:click="startGame">{{ $t("Start") }}</button>
@@ -26,7 +26,7 @@
       </div>
     </div>
     <v-dialog/>
-  </section>
+  </main>
 </template>
 
 <script>

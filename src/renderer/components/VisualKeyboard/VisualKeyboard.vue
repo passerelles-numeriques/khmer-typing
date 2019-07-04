@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <main>
     <h1 id="lblGameTitle-vk">Visual Keyboard</h1>
     <p
       id="lblGameDescription-vk"
@@ -49,7 +49,7 @@
         </div>
       </div>
     </div>
-  </section>
+  </main>
 </template>
 
 <script>

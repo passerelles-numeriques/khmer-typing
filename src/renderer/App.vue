@@ -8,14 +8,12 @@
         </div>
         <div>
           <select v-model="$i18n.locale">
-            <option v-for="(lang, i) in langs" :key="`Lang${i}`" :value="lang">{{ lang }}</option>
+            <option v-for="(lang, i) in langs" :key="`Lang${i}`" :value="lang">{{ languages[lang] }}</option>
           </select>
         </div>
       </div>
     </nav>
-    <main>
-      <router-view></router-view>
-    </main>
+    <router-view></router-view>
   </div>
 </template>
 
@@ -23,7 +21,14 @@
   export default {
     name: 'khmer-typing',
     data () {
-      return { langs: ['km', 'en', 'fr'] }
+      return {
+        langs: ['km', 'en', 'fr'],
+        languages: {
+          'km': 'ខ្មែរ',
+          'en': 'English',
+          'fr': '​Français'
+        }
+      }
     }
   }
 </script>
