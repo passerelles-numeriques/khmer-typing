@@ -1,9 +1,7 @@
 <template>
   <section>
-    <h1 id="lblGameTitle-vk">Visual Keyboard</h1>
-    <p
-      id="lblGameDescription-vk"
-    >Write the whole text as fast as you can with as few mistakes as possible</p>
+    <h1>Visual Keyboard</h1>
+    <p>Write the whole text as fast as you can with as few mistakes as possible</p>
     <button id="cmdTyping-vk" v-on:click="startGame">Start</button>
 
     <div id="gameWrap-vk" style="display:none;">
@@ -12,8 +10,8 @@
           <strong>{{ runesCounter }}</strong>
           / {{ totalRunes }}
         </div>
-        <div id="lblErrors-vk" class="errorsWrap">
-          <strong id="lblCurrentErrors-vk" v-bind:class="{'error': alertError}">{{ errors }}</strong> errors
+        <div class="errorsWrap">
+          <strong v-bind:class="{'error': alertError}">{{ errors }}</strong> errors
         </div>
       </div>
       <div id="textWrap-vk" v-bind:class="{'error-bg': alertError}">
@@ -28,7 +26,7 @@
         </h2>
       </div>
 
-      <div id="decompositionWrap-vk">
+      <div>
         <h4 id="decomposition-vk">
           <span>​</span>
           <!-- This span makes sure that the room for the decompisition doesn't disappear -->
@@ -124,7 +122,7 @@
         this.nextHint(listKeys)
 
         // Game progress
-        this.keypress = document.onkeypress = function (ev) {
+        document.onkeypress = function (ev) {
           ev.preventDefault()
           var isCorrect = vue.areRightKeysPressed(ev, listKeys)
           // Pressed key is correct
@@ -352,7 +350,7 @@
       }
     },
     beforeDestroy () {
-      document.removeEventListener('keypress', this.keypress)
+      document.onkeypress = null
       clearInterval(this.timer)
     },
     updated () {
