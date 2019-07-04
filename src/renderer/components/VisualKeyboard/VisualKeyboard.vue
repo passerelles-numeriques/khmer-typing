@@ -126,7 +126,7 @@
         this.nextHint(listKeys)
 
         // Game progress
-        document.onkeypress = function (ev) {
+        this.keypress = document.onkeypress = function (ev) {
           ev.preventDefault()
           var isCorrect = vue.areRightKeysPressed(ev, listKeys)
           // Pressed key is correct
@@ -354,7 +354,8 @@
       }
     },
     beforeDestroy () {
-      // todo
+      document.removeEventListener('keypress', this.keypress)
+      clearInterval(this.timer)
     },
     updated () {
       // The dom hass changed, update the list of breaking points in case it's needed
