@@ -28,7 +28,16 @@ function createWindow () {
     height: 563,
     useContentSize: true,
     width: 1000,
-    icon: path.join(__dirname, '../../public/images/icons/icon-256x256.png')
+    icon: path.join(__dirname, '../../public/images/icons/icon-256x256.png'),
+    title: 'Khmer Typing',
+    /* Note that is not recommended by the electron team, see:
+    https://github.com/electron/electron/issues/18139
+    we might switch to:
+    https://nklayman.github.io/vue-cli-plugin-electron-builder/
+    
+    webPreferences: {
+      nodeIntegration: true
+    }*/
   })
 
   mainWindow.loadURL(winURL)
