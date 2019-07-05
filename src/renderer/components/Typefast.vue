@@ -2,12 +2,7 @@
   <main>
     <h1>{{ $t("Typing game") }}</h1>
     <p>{{ $t("Type as many words as you can until time runs out!") }}</p>
-    <button
-      v-if="seconds == 0"
-      @click="startGame"
-    >
-      {{ $t("Start") }}
-    </button>
+    <button v-if="seconds == 0" v-on:click="startGame">{{ $t("Start") }}</button>
     <div v-if="seconds > 0">
       <div class="outerWrap">
         <div class="scoreWrap">
@@ -21,24 +16,13 @@
       </div>
       <div class="wordsWrap">
         <p class="words">
-          <span
-            class="spans"
-            v-for="span in spans"
-            :key="span.id"
-          >{{ span }}</span>
+          <span class="spans" v-for="span in spans" v-bind:key="span.id">{{ span }}</span>
         </p>
       </div>
-      <h3 class="buffer-title">
-        {{ $t("What you are typing:") }}
-      </h3>
-      <div class="buffer">
-        {{ buffer }}
-      </div>
-      <div
-        id="keyboardWrap-tf"
-        @click="zoomKeyboard"
-      >
-        <keyboard id="keyboard-tf" />
+      <h3 class="buffer-title">{{ $t("What you are typing:") }}</h3>
+      <div class="buffer">{{ buffer }}</div>
+      <div id="keyboardWrap-tf" v-on:click="zoomKeyboard">
+        <keyboard id="keyboard-tf"></keyboard>
       </div>
     </div>
     <v-dialog />
@@ -51,7 +35,7 @@
   import {wordsList} from './words-list'
 
   export default {
-    name: 'Typefast',
+    name: 'typefast',
     components: {
       keyboard
     },
