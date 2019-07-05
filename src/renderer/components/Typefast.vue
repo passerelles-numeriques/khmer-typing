@@ -65,38 +65,7 @@
           if (this.seconds === 0) {
             this.spans = ''
             clearInterval(timer)
-            this.$modal.show('dialog', {
-              title: this.$i18n.t('message.finishedPlaying'),
-              text: this.$i18n.t('message.scoreTypeFast', { score: this.score }),
-              buttons: [
-                {
-                  title: this.$i18n.t('Home'),
-                  default: true, // Will be triggered by default if 'Enter' pressed.
-                  handler: () => {
-                    this.$router.push('landind-page')
-                  }
-                },
-                {
-                  title: this.$i18n.t('High scores'),
-                  handler: () => {
-                    this.$router.push('high-scores')
-                  }
-                },
-                {
-                  title: this.$i18n.t('Play again'),
-                  default: true, // Will be triggered by default if 'Enter' pressed.
-                  handler: () => {
-                    this.$modal.hide('dialog')
-                    // Reset data
-                    this.score = 0
-                    this.seconds = 0
-                    this.spans = []
-                    this.buffer = ''
-                    this.startGame()
-                  }
-                }
-              ]
-            })
+            this.endGame()
           }
         }, 1000)
         // Sets the first word to type
@@ -105,6 +74,51 @@
         // Listen to typing events
         this.keypress = document.addEventListener('keypress', this.typing, false)
         this.keydown = document.addEventListener('keydown', this.clear, false)
+      },
+      /**
+       * Displays the modal with the scores
+       * Also saves the highest score
+       * In case user wants to play again, resets data
+       */
+      endGame: function () {
+        // Store highest score
+        var previousHighest = localStorage.getItem('typefast.score') ? localStorage.getItem('typefast.score') : 0
+        if (this.score > previousHighest) {
+          localStorage.setItem('typefast.score', this.score)
+        }
+        // Display end modal
+        this.$modal.show('dialog', {
+          title: this.$i18n.t('message.finishedPlaying'),
+          text: this.$i18n.t('message.scoreTypeFast', { score: this.score }),
+          buttons: [
+            {
+              title: this.$i18n.t('Home'),
+              default: true, // Will be triggered by default if 'Enter' pressed.
+              handler: () => {
+                this.$router.push('landind-page')
+              }
+            },
+            {
+              title: this.$i18n.t('High scores'),
+              handler: () => {
+                this.$router.push('high-scores')
+              }
+            },
+            {
+              title: this.$i18n.t('Play again'),
+              default: true, // Will be triggered by default if 'Enter' pressed.
+              handler: () => {
+                this.$modal.hide('dialog')
+                // Reset data
+                this.score = 0
+                this.seconds = 0
+                this.spans = []
+                this.buffer = ''
+                this.startGame()
+              }
+            }
+          ]
+        })
       },
       /**
        * Selects a random word from the words list and displays it

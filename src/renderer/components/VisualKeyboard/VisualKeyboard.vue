@@ -91,6 +91,7 @@
         // Select random text from the texts list
         var random = Math.floor(Math.random() * (textsList.list.length))
         this.text = textsList.list[random]
+        this.text = 'កក'
         // Start the timer
         clearInterval(this.timer)
         var vue = this
@@ -155,47 +156,7 @@
             // No next action, game is won
             if (listKeys.length === 0) {
               currentLetters = ''
-              clearInterval(vue.timer)
-              // TODO wpm
-              // Display results
-              var minutes = Math.round((vue.seconds / 60) * 100) / 100
-              vue.$modal.show('dialog', {
-                title: vue.$i18n.t('message.finishedPlaying'),
-                text: vue.$i18n.t('message.scoreVisualKeyboard', { errors: vue.errors, minutes: minutes }),
-                buttons: [
-                  {
-                    title: vue.$i18n.t('Home'),
-                    default: true, // Will be triggered by default if 'Enter' pressed.
-                    handler: () => {
-                      vue.$router.push('landind-page')
-                    }
-                  },
-                  {
-                    title: vue.$i18n.t('High scores'),
-                    handler: () => {
-                      vue.$router.push('high-scores')
-                    }
-                  },
-                  {
-                    title: vue.$i18n.t('Play again'),
-                    default: true, // Will be triggered by default if 'Enter' pressed.
-                    handler: () => {
-                      vue.$modal.hide('dialog')
-                      // Reset data
-                      vue.text = ''
-                      vue.seconds = 0
-                      vue.runes = []
-                      vue.letters = []
-                      vue.runesCounter = 0
-                      vue.totalRunes = 0
-                      vue.errors = 0
-                      vue.alertError = false
-                      vue.idsBreakBefore = null
-                      vue.startGame()
-                    }
-                  }
-                ]
-              })
+              vue.endGame()
             } else { // We display hints for the next action
               vue.runes[vue.runesCounter].isCurrent = true
               vue.letters[currentLetters.length].isCurrent = true
@@ -206,6 +167,57 @@
             vue.alertWrongKey()
           }
         }
+      },
+      /**
+       * Displays the modal with the scores
+       * Also saves the highest score
+       * In case user wants to play again, resets data
+       */
+      endGame: function () {
+        clearInterval(this.timer)
+        var minutes = Math.round((this.seconds / 60) * 100) / 100
+        // Save highest scores (for now just last scores)
+        localStorage.setItem('visualKeyboard.time', minutes)
+        localStorage.setItem('visualKeyboard.errors', this.errors)
+        localStorage.setItem('visualKeyboard.runes', this.runesCounter)
+        // Display results
+        this.$modal.show('dialog', {
+          title: this.$i18n.t('message.finishedPlaying'),
+          text: this.$i18n.t('message.scoreVisualKeyboard', { errors: this.errors, minutes: minutes }),
+          buttons: [
+            {
+              title: this.$i18n.t('Home'),
+              default: true, // Will be triggered by default if 'Enter' pressed.
+              handler: () => {
+                this.$router.push('landind-page')
+              }
+            },
+            {
+              title: this.$i18n.t('High scores'),
+              handler: () => {
+                this.$router.push('high-scores')
+              }
+            },
+            {
+              title: this.$i18n.t('Play again'),
+              default: true, // Will be triggered by default if 'Enter' pressed.
+              handler: () => {
+                this.$modal.hide('dialog')
+                // Reset data
+                this.text = ''
+                this.seconds = 0
+                this.runes = []
+                this.letters = []
+                this.runesCounter = 0
+                this.totalRunes = 0
+                this.errors = 0
+                this.alertError = false
+                this.idsBreakBefore = null
+                this.startGame()
+              }
+            }
+          ]
+        })
       },
       /**
        * Display the text to be typed by the user

@@ -27,6 +27,11 @@ export default new Router({
     path: '/about',
     name: 'about',
     component: require('@/components/About').default
+  },
+  {
+    path: '/high-scores',
+    name: 'high-scores',
+    component: require('@/components/HighScores').default
   }
   ]
 })
