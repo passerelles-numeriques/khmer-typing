@@ -60,6 +60,20 @@
   import keyboard from './Keyboard'
   import {textsList} from '../texts-list'
 
+  function initialState () {
+    return {
+      text: '',
+      seconds: 0,
+      runes: [],
+      letters: [],
+      runesCounter: 0,
+      totalRunes: 0,
+      errors: 0,
+      alertError: false,
+      idsBreakBefore: null
+    }
+  }
+
   export default {
     name: 'visualKeyboard',
     components: {
@@ -67,19 +81,7 @@
       rightHand,
       keyboard
     },
-    data () {
-      return {
-        text: '',
-        seconds: 0,
-        runes: [],
-        letters: [],
-        runesCounter: 0,
-        totalRunes: 0,
-        errors: 0,
-        alertError: false,
-        idsBreakBefore: null
-      }
-    },
+    data: initialState,
     methods: {
       /**
        * Initializes the game by changing the DOM
@@ -91,7 +93,7 @@
         // Select random text from the texts list
         var random = Math.floor(Math.random() * (textsList.list.length))
         this.text = textsList.list[random]
-        this.text = 'កក'
+        this.text = 'កកលក'
         // Start the timer
         clearInterval(this.timer)
         var vue = this
@@ -204,15 +206,8 @@
               handler: () => {
                 this.$modal.hide('dialog')
                 // Reset data
-                this.text = ''
-                this.seconds = 0
-                this.runes = []
-                this.letters = []
-                this.runesCounter = 0
-                this.totalRunes = 0
-                this.errors = 0
-                this.alertError = false
-                this.idsBreakBefore = null
+                Object.assign(this.$data, initialState())
+                // Start new game
                 this.startGame()
               }
             }
