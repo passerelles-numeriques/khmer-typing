@@ -19,6 +19,19 @@
       <meta name="apple-mobile-web-app-status-bar-style" content="black">
       <meta name="apple-mobile-web-app-title" content="Khmer Typing">
       <link rel="apple-touch-icon" href="/images/icons/icon-152x152.png">
+      <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function() {
+          navigator.serviceWorker.register('/service-worker.js').then(function(registration) {
+            // Registration was successful
+            console.log('ServiceWorker registration successful with scope: ', registration.scope);
+          }, function(err) {
+            // registration failed :(
+            console.log('ServiceWorker registration failed: ', err);
+          });
+        });
+      }
+      </script>
     <% } %>
   </head>
   <body>
