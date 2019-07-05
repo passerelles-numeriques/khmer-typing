@@ -3,7 +3,7 @@ import App from './App'
 import router from './router'
 import vmodal from 'vue-js-modal'
 import VueI18n from 'vue-i18n'
-import {messages} from './i18n-messages.js'
+import { messages } from './i18n-messages.js'
 
 // Service worker for Progressive Web Application
 if (typeof process.env.BASE_URL === 'undefined') process.env.BASE_URL = '/'
