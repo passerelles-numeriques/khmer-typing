@@ -30,6 +30,8 @@ export const messages = {
     highScores: {
       title: 'High scores',
       description: 'Your greatest achievements.',
+      accuracy: 'In terms of accuracy - ',
+      speed: 'In terms of speed - ',
       notPlayed: "You haven't played yet.",
       visualKeyboard: 'You wrote {runes} runes in {time} minute(s), making {errors} error(s).',
       typefast: 'You wrote {score} word(s) in one minute.'
@@ -69,6 +71,8 @@ export const messages = {
     highScores: {
       title: 'Meilleurs scores',
       description: 'Vos plus beaux accomplissements',
+      accuracy: 'En terme de précision - ',
+      speed: 'En termes de vitesse - ',
       notPlayed: "Vous n'avez pas encore joué.",
       visualKeyboard: 'Vous avez écris {runes} runes en {time} minute(s), en faisant {errors} erreur(s).',
       typefast: 'Vous avez écris {score} mot(s) en une minute.'
@@ -108,6 +112,8 @@ export const messages = {
     highScores: {
       title: 'High scores',
       description: 'Your greatest achievements.',
+      accuracy: 'In terms of accuracy - ',
+      speed: 'In terms of speed - ',
       notPlayed: "You haven't played yet.",
       visualKeyboard: 'You wrote {runes} runes in {time} minute(s), making {errors} error(s).',
       typefast: 'You wrote {score} word(s) in one minute.'

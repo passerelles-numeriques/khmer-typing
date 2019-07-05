@@ -178,10 +178,22 @@
       endGame: function () {
         clearInterval(this.timer)
         var minutes = Math.round((this.seconds / 60) * 100) / 100
-        // Save highest scores (for now just last scores)
-        localStorage.setItem('visualKeyboard.time', minutes)
-        localStorage.setItem('visualKeyboard.errors', this.errors)
-        localStorage.setItem('visualKeyboard.runes', this.runesCounter)
+        // Save highest scores in terms of speed and accuracy
+        var oldErrors = localStorage.getItem('visualKeyboard.acc.errors') ? localStorage.getItem('visualKeyboard.acc.errors') : Infinity
+        if (this.errors < oldErrors) { // best in terms of accuracy
+          localStorage.setItem('visualKeyboard.acc.time', minutes)
+          localStorage.setItem('visualKeyboard.acc.errors', this.errors)
+          localStorage.setItem('visualKeyboard.acc.runes', this.runesCounter)
+        }
+        var oldMinutes = localStorage.getItem('visualKeyboard.speed.time') ? localStorage.getItem('visualKeyboard.speed.time') : Infinity
+        var oldRunes = localStorage.getItem('visualKeyboard.speed.runes') ? localStorage.getItem('visualKeyboard.speed.runes') : 0
+        var oldSpeed = oldRunes / oldMinutes
+        var newSpeed = this.runesCounter / (this.seconds / 60)
+        if (newSpeed > oldSpeed) { // best in terms of accuracy
+          localStorage.setItem('visualKeyboard.speed.time', minutes)
+          localStorage.setItem('visualKeyboard.speed.errors', this.errors)
+          localStorage.setItem('visualKeyboard.speed.runes', this.runesCounter)
+        }
         // Display results
         this.$modal.show('dialog', {
           title: this.$i18n.t('message.finishedPlaying'),

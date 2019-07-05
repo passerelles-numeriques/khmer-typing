@@ -5,10 +5,17 @@
     <br />
     <hr />
     <h2>{{ $t('Visual Keyboard')}}</h2>
-    <p
-      v-if="vkErrors"
-    >{{ $t('highScores.visualKeyboard', {runes: vkRunes, time: vkTime, errors: vkErrors}) }}</p>
-    <p v-if="!vkErrors">{{ $t("highScores.notPlayed") }}</p>
+    <div v-if="vkaErrors">
+      <p>
+        <strong>{{ $t('highScores.accuracy') }}</strong>
+        {{ $t('highScores.visualKeyboard', {runes: vkaRunes, time: vkaTime, errors: vkaErrors}) }}
+      </p>
+      <p>
+        <strong>{{ $t('highScores.speed') }}</strong>
+        {{ $t('highScores.visualKeyboard', {runes: vksRunes, time: vksTime, errors: vksErrors}) }}
+      </p>
+    </div>
+    <p v-if="!vkaErrors">{{ $t("highScores.notPlayed") }}</p>
     <hr />
     <h2>{{ $t("Typing game") }}</h2>
     <p v-if="tfScore">{{ $t('highScores.typefast', {score: tfScore}) }}</p>
@@ -22,9 +29,12 @@
     name: 'highScores',
     data () {
       return {
-        vkErrors: localStorage.getItem('visualKeyboard.errors'),
-        vkTime: localStorage.getItem('visualKeyboard.time'),
-        vkRunes: localStorage.getItem('visualKeyboard.runes'),
+        vkaErrors: localStorage.getItem('visualKeyboard.acc.errors'),
+        vkaTime: localStorage.getItem('visualKeyboard.acc.time'),
+        vkaRunes: localStorage.getItem('visualKeyboard.acc.runes'),
+        vksErrors: localStorage.getItem('visualKeyboard.speed.errors'),
+        vksTime: localStorage.getItem('visualKeyboard.speed.time'),
+        vksRunes: localStorage.getItem('visualKeyboard.speed.runes'),
         tfScore: localStorage.getItem('typefast.score')
       }
     }
