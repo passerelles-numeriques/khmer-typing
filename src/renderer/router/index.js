@@ -6,7 +6,7 @@ Vue.use(Router)
 export default new Router({
   routes: [{
     path: '/',
-    name: 'landing-page',
+    name: 'landingPage',
     component: require('@/components/LandingPage').default
   },
   {
@@ -14,8 +14,8 @@ export default new Router({
     redirect: '/'
   },
   {
-    path: '/visual-keyboard',
-    name: 'visual-keyboard',
+    path: '/visualKeyboard',
+    name: 'visualKeyboard',
     component: require('@/components/VisualKeyboard/VisualKeyboard').default
   },
   {
@@ -29,8 +29,8 @@ export default new Router({
     component: require('@/components/About').default
   },
   {
-    path: '/high-scores',
-    name: 'high-scores',
+    path: '/highScores',
+    name: 'highScores',
     component: require('@/components/HighScores').default
   }
   ]

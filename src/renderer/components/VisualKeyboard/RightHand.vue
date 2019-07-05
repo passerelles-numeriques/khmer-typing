@@ -110,7 +110,7 @@
 
 <script>
   export default {
-    name: 'right-hand',
+    name: 'rightHand',
     methods: {
     }
   }

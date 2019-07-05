@@ -113,7 +113,7 @@
 
 <script>
   export default {
-    name: 'left-hand',
+    name: 'leftHand',
     methods: {
     }
   }

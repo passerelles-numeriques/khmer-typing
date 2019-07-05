@@ -101,7 +101,7 @@
             {
               title: this.$i18n.t('High scores'),
               handler: () => {
-                this.$router.push('high-scores')
+                this.$router.push('highScores')
               }
             },
             {

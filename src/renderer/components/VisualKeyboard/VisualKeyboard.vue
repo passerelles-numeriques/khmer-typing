@@ -41,9 +41,9 @@
 
       <div id="handsAndKeyboardWrap-vk">
         <div class="row">
-          <left-hand id="leftHand-vk"></left-hand>
+          <leftHand id="leftHand-vk"></leftHand>
           <keyboard id="keyboard-vk"></keyboard>
-          <right-hand id="rightHand-vk"></right-hand>
+          <rightHand id="rightHand-vk"></rightHand>
         </div>
       </div>
     </div>
@@ -61,7 +61,7 @@
   import {textsList} from '../texts-list'
 
   export default {
-    name: 'visual-keyboard',
+    name: 'visualKeyboard',
     components: {
       leftHand,
       rightHand,
@@ -195,7 +195,7 @@
             {
               title: this.$i18n.t('High scores'),
               handler: () => {
-                this.$router.push('high-scores')
+                this.$router.push('highScores')
               }
             },
             {

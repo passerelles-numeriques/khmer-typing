@@ -19,7 +19,7 @@
 
 <script>
   export default {
-    name: 'high-scores',
+    name: 'highScores',
     data () {
       return {
         vkErrors: localStorage.getItem('visualKeyboard.errors'),
