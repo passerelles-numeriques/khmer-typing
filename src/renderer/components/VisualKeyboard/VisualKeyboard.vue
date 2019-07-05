@@ -47,6 +47,7 @@
         </div>
       </div>
     </div>
+    <v-dialog />
   </main>
 </template>
 
@@ -89,7 +90,6 @@
         document.getElementById('gameWrap-vk').style.display = 'inline'
         // Select random text from the texts list
         var random = Math.floor(Math.random() * (textsList.list.length))
-        console.log(random)
         this.text = textsList.list[random]
         // Start the timer
         clearInterval(this.timer)
@@ -154,12 +154,48 @@
             listKeys.shift()
             // No next action, game is won
             if (listKeys.length === 0) {
-              vue.runesCounter++
               currentLetters = ''
               clearInterval(vue.timer)
               // TODO wpm
+              // Display results
               var minutes = Math.round((vue.seconds / 60) * 100) / 100
-              alert('Congrats! You finished in ' + minutes + ' minutes with ' + vue.errors + ' errors.')
+              vue.$modal.show('dialog', {
+                title: vue.$i18n.t('message.finishedPlaying'),
+                text: vue.$i18n.t('message.scoreVisualKeyboard', { errors: vue.errors, minutes: minutes }),
+                buttons: [
+                  {
+                    title: vue.$i18n.t('Home'),
+                    default: true, // Will be triggered by default if 'Enter' pressed.
+                    handler: () => {
+                      vue.$router.push('landind-page')
+                    }
+                  },
+                  {
+                    title: vue.$i18n.t('High scores'),
+                    handler: () => {
+                      vue.$router.push('high-scores')
+                    }
+                  },
+                  {
+                    title: vue.$i18n.t('Play again'),
+                    default: true, // Will be triggered by default if 'Enter' pressed.
+                    handler: () => {
+                      vue.$modal.hide('dialog')
+                      // Reset data
+                      vue.text = ''
+                      vue.seconds = 0
+                      vue.runes = []
+                      vue.letters = []
+                      vue.runesCounter = 0
+                      vue.totalRunes = 0
+                      vue.errors = 0
+                      vue.alertError = false
+                      vue.idsBreakBefore = null
+                      vue.startGame()
+                    }
+                  }
+                ]
+              })
             } else { // We display hints for the next action
               vue.runes[vue.runesCounter].isCurrent = true
               vue.letters[currentLetters.length].isCurrent = true
@@ -266,7 +302,16 @@
 
         // Careful if typing in english letters
         if (keyPressed === undefined) {
-          alert('Careful! Remember to switch your keyboard to Khmer language.')
+          this.$modal.show('dialog', {
+            title: this.$i18n.t('Alert!'),
+            text: this.$i18n.t('message.alertVisualKeyboard'),
+            buttons: [
+              {
+                title: this.$i18n.t('Close'),
+                default: true // Will be triggered by default if 'Enter' pressed.
+              }
+            ]
+          })
           isCorrect = false
         } else if (keyToPress.length > 1) {
         // More than one key to press means the first key is ALT or SHIFT

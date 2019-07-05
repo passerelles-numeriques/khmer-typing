@@ -25,7 +25,7 @@
         <keyboard id="keyboard-tf"></keyboard>
       </div>
     </div>
-    <v-dialog/>
+    <v-dialog />
   </main>
 </template>
 
@@ -66,7 +66,36 @@
             this.spans = ''
             clearInterval(timer)
             this.$modal.show('dialog', {
-              text: this.$i18n.t('message.scoreTypeFats', { score: this.score })
+              title: this.$i18n.t('message.finishedPlaying'),
+              text: this.$i18n.t('message.scoreTypeFast', { score: this.score }),
+              buttons: [
+                {
+                  title: this.$i18n.t('Home'),
+                  default: true, // Will be triggered by default if 'Enter' pressed.
+                  handler: () => {
+                    this.$router.push('landind-page')
+                  }
+                },
+                {
+                  title: this.$i18n.t('High scores'),
+                  handler: () => {
+                    this.$router.push('high-scores')
+                  }
+                },
+                {
+                  title: this.$i18n.t('Play again'),
+                  default: true, // Will be triggered by default if 'Enter' pressed.
+                  handler: () => {
+                    this.$modal.hide('dialog')
+                    // Reset data
+                    this.score = 0
+                    this.seconds = 0
+                    this.spans = []
+                    this.buffer = ''
+                    this.startGame()
+                  }
+                }
+              ]
             })
           }
         }, 1000)
@@ -184,7 +213,7 @@
 }
 
 .buffer-title {
-  color:bisque;
+  color: bisque;
   margin-top: 30px;
 }
 
@@ -227,7 +256,7 @@
 }
 
 .buffer {
-  min-height: 1em;
+  min-height: 1.5em;
   font-size: 3em;
   letter-spacing: 1px;
   background-color: #ddd;
