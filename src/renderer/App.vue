@@ -3,23 +3,39 @@
     <nav>
       <div class="top-nav row">
         <div>
-          <router-link class="nav-item" v-bind:to="'/'">{{ $t("Home") }}</router-link>
-          <router-link class="nav-item" v-bind:to="'/about'">{{ $t("About") }}</router-link>
+          <router-link
+            class="nav-item"
+            :to="'/'"
+          >
+            {{ $t("Home") }}
+          </router-link>
+          <router-link
+            class="nav-item"
+            :to="'/about'"
+          >
+            {{ $t("About") }}
+          </router-link>
         </div>
         <div>
           <select v-model="$i18n.locale">
-            <option v-for="(lang, i) in langs" :key="`Lang${i}`" :value="lang">{{ languages[lang] }}</option>
+            <option
+              v-for="(lang, i) in langs"
+              :key="`Lang${i}`"
+              :value="lang"
+            >
+              {{ languages[lang] }}
+            </option>
           </select>
         </div>
       </div>
     </nav>
-    <router-view></router-view>
+    <router-view />
   </div>
 </template>
 
 <script>
   export default {
-    name: 'khmer-typing',
+    name: 'KhmerTyping',
     data () {
       return {
         langs: ['km', 'en', 'fr'],
