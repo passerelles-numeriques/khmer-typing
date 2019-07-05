@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <main>
     <h1>Visual Keyboard</h1>
     <p>Write the whole text as fast as you can with as few mistakes as possible</p>
     <button id="cmdTyping-vk" v-on:click="startGame">Start</button>
@@ -47,7 +47,7 @@
         </div>
       </div>
     </div>
-  </section>
+  </main>
 </template>
 
 <script>
@@ -89,6 +89,7 @@
         document.getElementById('gameWrap-vk').style.display = 'inline'
         // Select random text from the texts list
         var random = Math.floor(Math.random() * (textsList.list.length))
+        console.log(random)
         this.text = textsList.list[random]
         // Start the timer
         clearInterval(this.timer)
