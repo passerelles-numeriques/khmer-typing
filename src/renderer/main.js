@@ -10,7 +10,7 @@ Vue.use(VueI18n)
 Vue.use(vmodal, { dialog: true })
 
 const i18n = new VueI18n({
-  locale: 'en', // set locale
+  locale: 'km', // set locale
   messages // set locale messages
 })
 
