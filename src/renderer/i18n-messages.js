@@ -1,7 +1,7 @@
 export const messages = {
   en: {
-    Home: 'Home',
-    About: 'About',
+    'Home': 'Home',
+    'About': 'About',
     'Welcome!': 'Welcome!',
     'Choose what you would like to do to practice Khmer typing today.': 'Choose what you would like to do to practice Khmer typing today.',
     'Practise with Visual Keyboard': 'Practise with Visual Keyboard',
@@ -9,12 +9,13 @@ export const messages = {
     'View high scores': 'View high scores',
 
     'Visual Keyboard': 'Visual Keyboard',
-    errors: 'errors',
+    'Write the whole text as fast as you can with as few mistakes as possible': 'Write the whole text as fast as you can with as few mistakes as possible',
+    'errors': 'errors',
 
     'Typing game': 'Typing game',
     'Type as many words as you can until time runs out!': 'Type as many words as you can until time runs out!',
-    Start: 'Start',
-    Score: 'Score',
+    'Start': 'Start',
+    'Score': 'Score',
     'Time left': 'Time left',
     'What you are typing:': 'What you are typing:',
 
@@ -24,7 +25,7 @@ export const messages = {
       scoreVisualKeyboard: 'Congrats! You finished in {minutes} minutes with {errors} errors.',
       alertVisualKeyboard: 'Remember to switch your keyboard to Khmer language.'
     },
-    Close: 'Close',
+    'Close': 'Close',
     'Alert!': 'Alert!',
 
     highScores: {
@@ -41,8 +42,8 @@ export const messages = {
     'This project was born is PN\'s cambodian school, as a way to facilitate the learning of khmer typing for students. In order for it to benefit to as many people as possible, we then decided to make it open source and available on Windows and Linux stores.': 'This project was born is PN\'s cambodian school, as a way to facilitate the learning of khmer typing for students. In order for it to benefit to as many people as possible, we then decided to make it open source and available on Windows and Linux stores.'
   },
   fr: {
-    Home: 'Accueil',
-    About: 'À propos',
+    'Home': 'Accueil',
+    'About': 'À propos',
     'Welcome!': 'Bienvenue!',
     'Choose what you would like to do to practice Khmer typing today.': "Choisissez ce que vous aimeriez faire aujourd'hui pour pratiquer la dactylographie en khmer.",
     'Practise with Visual Keyboard': 'Pratiquer avec le Clavier visuel',
@@ -50,12 +51,13 @@ export const messages = {
     'View high scores': 'Voir les meilleurs resultats',
 
     'Visual Keyboard': 'Clavier visuel',
-    errors: 'erreurs',
+    'Write the whole text as fast as you can with as few mistakes as possible': 'Tapez tout le texte le plus vite possible avec le moins d\'erreurs possible',
+    'errors': 'erreurs',
 
     'Typing game': 'Jeu de saisie',
     'Type as many words as you can until time runs out!': 'Tapez le plus de mots possibles dans le temps imparti !',
-    Start: 'Démarrer',
-    Score: 'Score',
+    'Start': 'Démarrer',
+    'Score': 'Score',
     'Time left': 'Temps restant',
     'What you are typing:': 'Votre saisie :',
 
@@ -65,7 +67,7 @@ export const messages = {
       scoreVisualKeyboard: 'Bravo! Vous avez fini en {minutes} minutes, en faisait {errors} erreurs.',
       alertVisualKeyboard: 'N\'oubliez pas d\'utiliser le clavier khmer.'
     },
-    Close: 'Fermer',
+    'Close': 'Fermer',
     'Alert!': 'Attention!',
 
     highScores: {
@@ -82,8 +84,8 @@ export const messages = {
     "This project was born is PN's cambodian school, as a way to facilitate the learning of khmer typing for students. In order for it to benefit to as many people as possible, we then decided to make it open source and available on Windows and Linux stores.": "Ce projet est né dans l'école cambodgienne de PN, comme un moyen de faciliter l'apprentissage de la dactylographie khmère pour les étudiants. Afin qu'il profite au plus grand nombre, nous avons ensuite décidé de le rendre open source et disponible sur les stores Windows et Linux."
   },
   km: {
-    Home: 'ទំព័រដើម',
-    About: 'អំពី',
+    'Home': 'ទំព័រដើម',
+    'About': 'អំពី',
     'Welcome!': 'សូមស្វាគមន៍!',
     'Choose what you would like to do to practice Khmer typing today.': 'សូមជ្រើសរើសផ្នែកណាមួយដែលអ្នកចង់អនុវត្តន៍ ដើម្បីដំណើរការកម្មវិធី Khmer-Typing នៅក្នុងថ្ងៃនេះ។',
     'Practise with Visual Keyboard': 'អនុវត្តជាមួយក្តារចុចជាក់ស្តែង',
@@ -91,12 +93,13 @@ export const messages = {
     'View high scores': 'បង្ហាញពិន្ទុអតិប្បរមា',
 
     'Visual Keyboard': 'ក្តារចុចជាក់ស្តែង',
-    errors: 'កំហុសឆ្គង',
+    'Write the whole text as fast as you can with as few mistakes as possible': 'វាយអត្ថបទទាំងមូលឱ្យបានលឿនតាមដែលអ្នកអាចធ្វើបាន ដោយមានកំហុសតិចតូចបំផុត',
+    'errors': 'កំហុសឆ្គង',
 
     'Typing game': 'ហ្គេមនៃការរៀនសរសេរ',
     'Type as many words as you can until time runs out!': 'វាយអោយបានច្រើនពាក្យ តាមដែលអ្នកអាចធ្វើបាន រហូតដល់អស់នាទី',
-    Start: 'ចាប់ផ្តើម',
-    Score: 'ពិន្ទុ',
+    'Start': 'ចាប់ផ្តើម',
+    'Score': 'ពិន្ទុ',
     'Time left': 'រយះពេលនៅសល់',
     'What you are typing:': 'ពាក្យដែលអ្នកបានវាយ:',
 
@@ -106,7 +109,7 @@ export const messages = {
       scoreVisualKeyboard: 'អបអរសាទរ! អ្នកបានបញ្ចប់ក្នុងរយះពេល {minutes} នាទី ជាមួយនឹងកំហុសឆ្គងចំនួន {errors}​ ។',
       alertVisualKeyboard: 'អ្នកត្រូវផ្លាស់ប្តូរក្តារចុចទៅជាភាសាខ្មែរ។'
     },
-    Close: 'បិទ',
+    'Close': 'បិទ',
     'Alert!': 'ជូនដំណឹង!',
 
     highScores: {

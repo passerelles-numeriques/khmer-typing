@@ -1,7 +1,7 @@
 <template>
   <main>
-    <h1>Visual Keyboard</h1>
-    <p>Write the whole text as fast as you can with as few mistakes as possible</p>
+    <h1>{{ $t('Visual Keyboard') }}</h1>
+    <p>{{ $t('Write the whole text as fast as you can with as few mistakes as possible') }}</p>
     <button
       id="cmdTyping-vk"
       @click="startGame"
