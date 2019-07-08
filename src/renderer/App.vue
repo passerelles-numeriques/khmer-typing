@@ -59,7 +59,6 @@ body {
   margin: 0;
   padding: 0 30;
   font-family: "Noto Sans Khmer";
-  background-color: #f5f5f5;
 }
 
 main {
@@ -67,7 +66,6 @@ main {
   max-width: 70vw;
   max-height: 100vh;
   text-align: center;
-  background-color: #fff;
 }
 
 .row {
