@@ -35,6 +35,7 @@
 <style lang="scss" scoped>
 img {
   height: 10vh;
+  margin-top: 3%;
 }
 #aboutLinks {
   margin-top: 3%;

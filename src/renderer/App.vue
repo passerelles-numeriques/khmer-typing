@@ -58,14 +58,24 @@
 body {
   margin: 0;
   padding: 0 30;
-  font-family: "Noto Sans Khmer";
+  font-family: "Noto Sans Khmer", Helvetica;
+  background-color: #f5f5f5;
 }
 
 main {
-  margin: auto;
-  max-width: 70vw;
-  max-height: 100vh;
-  text-align: center;
+margin: 2vw;
+max-width: 90vw;
+padding: 0 5vw;
+border-radius: 5px;
+border: solid #e8e8e8 1px;
+text-align: center;
+background-color: #fff;
+}
+
+hr {
+border: 0;
+height: 0;
+border-top: 1px solid #e8e8e8;
 }
 
 .row {
