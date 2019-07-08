@@ -1,7 +1,7 @@
 {
   "name": "khmer-typing",
-  "version": "0.0.1",
-  "description": "Learning Khmer Typing with a Visual Keyboard and games",
+  "version": "0.0.4",
+  "description": "Learn Khmer Typing with a Visual Keyboard and games",
   "author": "Benjamin BALET <benjamin.balet@gmail.com>",
   "contributors": [
     "Laura Hennequin",
@@ -16,6 +16,7 @@
     "build:web": "cross-env BUILD_TARGET=web node .electron-vue/build.js",
     "build:snap": "yarn build --linux snap",
     "build:appimage": "yarn build --linux AppImage",
+    "build:deb": "yarn build --linux deb",
     "build:portable": "yarn build --win portable",
     "dev": "node .electron-vue/dev-runner.js",
     "lint": "eslint --ext .js,.vue -f ./node_modules/eslint-friendly-formatter src",
@@ -88,11 +89,12 @@
     "workbox-webpack-plugin": "^4.3.1"
   },
   "build": {
-    "productName": "khmer-typing",
-    "appId": "org.passerelles.numeriques.khmer.typing",
+    "productName": "Khmer Typing",
+    "appId": "com.electron.khmertyping",
     "directories": {
       "output": "build"
     },
+    "copyright":"Copyright © 2019 Passerelles numériques",
     "files": [
       "dist/electron/**/*"
     ],
@@ -118,7 +120,15 @@
       "icon": "build/icons/icon.ico"
     },
     "linux": {
-      "icon": "build/icons"
+      "synopsis" : "Learn Khmer Typing with a Visual Keyboard and games",
+      "icon": "build/icons",
+      "category":"Education"
+    },
+    "snap": {
+      "stagePackages": ["libnss3", "libxss1"]
+    },
+    "deb": {
+      "depends": ["libnss3"]
     }
   }
 }
