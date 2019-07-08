@@ -1,14 +1,14 @@
 # khmer-typing
 
-> Learning Khmer Typing with a Visual Keyboard and games
+> Learn Khmer Typing with a Visual Keyboard and games
 
 [![Get it from the Snap Store](https://snapcraft.io/static/images/badges/en/snap-store-black.svg)](https://snapcraft.io/khmer-typing)
 
 A free and open source cross platform and a progressive web application (you can install it on ChromeOS):
  - Online and PWA: https://khmer-typing.passerellesnumeriques.org/
- - Snapcraft (coming soon)
+ - Snapcraft https://snapcraft.io/khmer-typing
  - Windows Store (coming soon)
- - Portable Windows Application
+ - Portable Windows Application (see releases tab)
 
 #### Build
 

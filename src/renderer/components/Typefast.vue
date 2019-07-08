@@ -209,7 +209,7 @@
                 }
                 vue.random() // pick another word
                 document.getElementsByClassName('words')[0].classList = 'words'
-              }, 300) // happen when the word has finished disappearing
+              }, 200) // happen when the word has finished disappearing
             }
           }
         }
@@ -239,7 +239,7 @@
 .fadeout {
   visibility: hidden;
   opacity: 0;
-  transition: visibility 0s 0.3s, opacity 0.3s linear;
+  transition: visibility 0s 0.2s, opacity 0.2s linear;
 }
 
 .buffer-title {

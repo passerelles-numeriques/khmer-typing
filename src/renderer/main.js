@@ -5,18 +5,12 @@ import vmodal from 'vue-js-modal'
 import VueI18n from 'vue-i18n'
 import { messages } from './i18n-messages.js'
 
-// Service worker for Progressive Web Application
-if (typeof process.env.BASE_URL === 'undefined') process.env.BASE_URL = '/'
-if (process.env.IS_WEB) import('../registerServiceWorker.js')
-
-if (!process.env.IS_WEB) Vue.use(require('vue-electron'))
 Vue.config.productionTip = false
-
 Vue.use(VueI18n)
 Vue.use(vmodal, { dialog: true })
 
 const i18n = new VueI18n({
-  locale: 'en', // set locale
+  locale: 'km', // set locale
   messages // set locale messages
 })
 
