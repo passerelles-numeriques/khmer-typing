@@ -138,7 +138,7 @@
         // Game progress
         document.onkeypress = function (ev) {
           ev.preventDefault()
-          var isCorrect = vm.areRightKeysPressed(ev, listKeys)
+          var isCorrect = vm.areRightKeysPressed(ev, listKeys, currentLetters)
           // Pressed key is correct
           if (isCorrect) {
             // completeText += ev.key
@@ -325,7 +325,7 @@
        * @param listKeys the current ordered list of keys to type
        * @return a boolean, true if the right keys have have been pressed, false otherwise
        */
-      areRightKeysPressed: function (event, listKeys) {
+      areRightKeysPressed: function (event, listKeys, currentLetters) {
         var keyPressed = mapping[event.key]
         var isCorrect = true
         var keyToPress = listKeys[0]
@@ -347,6 +347,11 @@
         // More than one key to press means the first key is ALT or SHIFT
           if (keyToPress[0].split('_')[1] === 'SHIFT') {
             isCorrect = event.shiftKey
+          }
+          else if (keyToPress[0] === 'ALT_GR') {
+            // Browsers don't detect the pressing of the ALT_GR key
+            // That's why here we check the letters typed instead of the keys pressed
+            isCorrect = (event.key === this.letters[currentLetters.length].letter)
           }
           // We've checked SHIFT and ALT, we move on to checking the second key
           keyPressed = keyPressed[1]
