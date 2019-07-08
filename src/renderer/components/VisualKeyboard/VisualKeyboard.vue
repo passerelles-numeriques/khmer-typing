@@ -474,6 +474,7 @@
 #decomposition-vk,
 #text-vk {
   font-weight: normal;
+  word-break: break-all;
 }
 
 #text-vk {

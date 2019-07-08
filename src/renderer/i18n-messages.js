@@ -92,7 +92,7 @@ export const messages = {
     'About': 'អំពី',
     'Welcome!': 'សូមស្វាគមន៍!',
     'Choose what you would like to do to practice Khmer typing today.': 'សូមជ្រើសរើសផ្នែកណាមួយដែលអ្នកចង់អនុវត្តន៍ ដើម្បីដំណើរការកម្មវិធី Khmer-Typing នៅក្នុងថ្ងៃនេះ។',
-    'Practise with Visual Keyboard': 'អនុវត្តជាមួយក្តារចុចជាក់ស្តែង',
+    'Practise with Visual Keyboard': 'អនុវត្តន៍ជាមួយក្តារចុចជាក់ស្តែង',
     'Play Typefast game': 'លេងហ្គេមកម្រិតលឿន',
     'View high scores': 'បង្ហាញពិន្ទុអតិប្បរមា',
 
@@ -104,8 +104,8 @@ export const messages = {
     'Type as many words as you can until time runs out!': 'វាយអោយបានច្រើនពាក្យ តាមដែលអ្នកអាចធ្វើបាន រហូតដល់អស់នាទី',
     'Start': 'ចាប់ផ្តើម',
     'Score': 'ពិន្ទុ',
-    'Time left': 'រយះពេលនៅសល់',
-    'What you are typing:': 'ពាក្យដែលអ្នកបានវាយ:',
+    'Time left': 'រយៈពេលនៅសល់',
+    'What you are typing:': 'ពាក្យដែលអ្នកកំពុងវាយ:',
     'High scores': 'ពិន្ទុអតិប្បរមា',
     'Play again': 'លេងម្តងទៀត',
 
