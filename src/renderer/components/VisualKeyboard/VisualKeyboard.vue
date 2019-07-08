@@ -93,12 +93,11 @@
         // Select random text from the texts list
         var random = Math.floor(Math.random() * (textsList.list.length))
         this.text = textsList.list[random]
-        this.text = 'កកលក'
         // Start the timer
         clearInterval(this.timer)
-        var vue = this
+        var vm = this
         this.timer = setInterval(() => {
-          vue.seconds++
+          vm.seconds++
         }, 1000)
         // Start playing
         this.play()
@@ -108,7 +107,7 @@
        * The user has to type a text in khmer
        */
       play: function () {
-        var vue = this
+        var vm = this
         // Initialization
         // var completeText = ''
         this.runesCounter = 0
@@ -128,45 +127,45 @@
         // Game progress
         document.onkeypress = function (ev) {
           ev.preventDefault()
-          var isCorrect = vue.areRightKeysPressed(ev, listKeys)
+          var isCorrect = vm.areRightKeysPressed(ev, listKeys)
           // Pressed key is correct
           if (isCorrect) {
             // completeText += ev.key
             currentLetters += ev.key
             // Highlight correct letter
-            vue.letters[currentLetters.length - 1].isCurrent = false
-            vue.letters[currentLetters.length - 1].isCorrect = true
+            vm.letters[currentLetters.length - 1].isCurrent = false
+            vm.letters[currentLetters.length - 1].isCorrect = true
             // Check if a grapheme has been completed
             var graphemes = splitKhmerRunes(currentLetters)
-            if (graphemes[0] === listRunes[vue.runesCounter]) {
+            if (graphemes[0] === listRunes[vm.runesCounter]) {
               // We show to the user that the grapheme is completed
-              vue.runes[vue.runesCounter].isCurrent = false
-              vue.runes[vue.runesCounter].isCorrect = true
+              vm.runes[vm.runesCounter].isCurrent = false
+              vm.runes[vm.runesCounter].isCorrect = true
               // Current grapheme is completed, we start again to track the next one
               currentLetters = ''
-              vue.letters = []
-              vue.runesCounter++
+              vm.letters = []
+              vm.runesCounter++
               // Display decomposition of the next grapheme if exists
-              if (vue.runesCounter < listRunes.length) {
-                vue.splitRuneIntoSpannedLetters(listRunes[vue.runesCounter])
+              if (vm.runesCounter < listRunes.length) {
+                vm.splitRuneIntoSpannedLetters(listRunes[vm.runesCounter])
               }
               // If we arrive at the end of a line, hide it
-              vue.scrollSync()
+              vm.scrollSync()
             }
             // Current action is done
             listKeys.shift()
             // No next action, game is won
             if (listKeys.length === 0) {
               currentLetters = ''
-              vue.endGame()
+              vm.endGame()
             } else { // We display hints for the next action
-              vue.runes[vue.runesCounter].isCurrent = true
-              vue.letters[currentLetters.length].isCurrent = true
-              vue.resetHints()
-              vue.nextHint(listKeys)
+              vm.runes[vm.runesCounter].isCurrent = true
+              vm.letters[currentLetters.length].isCurrent = true
+              vm.resetHints()
+              vm.nextHint(listKeys)
             }
           } else { // Pressed key is wrong
-            vue.alertWrongKey()
+            vm.alertWrongKey()
           }
         }
       },
@@ -178,6 +177,8 @@
       endGame: function () {
         clearInterval(this.timer)
         var minutes = Math.round((this.seconds / 60) * 100) / 100
+        var newSpeed = this.runesCounter / (this.seconds / 60)
+        this.seconds = 0
         // Save highest scores in terms of speed and accuracy
         var oldErrors = localStorage.getItem('visualKeyboard.acc.errors') ? localStorage.getItem('visualKeyboard.acc.errors') : Infinity
         if (this.errors < oldErrors) { // best in terms of accuracy
@@ -188,7 +189,6 @@
         var oldMinutes = localStorage.getItem('visualKeyboard.speed.time') ? localStorage.getItem('visualKeyboard.speed.time') : Infinity
         var oldRunes = localStorage.getItem('visualKeyboard.speed.runes') ? localStorage.getItem('visualKeyboard.speed.runes') : 0
         var oldSpeed = oldRunes / oldMinutes
-        var newSpeed = this.runesCounter / (this.seconds / 60)
         if (newSpeed > oldSpeed) { // best in terms of accuracy
           localStorage.setItem('visualKeyboard.speed.time', minutes)
           localStorage.setItem('visualKeyboard.speed.errors', this.errors)
@@ -352,11 +352,11 @@
        * and the error counter is incremented
        */
       alertWrongKey: function () {
-        var vue = this
-        vue.alertError = true
+        var vm = this
+        vm.alertError = true
         // Back to normal after 0.5s
         setTimeout(function () {
-          vue.alertError = false
+          vm.alertError = false
         }, 500)
         // Incrementation
         this.errors++
