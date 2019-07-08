@@ -15,6 +15,7 @@
     "build:clean": "cross-env BUILD_TARGET=clean node .electron-vue/build.js",
     "build:web": "cross-env BUILD_TARGET=web node .electron-vue/build.js",
     "build:snap": "yarn build --linux snap",
+    "build:appimage": "yarn build --linux AppImage",
     "build:deb": "yarn build --linux deb",
     "build:portable": "yarn build --win portable",
     "dev": "node .electron-vue/dev-runner.js",
