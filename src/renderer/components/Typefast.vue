@@ -88,8 +88,8 @@
         this.random()
         this.buffer = ''
         // Listen to typing events
-        this.keypress = document.addEventListener('keypress', this.typing, false)
-        this.keydown = document.addEventListener('keydown', this.clear, false)
+        document.onkeypress = this.typing
+        document.onkeydown = this.clear
       },
       /**
        * Displays the modal with the scores
@@ -228,8 +228,8 @@
       }
     },
     beforeDestroy () {
-      document.removeEventListener('keypress', this.keypress)
-      document.removeEventListener('keydown', this.keydown)
+      document.onkeypress = null
+      document.onkeydown = null
       clearInterval(this.timer)
     }
   }
