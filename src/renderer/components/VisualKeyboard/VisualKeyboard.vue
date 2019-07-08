@@ -2,25 +2,36 @@
   <main>
     <h1>Visual Keyboard</h1>
     <p>Write the whole text as fast as you can with as few mistakes as possible</p>
-    <button id="cmdTyping-vk" v-on:click="startGame">Start</button>
+    <button
+      id="cmdTyping-vk"
+      @click="startGame"
+    >
+      Start
+    </button>
 
-    <div id="gameWrap-vk" style="display:none;">
+    <div
+      id="gameWrap-vk"
+      style="display:none;"
+    >
       <div class="row">
         <div class="runesWrap">
           <strong>{{ runesCounter }}</strong>
           / {{ totalRunes }}
         </div>
         <div class="errorsWrap">
-          <strong v-bind:class="{'error': alertError}">{{ errors }}</strong> errors
+          <strong :class="{'error': alertError}">{{ errors }}</strong> errors
         </div>
       </div>
-      <div id="textWrap-vk" v-bind:class="{'error-bg': alertError}">
+      <div
+        id="textWrap-vk"
+        :class="{'error-bg': alertError}"
+      >
         <h2 id="text-vk">
           <span
             v-for="rune in runes"
-            v-bind:key="rune.id"
+            :key="rune.id"
             class="runes"
-            v-bind:class="{current: rune.isCurrent, correct: rune.isCorrect, hidden: rune.isHidden}"
+            :class="{current: rune.isCurrent, correct: rune.isCorrect, hidden: rune.isHidden}"
             :id="rune.id"
           >{{ rune.rune }}</span>
         </h2>
@@ -32,8 +43,8 @@
           <!-- This span makes sure that the room for the decompisition doesn't disappear -->
           <span
             v-for="letter in letters"
-            v-bind:key="letter.id"
-            v-bind:class="{current: letter.isCurrent, correct: letter.isCorrect}"
+            :key="letter.id"
+            :class="{current: letter.isCurrent, correct: letter.isCorrect}"
             :id="letter.id"
           >{{ letter.letter }}</span>
         </h4>
@@ -41,9 +52,9 @@
 
       <div id="handsAndKeyboardWrap-vk">
         <div class="row">
-          <leftHand id="leftHand-vk"></leftHand>
-          <keyboard id="keyboard-vk"></keyboard>
-          <rightHand id="rightHand-vk"></rightHand>
+          <leftHand id="leftHand-vk" />
+          <keyboard id="keyboard-vk" />
+          <rightHand id="rightHand-vk" />
         </div>
       </div>
     </div>
@@ -75,7 +86,7 @@
   }
 
   export default {
-    name: 'visualKeyboard',
+    name: 'VisualKeyboard',
     components: {
       leftHand,
       rightHand,
@@ -93,7 +104,6 @@
         // Select random text from the texts list
         var random = Math.floor(Math.random() * (textsList.list.length))
         this.text = textsList.list[random]
-        this.text = 'កកលក'
         // Start the timer
         clearInterval(this.timer)
         var vue = this
