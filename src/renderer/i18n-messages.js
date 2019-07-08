@@ -18,6 +18,8 @@ export const messages = {
     'Score': 'Score',
     'Time left': 'Time left',
     'What you are typing:': 'What you are typing:',
+    'High scores': 'High scores',
+    'Play again': 'Play again',
 
     message: {
       finishedPlaying: 'End of the game.',
@@ -48,7 +50,7 @@ export const messages = {
     'Choose what you would like to do to practice Khmer typing today.': "Choisissez ce que vous aimeriez faire aujourd'hui pour pratiquer la dactylographie en khmer.",
     'Practise with Visual Keyboard': 'Pratiquer avec le Clavier visuel',
     'Play Typefast game': 'Jouer à Typefast',
-    'View high scores': 'Voir les meilleurs resultats',
+    'View high scores': 'Voir les meilleurs scoress',
 
     'Visual Keyboard': 'Clavier visuel',
     'Write the whole text as fast as you can with as few mistakes as possible': 'Tapez tout le texte le plus vite possible avec le moins d\'erreurs possible',
@@ -60,6 +62,8 @@ export const messages = {
     'Score': 'Score',
     'Time left': 'Temps restant',
     'What you are typing:': 'Votre saisie :',
+    'High scores': 'Meilleurs scores',
+    'Play again': 'Jouer encore',
 
     message: {
       finishedPlaying: 'Fin du jeu.',
@@ -102,6 +106,8 @@ export const messages = {
     'Score': 'ពិន្ទុ',
     'Time left': 'រយះពេលនៅសល់',
     'What you are typing:': 'ពាក្យដែលអ្នកបានវាយ:',
+    'High scores': 'ពិន្ទុអតិប្បរមា',
+    'Play again': 'លេងម្តងទៀត',
 
     message: {
       finishedPlaying: 'ហ្គេមត្រូវបានបញ្ចប់',

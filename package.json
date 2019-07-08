@@ -4,8 +4,12 @@
   "description": "Learn Khmer Typing with a Visual Keyboard and games",
   "author": "Benjamin BALET <benjamin.balet@gmail.com>",
   "contributors": [
-    "Laura Hennequin",
-    "Arnaud VARGAS"
+    "Laura HENNEQUIN",
+    "Arnaud VARGAS",
+    "Channak CHHON",
+    "Rith NHEL",
+    "Rady Y",
+    "Sengseiha SAM"
   ],
   "license": "AGPL-3.0-or-later",
   "main": "./dist/electron/main.js",
