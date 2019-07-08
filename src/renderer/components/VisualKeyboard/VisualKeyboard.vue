@@ -6,7 +6,7 @@
       id="cmdTyping-vk"
       @click="startGame"
     >
-      Start
+      {{ $t('Start') }}
     </button>
 
     <div
