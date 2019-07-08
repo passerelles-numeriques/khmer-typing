@@ -175,9 +175,10 @@
         let spans = document.getElementsByClassName('spans')
         if (!noChars.includes(e.key)) {
           let typed = e.key
-          this.buffer = typed
+          this.buffer += typed
           let graphemes = splitKhmerRunes(this.buffer)
           let lastGrapheme = graphemes[graphemes.length - 1]
+          this.buffer = lastGrapheme // If more than one 'grapheme', it means that the ones before were wrong
           // Check all span elements one by one as each one contains one letter of the word
           for (let i = 0; i < spans.length; i++) {
             // Checks that the letter typed is the one we want
