@@ -18,6 +18,8 @@ export const messages = {
     'Score': 'Score',
     'Time left': 'Time left',
     'What you are typing:': 'What you are typing:',
+    'High scores': 'High scores',
+    'Play again': 'Play again',
 
     message: {
       finishedPlaying: 'End of the game.',
@@ -48,7 +50,7 @@ export const messages = {
     'Choose what you would like to do to practice Khmer typing today.': "Choisissez ce que vous aimeriez faire aujourd'hui pour pratiquer la dactylographie en khmer.",
     'Practise with Visual Keyboard': 'Pratiquer avec le Clavier visuel',
     'Play Typefast game': 'Jouer à Typefast',
-    'View high scores': 'Voir les meilleurs resultats',
+    'View high scores': 'Voir les meilleurs scoress',
 
     'Visual Keyboard': 'Clavier visuel',
     'Write the whole text as fast as you can with as few mistakes as possible': 'Tapez tout le texte le plus vite possible avec le moins d\'erreurs possible',
@@ -60,6 +62,8 @@ export const messages = {
     'Score': 'Score',
     'Time left': 'Temps restant',
     'What you are typing:': 'Votre saisie :',
+    'High scores': 'Meilleurs scores',
+    'Play again': 'Jouer encore',
 
     message: {
       finishedPlaying: 'Fin du jeu.',
@@ -102,6 +106,8 @@ export const messages = {
     'Score': 'ពិន្ទុ',
     'Time left': 'រយៈពេលនៅសល់',
     'What you are typing:': 'ពាក្យដែលអ្នកកំពុងវាយ:',
+    'High scores': 'ពិន្ទុអតិប្បរមា',
+    'Play again': 'លេងម្តងទៀត',
 
     message: {
       finishedPlaying: 'ហ្គេមត្រូវបានបញ្ចប់',
@@ -123,6 +129,6 @@ export const messages = {
     },
 
     "Khmer-Typing was developped by a team working for the french NGO Passerelles Numériques (meaning 'Digital Bridges'). Our mission is to provide education, technical and professional training in the digital sector to young underprivileged people by leveraging their potential and willpower.": "Khmer-Typing ត្រូវបានបង្កើតឡើងដោយក្រុមការងារសម្រាប់អង្គការក្រៅរដ្ឋាភិបាលមួយឈ្មោះថា ប៉ាស៊ឺរ៉ែលនុយមេរិច កម្ពុជា (មានន័យថា 'ស្ពានឌីជីថល') បេសកកម្មរបស់យើងគឺផ្តល់ការអប់រំបណ្តុះបណ្តាលបច្ចេកទេស និងវិជ្ជាជីវៈក្នុងផ្នែកឌីជីថលដល់មនុស្សក្រីក្រ ដែលមានវ័យក្មេងតាមរយៈសក្តានុពល និងឆន្ទៈរបស់ពួកគេ។",
-    "This project was born is PN's cambodian school, as a way to facilitate the learning of khmer typing for students. In order for it to benefit to as many people as possible, we then decided to make it open source and available on Windows and Linux stores.": "គម្រោងនេះត្រូវបានបង្កើតឡើងនៅក្នុងសាលាភីអ៊ិន កម្ពុជា ដើម្បីជាមធ្យោបាយសម្រួលដល់ការរៀនវាយសភាសាខ្មែរសម្រាប់និស្សិត។"
+    "This project was born is PN's cambodian school, as a way to facilitate the learning of khmer typing for students. In order for it to benefit to as many people as possible, we then decided to make it open source and available on Windows and Linux stores.": "គម្រោងនេះត្រូវបានបង្កើតឡើងនៅក្នុងសាលាភីអ៊ិន កម្ពុជា ដើម្បីជាមធ្យោបាយសម្រួលដល់ការរៀនវាយជាភាសាខ្មែរសម្រាប់និស្សិត។"
   }
 }
