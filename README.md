@@ -1,14 +1,21 @@
+[![Get it from the Snap Store](https://snapcraft.io/static/images/badges/en/snap-store-black.svg)](https://snapcraft.io/khmer-typing)
+
 # khmer-typing
 
 > Learn Khmer Typing with a Visual Keyboard and games
 
-[![Get it from the Snap Store](https://snapcraft.io/static/images/badges/en/snap-store-black.svg)](https://snapcraft.io/khmer-typing)
+<img width="500" height="363" src="https://raw.githubusercontent.com/passerelles-numeriques/khmer-typing/master/docs/screenshot.png">
 
-A free and open source cross platform and a progressive web application (you can install it on ChromeOS):
- - Online and PWA: https://khmer-typing.passerellesnumeriques.org/
+A free and open source cross platform and a progressive web application:
+ - Online and PWA (you can install it on ChromeOS): https://khmer-typing.passerellesnumeriques.org/
  - Snapcraft https://snapcraft.io/khmer-typing
  - Windows Store (coming soon)
  - Portable Windows Application (see releases tab)
+ - Linux AppImage (see releases tab)
+ - Debian/Ubuntu package (see releases tab)
+ - RPM Package (coming soon)
+
+ Khmer Typing is based on VueJS and Electron (for desktop versions). It requires an x64 Operating System with 2GB of RAM.
 
 #### Build
 
@@ -21,6 +28,12 @@ yarn run build:web
 
 # build electron application for production
 yarn run build
+
+# build the packages for various Operating Systems
+yarn run build:snap
+yarn run build:appimage
+yarn run build:deb
+yarn run build:portable
 
 # lint all JS/Vue component files in `src/`
 npm run lint
