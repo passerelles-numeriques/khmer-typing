@@ -199,7 +199,11 @@
             if (spans[j].className === 'spans bg') {
               checker++
             }
-            if (checker === spans.length) {
+            // If all letters are highlighted (meaning correct) 
+            // and if the last letter typed is the last letter that should be typed 
+            // (to prevent the player from scoring points during the word 'fading' time)
+            // then the word is over, player scores one point and we set a new random word
+            if ((checker === spans.length)&&(this.buffer === spans[j].innerHTML)) {
               this.score++ // increment score and display it
               document.getElementsByClassName('words')[0].classList.add('fadeout') // make word disappears
               setTimeout(function () {
