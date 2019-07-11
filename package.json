@@ -73,10 +73,12 @@
     "eslint-plugin-vue": "^5.2.3",
     "file-loader": "^4.0.0",
     "html-webpack-plugin": "^3.2.0",
+    "listr": "^0.14.3",
     "mini-css-extract-plugin": "0.7.0",
     "multispinner": "^0.2.1",
     "node-loader": "^0.6.0",
     "node-sass": "^4.12.0",
+    "rxjs": "^6.5.2",
     "sass-loader": "^7.1.0",
     "style-loader": "^0.23.1",
     "url-loader": "^2.0.1",
@@ -98,7 +100,7 @@
     "directories": {
       "output": "build"
     },
-    "copyright":"Copyright © 2019 Passerelles numériques",
+    "copyright": "Copyright © 2019 Passerelles numériques",
     "files": [
       "dist/electron/**/*"
     ],
@@ -124,15 +126,20 @@
       "icon": "build/icons/icon.ico"
     },
     "linux": {
-      "synopsis" : "Learn Khmer Typing with a Visual Keyboard and games",
+      "synopsis": "Learn Khmer Typing with a Visual Keyboard and games",
       "icon": "build/icons",
-      "category":"Education"
+      "category": "Education"
     },
     "snap": {
-      "stagePackages": ["libnss3", "libxss1"]
+      "stagePackages": [
+        "libnss3",
+        "libxss1"
+      ]
     },
     "deb": {
-      "depends": ["libnss3"]
+      "depends": [
+        "libnss3"
+      ]
     }
   }
 }

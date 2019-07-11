@@ -6,7 +6,7 @@ const { say } = require('cfonts')
 const chalk = require('chalk')
 const del = require('del')
 const webpack = require('webpack')
-const Multispinner = require('multispinner')
+const Listr = require('listr')
 
 const mainConfig = require('./webpack.main.config')
 const rendererConfig = require('./webpack.renderer.config')
@@ -15,59 +15,99 @@ const webConfig = require('./webpack.web.config')
 const doneLog = chalk.bgGreen.white(' DONE ') + ' '
 const errorLog = chalk.bgRed.white(' ERROR ') + ' '
 const okayLog = chalk.bgBlue.white(' OKAY ') + ' '
-const isCI = process.env.CI || false
 
 if (process.env.BUILD_TARGET === 'clean') clean()
 else if (process.env.BUILD_TARGET === 'web') web()
 else build()
 
+/**
+ * Clean the build folder except the icons and conf
+ */
 function clean () {
-  del.sync(['build/*', '!build/icons', '!build/icons/icon.*'])
+  del.sync(['build/*',
+            '!build/icons',
+            '!build/icons/icon.*',
+            '!build/win-store-conf',
+            '!build/win-store-conf/*',
+            '!build/win-store-conf/assets',
+            '!build/win-store-conf/assets/*'
+          ])
   console.log(`\n${doneLog}\n`)
   process.exit()
 }
 
+/**
+ * Build the electron application (and not the web app)
+ */
 function build () {
-  greeting()
-
-  del.sync(['dist/electron/*', '!.gitkeep'])
-
-  const tasks = ['main', 'renderer']
-  const m = new Multispinner(tasks, {
-    preText: 'building',
-    postText: 'process'
-  })
-
+  const {Observable} = require('rxjs');
+  // Clean previous build attempts
+  //del.sync(['dist/electron/*', '!.gitkeep'])
   let results = ''
 
-  m.on('success', () => {
+  const tasks = new Listr([
+    {
+      title: 'Clean',
+      task: () => {
+        return new Observable(observer => {
+          observer.next('Clean previous build attempts')
+          del.sync(['dist/electron/*', '!.gitkeep'])
+          observer.complete();
+        })
+      }
+    },
+    {
+      title: 'Build',
+      task: () => {
+        return new Listr([{
+          title: 'Build main',
+          task: () => {
+            return new Observable(observer => {
+              observer.next('Launch WebPack')
+              pack(mainConfig).then(result => {
+                observer.next('Compiled successfully')
+                results += result + '\n\n'
+                observer.complete();
+              }).catch(err => {
+                console.log(`\n  ${errorLog}failed to build main process`)
+                throw new Error(err)
+              })
+            })
+          }
+        },
+        {
+          title: 'Build renderer',
+          task: () => {
+            return new Observable(observer => {
+              observer.next('Launch WebPack')
+              pack(rendererConfig).then(result => {
+                observer.next('Compiled successfully')
+                results += result + '\n\n'
+                observer.complete();
+              }).catch(err => {
+                console.log(`\n ${errorLog}failed to build renderer process`)
+                throw new Error(err)
+              })
+            })
+          }
+        }], {concurrent: true})
+      }
+    }])
+
+  tasks.run()
+  .then(ctx => {
     process.stdout.write('\x1B[2J\x1B[0f')
-    console.log(`\n\n${results}`)
+    console.log(`\n\nResults:${results}`)
     console.log(`${okayLog}take it away ${chalk.yellow('`electron-builder`')}\n`)
-    process.exit()
-  })
-
-  pack(mainConfig).then(result => {
-    results += result + '\n\n'
-    m.success('main')
   }).catch(err => {
-    m.error('main')
-    console.log(`\n  ${errorLog}failed to build main process`)
-    console.error(`\n${err}\n`)
-    process.exit(1)
-  })
-
-  pack(rendererConfig).then(result => {
-    results += result + '\n\n'
-    m.success('renderer')
-  }).catch(err => {
-    m.error('renderer')
-    console.log(`\n  ${errorLog}failed to build renderer process`)
-    console.error(`\n${err}\n`)
-    process.exit(1)
+    console.error(err)
   })
 }
 
+/**
+ * Pack either the renderer or the main
+ * @param {*} WebPack config 
+ */
 function pack (config) {
   return new Promise((resolve, reject) => {
     config.mode = 'production'
@@ -96,6 +136,9 @@ function pack (config) {
   })
 }
 
+/**
+ * Build the web application
+ */
 function web () {
   del.sync(['dist/web/*', '!.gitkeep'])
   webConfig.mode = 'production'
@@ -109,22 +152,4 @@ function web () {
 
     process.exit()
   })
-}
-
-function greeting () {
-  const cols = process.stdout.columns
-  let text = ''
-
-  if (cols > 85) text = 'lets-build'
-  else if (cols > 60) text = 'lets-|build'
-  else text = false
-
-  if (text && !isCI) {
-    say(text, {
-      colors: ['yellow'],
-      font: 'simple3d',
-      space: false
-    })
-  } else console.log(chalk.yellow.bold('\n  lets-build'))
-  console.log()
 }
