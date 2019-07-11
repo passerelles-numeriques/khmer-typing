@@ -2,29 +2,44 @@
   <main>
     <h1>khmer-typing</h1>
     <p>{{ $t("Khmer-Typing was developped by a team working for the french NGO Passerelles Numériques (meaning 'Digital Bridges'). Our mission is to provide education, technical and professional training in the digital sector to young underprivileged people by leveraging their potential and willpower.") }}</p>
-    <img
-      src="static/images/PN_Logo.png"
-      all="Passerelles Numeriques logo"
+    <a
+      href="https://www.passerellesnumeriques.org/"
+      rel="noopener"
+      target="_blank"
     >
+      <img
+        src="static/images/PN_Logo.jpg"
+        all="Passerelles Numeriques logo"
+      >
+    </a>
     <p>{{ $t("This project was born in PN's cambodian school, as a way to facilitate the learning of khmer typing for students. In order for it to benefit to as many people as possible, we then decided to make it open source and available on Windows and Linux stores.") }}</p>
-    <hr />
+    <hr>
     <div id="aboutLinks">
       <a
-        href="https://www.passerellesnumeriques.org/"
+        href="https://www.microsoft.com/store/apps/9MZTL2KK24P7"
+        rel="noopener"
         target="_blank"
-      >Passerelles Numériques</a>
+      >Windows store</a>
+      <a
+        href="https://snapcraft.io/khmer-typing"
+        rel="noopener"
+        target="_blank"
+      >Snapraft (Linux store)</a>
       <a
         href="https://github.com/passerelles-numeriques/khmer-typing"
+        rel="noopener"
         target="_blank"
       >Github</a>
       <a
-        href="https://snapcraft.io/khmer-typing"
+        href="https://www.passerellesnumeriques.org/"
+        rel="noopener"
         target="_blank"
-      >Linux store (Snapraft)</a>
-      <a>Windows store</a>
+      >Passerelles Numériques</a>
     </div>
     <hr />
-    <p style="text-align:center">v{{ version }}</p>
+    <p style="text-align:center">
+      v{{ version }}
+    </p>
   </main>
 </template>
 

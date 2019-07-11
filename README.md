@@ -1,4 +1,5 @@
 [![Get it from the Snap Store](https://snapcraft.io/static/images/badges/en/snap-store-black.svg)](https://snapcraft.io/khmer-typing)
+<a href='//www.microsoft.com/store/apps/9MZTL2KK24P7?cid=storebadge&ocid=badge'><img src='https://assets.windowsphone.com/13484911-a6ab-4170-8b7e-795c1e8b4165/English_get_L_InvariantCulture_Default.png' alt='English badge' style='width: 128px; height: 56px;'/></a>
 
 # khmer-typing
 
@@ -8,37 +9,14 @@
 
 A free and open source cross platform and a progressive web application:
  - Online and PWA (you can install it on ChromeOS): https://khmer-typing.passerellesnumeriques.org/
- - Snapcraft https://snapcraft.io/khmer-typing
- - Windows Store (coming soon)
+ - [Snapcraft](https://snapcraft.io/khmer-typing)
+ - [Windows Store](https://www.microsoft.com/store/apps/9MZTL2KK24P7)
  - Portable Windows Application (see releases tab)
  - Linux AppImage (see releases tab)
  - Debian/Ubuntu package (see releases tab)
  - RPM Package (coming soon)
 
  Khmer Typing is based on VueJS and Electron (for desktop versions). It requires an x64 Operating System with 2GB of RAM.
-
-#### Build
-
-``` bash
-# install dependencies
-yarn install
-
-# build application for the web
-yarn run build:web
-
-# build electron application for production
-yarn run build
-
-# build the packages for various Operating Systems
-yarn run build:snap
-yarn run build:appimage
-yarn run build:deb
-yarn run build:portable
-
-# lint all JS/Vue component files in `src/`
-npm run lint
-
-```
 
 ---
 
@@ -53,6 +31,6 @@ And then open your browser on http://localhost/
 
 ## Credits
 
-- Icon by **icon lauk** https://www.iconfinder.com/andhikairfani - Attribution 3.0 Unported (CC BY 3.0)
-- NIDA Keyboard layout by **Kiensvay** https://commons.wikimedia.org/wiki/File:Khmer_unicode_NiDA_layout.svg Attribution 3.0 Unported (CC BY 3.0)
-- Texts in Khmer are copy with the authorization of the authors from Wapatao website: https://wapatoa.com/km/
+- Icon by [**icon lauk**](https://www.iconfinder.com/andhikairfani) - Attribution 3.0 Unported (CC BY 3.0)
+- NIDA Keyboard layout by [**Kiensvay**](https://commons.wikimedia.org/wiki/File:Khmer_unicode_NiDA_layout.svg) Attribution 3.0 Unported (CC BY 3.0)
+- Texts in Khmer are an altered copy from [Wapatao website](https://wapatoa.com/km/) with the authorization of the authors.
