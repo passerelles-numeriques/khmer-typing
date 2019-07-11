@@ -6,8 +6,8 @@
       src="static/images/PN_Logo.png"
       all="Passerelles Numeriques logo"
     >
-    <p>{{ $t("This project was born is PN's cambodian school, as a way to facilitate the learning of khmer typing for students. In order for it to benefit to as many people as possible, we then decided to make it open source and available on Windows and Linux stores.") }}</p>
-    <hr>
+    <p>{{ $t("This project was born in PN's cambodian school, as a way to facilitate the learning of khmer typing for students. In order for it to benefit to as many people as possible, we then decided to make it open source and available on Windows and Linux stores.") }}</p>
+    <hr />
     <div id="aboutLinks">
       <a
         href="https://www.passerellesnumeriques.org/"
@@ -23,12 +23,19 @@
       >Linux store (Snapraft)</a>
       <a>Windows store</a>
     </div>
+    <hr />
+    <p style="text-align:center">v{{ version }}</p>
   </main>
 </template>
 
 <script>
   export default {
-    name: 'About'
+    name: 'About',
+    data() {
+      return {
+        version: process.env.VUE_APP_VERSION
+      }
+    }
   }
 </script>
 

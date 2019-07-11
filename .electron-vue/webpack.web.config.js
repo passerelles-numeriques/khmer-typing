@@ -93,6 +93,11 @@ let webConfig = {
     ]
   },
   plugins: [
+    new webpack.DefinePlugin({
+      'process.env': {
+        VUE_APP_VERSION: JSON.stringify(require('../package.json').version)
+      }
+    }),
     new VueLoaderPlugin(),
     new MiniCssExtractPlugin({filename: 'styles.css'}),
     new HtmlWebpackPlugin({
