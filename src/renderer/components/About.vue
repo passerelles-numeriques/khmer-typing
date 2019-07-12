@@ -36,7 +36,7 @@
         target="_blank"
       >Passerelles Numériques</a>
     </div>
-    <hr />
+    <hr>
     <p style="text-align:center">
       v{{ version }}
     </p>
