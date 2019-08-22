@@ -414,6 +414,6 @@ body {
   grid-template-columns: repeat(auto-fit, minmax(35px, 1fr));
 }
 #container #row8 .grid-item {
-  background-color: rgba(154, 72, 113, 0.836);
+  background-color: rgba(236, 78, 157, 0.836);
 }
 </style>
