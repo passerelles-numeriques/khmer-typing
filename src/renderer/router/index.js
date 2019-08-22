@@ -24,6 +24,11 @@ export default new Router({
     component: require('@/components/Typefast').default
   },
   {
+    path: '/characterpicking',
+    name: 'characterpicking',
+    component: require('@/components/CharacterPicking').default
+  },
+  {
     path: '/about',
     name: 'about',
     component: require('@/components/About').default

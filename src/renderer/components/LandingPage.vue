@@ -17,6 +17,13 @@
       {{ $t("Play Typefast game") }}
     </router-link>
     <br>
+    <router-link
+      class="button"
+      :to="'/characterpicking'"
+    >
+      {{ $t("Try Character Picking") }}
+    </router-link>
+    <br>
     <hr>
     <router-link
       class="button"

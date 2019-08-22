@@ -20,7 +20,7 @@ export const messages = {
     'What you are typing:': 'What you are typing:',
     'High scores': 'High scores',
     'Play again': 'Play again',
-
+    'Try Character Picking':'Try Character Picking',
     message: {
       finishedPlaying: 'End of the game.',
       scoreTypeFast: 'You wrote {score} words!',
@@ -64,7 +64,7 @@ export const messages = {
     'What you are typing:': 'Votre saisie :',
     'High scores': 'Meilleurs scores',
     'Play again': 'Jouer encore',
-
+    'Try Character Picking':'Essayez la Sélection de Personnage',
     message: {
       finishedPlaying: 'Fin du jeu.',
       scoreTypeFast: 'Vous avez saisi {score} mots !',
@@ -108,7 +108,7 @@ export const messages = {
     'What you are typing:': 'ពាក្យដែលអ្នកកំពុងវាយ:',
     'High scores': 'ពិន្ទុអតិប្បរមា',
     'Play again': 'លេងម្តងទៀត',
-
+    'Try Character Picking':'ជ្រើសរើសតួអក្សរ',
     message: {
       finishedPlaying: 'ហ្គេមត្រូវបានបញ្ចប់',
       scoreTypeFast: 'អ្នកបានសរសេរចំនួន {score} ពាក្យ!',
