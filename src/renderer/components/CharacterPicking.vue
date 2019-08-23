@@ -7,7 +7,7 @@
       </div>
       <div id="container">
         <div id="row1">
-          <div v-on:click="writeText('្')" class="grid-item border">្</div>
+          <div v-on:click="writeText('្')" class="grid-item border subscript">&nbsp;</div>
           <div v-on:click="writeText(' ')" class="grid-item border">SPACE</div>
           <div v-on:click="writeText('\t')" class="grid-item border">TAB</div>
           <div v-on:click="writeText('\n')" class="grid-item border">ENTER</div>
@@ -327,6 +327,12 @@ body {
 .border{
   border: 1px solid #c7c7c7;
   background-color: none important;
+}
+
+.subscript{
+  background-image: url("../../../static/images/subscript.png");
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
 }
 #container #row1 {
   grid-column: 8/17;
