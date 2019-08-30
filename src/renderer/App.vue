@@ -92,7 +92,7 @@ h1 {
 }
 
 h1 + p {
-  margin: 0;
+  margin: 1% 0 0 0;
 }
 
 select {

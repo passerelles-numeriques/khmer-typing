@@ -97,7 +97,7 @@ export const messages = {
     'View high scores': 'បង្ហាញពិន្ទុអតិប្បរមា',
 
     'Visual Keyboard': 'ក្តារចុចជាក់ស្តែង',
-    'Write the whole text as fast as you can with as few mistakes as possible': 'វាយអត្ថបទទាំងមូលឱ្យបានលឿនតាមដែលអ្នកអាចធ្វើបាន ដោយមានកំហុសតិចតូចបំផុត',
+    'Write the whole text as fast as you can with as few mistakes as possible': 'វាយអត្ថបទទាំងមូលឱ្យបានលឿនតាមដែលអ្នកអាចធ្វើបាន ដោយមានកំហុសតិចតួចបំផុត',
     'errors': 'កំហុសឆ្គង',
 
     'Typing game': 'ហ្គេមនៃការរៀនសរសេរ',
