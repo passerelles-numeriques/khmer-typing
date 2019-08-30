@@ -57,7 +57,7 @@
     },
     data () {
       return {
-        list: wordsList[this.$i18n.locale],
+        list: wordsList['km'],
         score: 0,
         seconds: 0,
         spans: [],

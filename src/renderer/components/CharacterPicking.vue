@@ -5,6 +5,7 @@
           <div class="grid-item empty s-7"></div>
           <div v-on:click="writeText('្')" class="grid-item border subscript">&nbsp;</div>
           <div v-on:click="writeText(' ')" class="grid-item border">SPACE</div>
+          <div v-on:click="writeText('\u200B')" class="grid-item border">ZWSP</div>
           <div v-on:click="writeText('\t')" class="grid-item border">TAB</div>
           <div v-on:click="writeText('\n')" class="grid-item border">ENTER</div>
           <div v-on:click="writeText('del')" class="grid-item border">DEL</div>
@@ -294,7 +295,7 @@ body {
   grid-column: 17/-1;
 }
 .s-7{
-  grid-column: 1/7;
+  grid-column: 1/6;
 }
 .s-7e{
   grid-column: 13/-1;
