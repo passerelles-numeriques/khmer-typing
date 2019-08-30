@@ -88,7 +88,7 @@ border-top: 1px solid #e8e8e8;
 
 h1 {
   color: #3f51b5;
-  margin: 2% 0 0 0;
+  margin: 1% 0 0 0;
 }
 
 h1 + p {
@@ -105,7 +105,7 @@ select {
 }
 
 .top-nav {
-  height: 50px;
+  height: 45px;
   overflow: hidden;
   background-color: #3f51b5;
   width: 100%;

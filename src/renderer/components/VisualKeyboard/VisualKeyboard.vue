@@ -63,6 +63,7 @@
 </template>
 
 <script>
+    console.log("hel");
   import splitKhmerRunes from '../../split-khmer'
   import mapping from '../../assets/mapping'
   import hands from '../../assets/hands'
@@ -439,9 +440,12 @@
       this.idsBreakBefore = this.getRunesIdsBreakBefore()
     }
   }
+
+
 </script>
 
 <style scoped>
+
 .hidden {
   display: none;
 }
@@ -484,7 +488,7 @@
 
 #text-vk {
   line-height: 1.5em;
-  font-size: 3em;
+  font-size: 2.8em;
   max-height: 3em;
   overflow: hidden;
   margin: 0 auto;
@@ -492,7 +496,7 @@
 
 #decomposition-vk {
   font-size: 2em;
-  margin: 1% auto 3% auto;
+  margin: 1% auto 1% auto;
 }
 
 #textWrap-vk {
