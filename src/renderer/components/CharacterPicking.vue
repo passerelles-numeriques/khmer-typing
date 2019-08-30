@@ -1,75 +1,35 @@
 <template>
   <main>
-    <div id="app">
-      <br>
-      <div>
-        <textarea ref="textInput" id="textInput" v-model="text"></textarea>
-      </div>
-      <div id="container">
-        <div id="row1">
+    <div id="app">  
+      <div id="row1">
+          <div class="grid-item empty s-7"></div>
           <div v-on:click="writeText('្')" class="grid-item border subscript">&nbsp;</div>
           <div v-on:click="writeText(' ')" class="grid-item border">SPACE</div>
           <div v-on:click="writeText('\t')" class="grid-item border">TAB</div>
           <div v-on:click="writeText('\n')" class="grid-item border">ENTER</div>
           <div v-on:click="writeText('del')" class="grid-item border">DEL</div>
           <div v-on:click="writeText('x')" class="grid-item border">X</div>
-        </div>
-        <div id="row2">
-          <letter
-            v-for="(item,index) in letters"
+          <div class="grid-item empty s-7e"></div>
+          <!-- <actionkey
+            v-for="(item,index) in actions"
             :key="index"
-            v-bind:letter="item"
+            :class="item.class"
+            v-bind:item="item"
             v-on:write-text="writeText"
-          ></letter>
-        </div>
-        <div id="row3">
-          <vowel
-            v-for="(item,index) in vowels"
+          ></actionkey> -->
+      </div>
+      <div>
+        <textarea ref="textInput" id="textInput" v-model="text"></textarea>
+      </div>
+      <div id="container">  
+          <item
+            v-for="(item,index) in items"
             :key="index"
-            v-bind:vowel="item"
+            :class="item.class"
+            v-bind:item="item"
             v-on:write-text="writeText"
-          ></vowel>
-        </div>
-        <div id="row4">
-          <independent-vowel
-            v-for="(item,index) in independentVowels"
-            :key="index"
-            v-bind:independentvowel="item"
-            v-on:write-text="writeText"
-          ></independent-vowel>
-        </div>
-        <div id="row5">
-          <diacritic
-            v-for="(item,index) in diacritics"
-            :key="index"
-            v-bind:diacritic="item"
-            v-on:write-text="writeText"
-          ></diacritic>
-        </div>
-        <div id="row6">
-          <markh
-            v-for="(item,index) in marks"
-            :key="index"
-            v-bind:markh="item"
-            v-on:write-text="writeText"
-          ></markh>
-        </div>
-        <div id="row7">
-          <sign
-            v-for="(item,index) in signs"
-            :key="index"
-            v-bind:sign="item"
-            v-on:write-text="writeText"
-          ></sign>
-        </div>
-        <div id="row8">
-          <digit
-            v-for="(item,index) in digits"
-            :key="index"
-            v-bind:digit="item"
-            v-on:write-text="writeText"
-          ></digit>
-        </div>
+          ></item>
+        
       </div>
     </div>
   </main>
@@ -78,199 +38,186 @@
 <script>
 import Vue from "vue";
 
-  Vue.component("digit", {
-    props: ["digit"],
-    template: `<div v-on:click="$emit('write-text',digit.key)" class="grid-item">{{digit.value}}</div>`
+  Vue.component("item", {
+    props: ["item"],
+    template: `<div v-on:click="$emit('write-text',item.key)">{{item.value}}</div>`
   });
 
-  Vue.component("letter", {
-    props: ["letter"],
-    template: `<div v-on:click="$emit('write-text',letter.key)" class="grid-item">{{letter.value}}</div>`
-  });
+  // Vue.component("actionkey", {
+  //   props: ["actionkey"],
+  //   template: `<div v-on:click="$emit('write-text',actionkey.key)">{{actionkey.value}}</div>`
+  // });
 
-  Vue.component("vowel", {
-    props: ["vowel"],
-    template: `<div v-on:click="$emit('write-text',vowel.key)" class="grid-item">{{vowel.value}}</div>`
-  });
-
-  Vue.component("independent-vowel", {
-    props: ["independentvowel"],
-    template: `<div v-on:click="$emit('write-text',independentvowel.key)" class="grid-item">{{independentvowel.value}}</div>`
-  });
-
-  Vue.component("diacritic", {
-    props: ["diacritic"],
-    template: `<div v-on:click="$emit('write-text',diacritic.key)" class="grid-item">{{diacritic.value}}</div>`
-  });
-
-  Vue.component("markh", {
-    props: ["markh"],
-    template: `<div v-on:click="$emit('write-text',markh.key)" class="grid-item">{{markh.value}}</div>`
-  });
-
-  Vue.component("sign", {
-    props: ["sign"],
-    template: `<div v-on:click="$emit('write-text',sign.key)" class="grid-item">{{sign.value}}</div>`
-  });
+ 
 
 export default {
   data() {
     return {
       text: "",
-      digits: [
-        { key: "០", value: "០" },
-        { key: "១", value: "១" },
-        { key: "២", value: "២" },
-        { key: "៣", value: "៣" },
-        { key: "៤", value: "៥" },
-        { key: "៦", value: "៦" },
-        { key: "៧", value: "៧" },
-        { key: "៨", value: "៨" },
-        { key: "៩", value: "៩" }
+      actions: [
+        { key: "្", value: "&nbsp;",class:"grid-item border subscript" },
+        { key: " ", value: "SPACE",class:"grid-item border" },
+        { key: "\t", value: "TAB",class:"grid-item border" },
+        { key: "\n", value: "ENTER",class:"grid-item border" },
+        { key: "del", value: "DEL",class:"grid-item border" },
+        { key: "x", value: "X",class:"grid-item border" }
       ],
-      letters: [
-        { key: "ក", value: "ក" },
-        { key: "ខ", value: "ខ" },
-        { key: "គ", value: "គ" },
-        { key: "ឃ", value: "ឃ" },
-        { key: "ង", value: "ង" },
-        { key: "កក", value: "្ក" },
-        { key: "ខខ", value: "្ខ" },
-        { key: "គគ", value: "្គ" },
-        { key: "ឃឃ", value: "្ឃ" },
-        { key: "ងង", value: "្ង" },
-        { key: "ច", value: "ច" },
-        { key: "ឆ", value: "ឆ" },
-        { key: "ជ", value: "ជ" },
-        { key: "ឈ", value: "ឈ" },
-        { key: "ញ", value: "ញ" },
-        { key: "ចច", value: "្ច" },
-        { key: "ឆឆ", value: "្ឆ" },
-        { key: "ជជ", value: "្ជ" },
-        { key: "ឈឈ", value: "្ឈ" },
-        { key: "ញញ", value: "្ញ" },
-        { key: "ដ", value: "ដ" },
-        { key: "ឋ", value: "ឋ" },
-        { key: "ឌ", value: "ឌ" },
-        { key: "ឍ", value: "ឍ" },
-        { key: "ណ", value: "ណ" },
-        { key: "ដដ", value: "្ដ" },
-        { key: "ឋឋ", value: "្ឋ" },
-        { key: "ឌឌ", value: "្ឌ" },
-        { key: "ឍឍ", value: "្ឍ" },
-        { key: "ណណ", value: "្ណ" },
-        { key: "ត", value: "ត" },
-        { key: "ថ", value: "ថ" },
-        { key: "ទ", value: "ទ" },
-        { key: "ធ", value: "ធ" },
-        { key: "ន", value: "ន" },
-        { key: "ថថ", value: "្ថ" },
-        { key: "ទទ", value: "្ទ" },
-        { key: "ធធ", value: "្ធ" },
-        { key: "តត", value: "្ត" },
-        { key: "នន", value: "្ន" },
-        { key: "ប", value: "ប" },
-        { key: "ផ", value: "ផ" },
-        { key: "ព", value: "ព" },
-        { key: "ភ", value: "ភ" },
-        { key: "ម", value: "ម" },
-        { key: "បប", value: "្ប" },
-        { key: "ផផ", value: "្ផ" },
-        { key: "ពព", value: "្ព" },
-        { key: "ភភ", value: "្ភ" },
-        { key: "មម", value: "្ម" },
-        { key: "យ", value: "យ" },
-        { key: "រ", value: "រ" },
-        { key: "ល", value: "ល" },
-        { key: "វ", value: "វ" },
-        { key: "ស", value: "ស" },
-        { key: "យយ", value: "្យ" },
-        { key: "ររ", value: "្រ" },
-        { key: "លល", value: "្ល" },
-        { key: "វវ", value: "្វ" },
-        { key: "សស", value: "្ស" },
-        { key: "ហ", value: "ហ" },
-        { key: "ឡ", value: "ឡ" },
-        { key: "អ", value: "អ" },
-        { key: "ហហ", value: "្ហ" },
-        { key: "អអ", value: "្អ" }
-      ],
-      vowels: [
-        { key: "ា", value: "ា" },
-        { key: "ិ", value: "ិ" },
-        { key: "ី", value: "ី" },
-        { key: "ឹ", value: "ឹ" },
-        { key: "ឺ", value: "ឺ" },
-        { key: "ុ", value: "ុ" },
-        { key: "ូ", value: "ូ" },
-        { key: "ួ", value: "ួ" },
-        { key: "ើ", value: "ើ" },
-        { key: "ឿ", value: "ឿ" },
-        { key: "ៀ", value: "ៀ" },
-        { key: "េ", value: "េ" },
-        { key: "ែ", value: "ែ" },
-        { key: "ៃ", value: "ៃ" },
-        { key: "ោ", value: "ោ" },
-        { key: "ៅ", value: "ៅ" },
-        { key: "ុំ", value: "ុំ" },
-        { key: "ំ", value: "ំ" },
-        { key: "ាំ", value: "ាំ" },
-        { key: "ះ", value: "ះ" },
-        { key: "ិះ", value: "ិះ" },
-        { key: "ុះ", value: "ុះ" },
-        { key: "េះ", value: "េះ" },
-        { key: "ោះ", value: "ោះ" }
-      ],      
-      independentVowels: [
-        { key: "ឥ", value: "ឥ" },
-        { key: "ឦ", value: "ឦ" },
-        { key: "ឧ", value: "ឧ" },
-        { key: "ឩ", value: "ឩ" },
-        { key: "ឪ", value: "ឪ" },
-        { key: "ឬ", value: "ឬ" },
-        { key: "ឫ", value: "ឫ" },
-        { key: "ឭ", value: "ឭ" },
-        { key: "ឮ", value: "ឮ" },
-        { key: "ឯ", value: "ឯ" },
-        { key: "ឰ", value: "ឰ" },
-        { key: "ឲ", value: "ឲ" },
-        { key: "ឱ", value: "ឱ" },
-        { key: "ឳ", value: "ឳ" }
-      ],
-      diacritics: [
-        { key: "ំ", value: "ំ" },
-        { key: "ះ", value: "ះ" },
-        { key: "ៈ", value: "ៈ" },
-        { key: "៉", value: "៉" },
-        { key: "៊", value: "៊" },
-        { key: "់", value: "់" },
-        { key: "៍", value: "៍" },
-        { key: "៌", value: "៌" },
-        { key: "៏", value: "៏" },
-        { key: "័", value: "័" },
-        { key: "៎", value: "៎" },
-        { key: "៑", value: "៑" }
-      ],
-      marks: [
-        { key: "។", value: "។" },
-        { key: "៕", value: "៕" },
-        { key: "ៗ", value: "ៗ" },
-        { key: "៛", value: "៛" },
-        { key: "៖", value: "៖" },
-        { key: "៚", value: "៚" },
-        { key: "៙", value: "៙" }
-      ],
-      signs: [
-        { key: ",", value: "," },
-        { key: ".", value: "." },
-        { key: "?", value: "?" },
-        { key: "!", value: "!" },
-        { key: "(", value: "(" },
-        { key: ")", value: ")" },
-        { key: "%", value: "%" },
-        { key: "{", value: "{" },
-        { key: "}", value: "}" }
+      items: [
+        { key: "ក", value: "ក",class:"grid-item consonant" },
+        { key: "ខ", value: "ខ",class:"grid-item consonant" },
+        { key: "គ", value: "គ" ,class:"grid-item consonant"},
+        { key: "ឃ", value: "ឃ" ,class:"grid-item consonant"},
+        { key: "ង", value: "ង" ,class:"grid-item consonant"},
+        { key: "កក", value: "្ក" ,class:"grid-item leg"},
+        { key: "ខខ", value: "្ខ" ,class:"grid-item leg"},
+        { key: "គគ", value: "្គ" ,class:"grid-item leg"},
+        { key: "ឃឃ", value: "្ឃ" ,class:"grid-item leg"},
+        { key: "ងង", value: "្ង" ,class:"grid-item leg"},
+        { key: "", value: "" ,class:"grid-item empty"},
+        { key: "ា", value: "ា",class:"grid-item vowel" },
+        { key: "ិ", value: "ិ",class:"grid-item vowel" },
+        { key: "ី", value: "ី",class:"grid-item vowel" },
+        { key: "ឹ", value: "ឹ",class:"grid-item vowel" },
+        { key: "ឺ", value: "ឺ",class:"grid-item vowel" },
+        { key: "ុ", value: "ុ",class:"grid-item vowel" },
+        { key: "ូ", value: "ូ",class:"grid-item vowel"},     
+        { key: "ច", value: "ច",class:"grid-item consonant" },
+        { key: "ឆ", value: "ឆ",class:"grid-item consonant" },
+        { key: "ជ", value: "ជ" ,class:"grid-item consonant"},
+        { key: "ឈ", value: "ឈ",class:"grid-item consonant" },
+        { key: "ញ", value: "ញ" ,class:"grid-item consonant"},
+        { key: "ចច", value: "្ច",class:"grid-item leg" },
+        { key: "ឆឆ", value: "្ឆ",class:"grid-item leg" },
+        { key: "ជជ", value: "្ជ",class:"grid-item leg" },
+        { key: "ឈឈ", value: "្ឈ",class:"grid-item leg" },
+        { key: "ញញ", value: "្ញ",class:"grid-item leg" },
+        { key: "", value: "" ,class:"grid-item empty"},
+        { key: "ួ", value: "ួ",class:"grid-item vowel" },
+        { key: "ើ", value: "ើ",class:"grid-item vowel" },
+        { key: "ឿ", value: "ឿ",class:"grid-item vowel" },
+        { key: "ៀ", value: "ៀ",class:"grid-item vowel" },
+        { key: "េ", value: "េ",class:"grid-item vowel" },
+        { key: "ែ", value: "ែ",class:"grid-item vowel" },
+        { key: "ៃ", value: "ៃ",class:"grid-item vowel" },
+        { key: "ដ", value: "ដ",class:"grid-item consonant" },
+        { key: "ឋ", value: "ឋ",class:"grid-item consonant" },
+        { key: "ឌ", value: "ឌ" ,class:"grid-item consonant"},
+        { key: "ឍ", value: "ឍ",class:"grid-item consonant" },
+        { key: "ណ", value: "ណ" ,class:"grid-item consonant"},
+        { key: "ដដ", value: "្ដ" ,class:"grid-item leg"},
+        { key: "ឋឋ", value: "្ឋ",class:"grid-item leg" },
+        { key: "ឌឌ", value: "្ឌ",class:"grid-item leg" },
+        { key: "ឍឍ", value: "្ឍ",class:"grid-item leg" },
+        { key: "ណណ", value: "្ណ" ,class:"grid-item leg"},
+        { key: "", value: "" ,class:"grid-item empty"},
+        { key: "ោ", value: "ោ",class:"grid-item vowel" },
+        { key: "ៅ", value: "ៅ",class:"grid-item vowel" },
+        { key: "ុំ", value: "ុំ" ,class:"grid-item vowel"},
+        { key: "ំ", value: "ំ" ,class:"grid-item vowel"},
+        { key: "ាំ", value: "ាំ" ,class:"grid-item vowel"},
+        { key: "ះ", value: "ះ",class:"grid-item vowel" },
+        { key: "ិះ", value: "ិះ",class:"grid-item vowel" },
+        { key: "ត", value: "ត",class:"grid-item consonant" },
+        { key: "ថ", value: "ថ" ,class:"grid-item consonant"},
+        { key: "ទ", value: "ទ" ,class:"grid-item consonant"},
+        { key: "ធ", value: "ធ",class:"grid-item consonant" },
+        { key: "ន", value: "ន",class:"grid-item consonant" },
+        { key: "ថថ", value: "្ថ",class:"grid-item leg" },
+        { key: "ទទ", value: "្ទ" ,class:"grid-item leg"},
+        { key: "ធធ", value: "្ធ",class:"grid-item leg" },
+        { key: "តត", value: "្ត",class:"grid-item leg" },
+        { key: "នន", value: "្ន",class:"grid-item leg" },
+        { key: "", value: "" ,class:"grid-item empty"},
+        { key: "ុះ", value: "ុះ" ,class:"grid-item vowel"},
+        { key: "េះ", value: "េះ" ,class:"grid-item vowel"},
+        { key: "ោះ", value: "ោះ" ,class:"grid-item vowel"},
+        { key: "", value: "" ,class:"grid-item empty s-15"},
+        { key: "ប", value: "ប",class:"grid-item consonant" },
+        { key: "ផ", value: "ផ" ,class:"grid-item consonant"},
+        { key: "ព", value: "ព" ,class:"grid-item consonant"},
+        { key: "ភ", value: "ភ" ,class:"grid-item consonant"},
+        { key: "ម", value: "ម" ,class:"grid-item consonant"},
+        { key: "បប", value: "្ប" ,class:"grid-item leg"},
+        { key: "ផផ", value: "្ផ" ,class:"grid-item leg"},
+        { key: "ពព", value: "្ព" ,class:"grid-item leg"},
+        { key: "ភភ", value: "្ភ",class:"grid-item leg" },
+        { key: "មម", value: "្ម" ,class:"grid-item leg"},
+        { key: "", value: "" ,class:"grid-item empty"},
+        { key: "ឥ", value: "ឥ",class:"grid-item independentVowel" },
+        { key: "ឦ", value: "ឦ" ,class:"grid-item independentVowel"},
+        { key: "ឧ", value: "ឧ" ,class:"grid-item independentVowel"},
+        { key: "ឩ", value: "ឩ" ,class:"grid-item independentVowel"},
+        { key: "ឪ", value: "ឪ" ,class:"grid-item independentVowel"},
+        { key: "ឬ", value: "ឬ",class:"grid-item independentVowel" },
+        { key: "ឫ", value: "ឫ",class:"grid-item independentVowel" },
+        { key: "យ", value: "យ",class:"grid-item consonant" },
+        { key: "រ", value: "រ",class:"grid-item consonant" },
+        { key: "ល", value: "ល" ,class:"grid-item consonant"},
+        { key: "វ", value: "វ" ,class:"grid-item consonant"},
+        { key: "ស", value: "ស" ,class:"grid-item consonant"},
+        { key: "យយ", value: "្យ",class:"grid-item leg" },
+        { key: "ររ", value: "្រ" ,class:"grid-item leg"},
+        { key: "លល", value: "្ល" ,class:"grid-item leg"},
+        { key: "វវ", value: "្វ" ,class:"grid-item leg"},
+        { key: "សស", value: "្ស" ,class:"grid-item leg"},
+        { key: "", value: "" ,class:"grid-item empty"},
+        { key: "ឭ", value: "ឭ" ,class:"grid-item independentVowel"},
+        { key: "ឮ", value: "ឮ" ,class:"grid-item independentVowel"},
+        { key: "ឯ", value: "ឯ" ,class:"grid-item independentVowel"},
+        { key: "ឰ", value: "ឰ" ,class:"grid-item independentVowel"},
+        { key: "ឲ", value: "ឲ" ,class:"grid-item independentVowel"},
+        { key: "ឱ", value: "ឱ" ,class:"grid-item independentVowel"},
+        { key: "ឳ", value: "ឳ",class:"grid-item independentVowel" },
+        { key: "ហ", value: "ហ",class:"grid-item consonant" },
+        { key: "ឡ", value: "ឡ" ,class:"grid-item consonant"},
+        { key: "អ", value: "អ",class:"grid-item consonant" },
+        { key: "ហហ", value: "្ហ",class:"grid-item leg" },
+        { key: "អអ", value: "្អ" ,class:"grid-item leg"},
+        { key: "", value: "" ,class:"grid-item empty s-6"},
+        { key: "ំ", value: "ំ" ,class:"grid-item diacritic"},
+        { key: "ះ", value: "ះ" ,class:"grid-item diacritic"},
+        { key: "ៈ", value: "ៈ",class:"grid-item diacritic" },
+        { key: "៉", value: "៉" ,class:"grid-item diacritic"},
+        { key: "៊", value: "៊" ,class:"grid-item diacritic"},
+        { key: "់", value: "់" ,class:"grid-item diacritic"},
+        { key: "៍", value: "៍" ,class:"grid-item diacritic"},
+        { key: "០", value: "០",class:"grid-item digit" },
+        { key: "១", value: "១",class:"grid-item digit" },
+        { key: "២", value: "២" ,class:"grid-item digit"},
+        { key: "៣", value: "៣",class:"grid-item digit" },
+        { key: "៤", value: "៤",class:"grid-item digit" },
+        { key: "៥", value: "៥" ,class:"grid-item digit"},
+        { key: "៦", value: "៦",class:"grid-item digit" },
+        { key: "៧", value: "៧",class:"grid-item digit" },
+        { key: "៨", value: "៨",class:"grid-item digit" },
+        { key: "៩", value: "៩",class:"grid-item digit" },
+        { key: "", value: "" ,class:"grid-item empty"},
+        { key: "៌", value: "៌" ,class:"grid-item diacritic"},
+        { key: "៏", value: "៏" ,class:"grid-item diacritic"},
+        { key: "័", value: "័" ,class:"grid-item diacritic"},
+        { key: "៎", value: "៎" ,class:"grid-item diacritic"},
+        { key: "៑", value: "៑",class:"grid-item diacritic" },
+        { key: "", value: "" ,class:"grid-item empty s-17"},
+        { key: ",", value: "," ,class:"grid-item sign" },
+        { key: ".", value: "." ,class:"grid-item sign" },
+        { key: "?", value: "?" ,class:"grid-item sign" },
+        { key: "!", value: "!" ,class:"grid-item sign" },
+        { key: "%", value: "%" ,class:"grid-item sign" },
+        { key: "(", value: "(" ,class:"grid-item sign" },
+        { key: ")", value: ")" ,class:"grid-item sign" },        
+        { key: "{", value: "{" ,class:"grid-item sign" },
+        { key: "}", value: "}" ,class:"grid-item sign" },
+        { key: "", value: "" ,class:"grid-item empty"},
+        { key: "", value: "" ,class:"grid-item empty"},
+        { key: "។", value: "។",class:"grid-item mark" },
+        { key: "៕", value: "៕",class:"grid-item mark" },
+        { key: "ៗ", value: "ៗ" ,class:"grid-item mark"},
+        { key: "៛", value: "៛" ,class:"grid-item mark"},
+        { key: "៖", value: "៖",class:"grid-item mark" },
+        { key: "៚", value: "៚",class:"grid-item mark" },
+        { key: "៙", value: "៙" ,class:"grid-item mark"}
       ]
+      
     };
   },
   methods: {
@@ -307,14 +254,20 @@ body {
 #textInput {
   border: 1px solid brown;
   width: 100%;
-  height: 150px;
+  height: 130px;
   margin-bottom: 10px;
-  font-size: 3em;
+  font-size: 2em;
 }
-#container {
+#row1{
   display: grid;
-  grid-template-columns: repeat(23, auto);
-  grid-template-rows: repeat(13);
+  grid-template-columns: repeat(18,auto);
+  grid-gap: 5px;
+  margin-top: 1px;
+}
+#container{
+  display: grid;
+  grid-template-columns: repeat(18,auto);
+  grid-template-rows: repeat(14,1fr);            
   grid-gap: 5px;
 }
 
@@ -324,102 +277,59 @@ body {
   text-align: center;
   cursor: pointer;
 }
-.border{
-  border: 1px solid #c7c7c7;
-  background-color: none important;
+.s-6{
+  grid-column: 6/12;
+}
+.s-15{
+  grid-column: 15/-1;
+}  
+.s-17{
+  grid-column: 17/-1;
+}
+.s-7{
+  grid-column: 1/7;
+}
+.s-7e{
+  grid-column: 13/-1;
 }
 
+.border{
+  border: 1px solid #c7c7c7;  
+  font-size: 0.7em;  
+}
+.consonant{  
+  background-color: #F9F871;
+}
+.leg{
+  background-color: #74BDCB;
+}
+.vowel{
+  background-color: #FFA384;
+}
+.independentVowel{
+  background-color: #EFE7BC;
+}
+.mark{
+  background-color: #BDA69F;
+}
+.sign{
+  background-color: #C0BC84;
+}
+.digit{
+  background-color: #9BDE7E;
+}
+.diacritic{
+  background-color: rgba(216, 218, 213, 0.8);
+}
 .subscript{
   background-image: url("../../../static/images/subscript.png");
   background-position: 50% 50%;
   background-repeat: no-repeat;
-}
-#container #row1 {
-  grid-column: 8/17;
-  grid-row: 1/2;
-  display: grid;
-  /* align-items: center; */
-  grid-gap: 5px;
-  /* grid-template-columns: repeat(6,auto); */
-  grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+  background-size: 50%;
 }
 
-#container #row2 {
-  grid-column: 1/11;
-  grid-row: 2/9;
-  display: grid;
-  grid-gap: 5px;
-  /* grid-template-columns: repeat(10,auto); */
-  grid-template-columns: repeat(auto-fit, minmax(55px, 1fr));
-}
-#container #row2 .grid-item {
-  background-color: rgba(221, 235, 34, 0.8);
-}
-
-#container #row3 {
-  grid-column: 12/24;
-  grid-row: 2/4;
-  display: grid;
-  grid-gap: 5px;
-  /* grid-template-columns: repeat(12,auto); */
-  grid-template-columns: repeat(auto-fit, minmax(45px, 1fr));
-}
-#container #row3 .grid-item {
-  background-color: rgba(235, 198, 34, 0.8);
-}
-#container #row4 {
-  grid-column: 12/15;
-  grid-row: 4/8;
-  display: grid;
-  grid-gap: 5px;
-  /* grid-template-columns: repeat(3,auto); */
-  grid-template-columns: repeat(auto-fit, minmax(35px, 1fr));
-}
-#container #row4 .grid-item {
-  background-color: rgba(216, 218, 213, 0.8);
-}
-#container #row5 {
-  grid-column: 16/22;
-  grid-row: 4/5;
-  display: grid;
-  grid-gap: 5px;
-  /* grid-template-columns: repeat(6,auto); */
-  grid-template-columns: repeat(auto-fit, minmax(30px, 1fr));
-}
-#container #row5 .grid-item {
-  background-color: rgba(101, 162, 232, 0.8);
-}
-#container #row6 {
-  grid-column: 16/23;
-  grid-row: 5/6;
-  display: grid;
-  grid-gap: 5px;
-  /* grid-template-columns: repeat(7,auto); */
-  grid-template-columns: repeat(auto-fit, minmax(35px, 1fr));
-}
-#container #row6 .grid-item {
-  background-color: rgba(153, 238, 42, 0.8);
-}
-#container #row7 {
-  grid-column: 16/24;
-  grid-row: 6/7;
-  display: grid;
-  grid-gap: 5px;
-  /* grid-template-columns: repeat(9,auto); */
-  grid-template-columns: repeat(auto-fit, minmax(35px, 1fr));
-}
-#container #row7 .grid-item {
-  background-color: rgb(208, 182, 202);
-}
-#container #row8 {
-  grid-column: 12/22;
-  grid-row: 8/9;
-  display: grid;
-  grid-gap: 5px;
-  /* grid-template-columns: repeat(10,auto); */
-  grid-template-columns: repeat(auto-fit, minmax(35px, 1fr));
-}
-#container #row8 .grid-item {
-  background-color: rgba(236, 78, 157, 0.836);
+.empty{
+  border: none;
+  cursor: auto;
 }
 </style>
