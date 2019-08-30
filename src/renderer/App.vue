@@ -34,6 +34,7 @@
 </template>
 
 <script>
+
   export default {
     name: 'KhmerTyping',
     data () {
@@ -47,6 +48,8 @@
       }
     }
   }
+
+
 </script>
 
 <style>
@@ -63,7 +66,7 @@ body {
 }
 
 main {
-margin: 2vw;
+margin: 0.5vw 2vw 2vw 2vw;
 max-width: 90vw;
 padding: 0 5vw;
 border-radius: 5px;

@@ -271,12 +271,19 @@ body {
   grid-gap: 5px;
 }
 
+/* @media (max-width: 400px) {
+  #container{
+    grid-template-columns: repeat(9,auto);
+  }
+} */
+
 .grid-item {  
   padding: 5px;
   font-size: 1.5em;
   text-align: center;
-  cursor: pointer;
+  cursor: pointer;  
 }
+
 .s-6{
   grid-column: 6/12;
 }
@@ -297,29 +304,56 @@ body {
   border: 1px solid #c7c7c7;  
   font-size: 0.7em;  
 }
+.border:hover{
+  background-color: #e0e0e0; 
+}
 .consonant{  
   background-color: #F9F871;
+}
+.consonant:hover{  
+  background-color: rgb(224, 224, 100);    
 }
 .leg{
   background-color: #74BDCB;
 }
+.leg:hover{
+  background-color: rgb(80, 168, 185);
+}
 .vowel{
   background-color: #FFA384;
+}
+.vowel:hover{
+  background-color: rgb(243, 132, 95);
 }
 .independentVowel{
   background-color: #EFE7BC;
 }
+.independentVowel:hover{
+  background-color: rgb(226, 216, 160);
+}
 .mark{
   background-color: #BDA69F;
+}
+.mark:hover{
+  background-color: rgb(177, 142, 131);
 }
 .sign{
   background-color: #C0BC84;
 }
+.sign:hover{
+  background-color: rgb(173, 169, 108);
+}
 .digit{
   background-color: #9BDE7E;
 }
+.digit:hover{
+  background-color: rgb(131, 189, 107);
+}
 .diacritic{
   background-color: rgba(216, 218, 213, 0.8);
+}
+.diacritic:hover{
+  background-color: rgba(192, 192, 192, 0.8);
 }
 .subscript{
   background-image: url("../../../static/images/subscript.png");
