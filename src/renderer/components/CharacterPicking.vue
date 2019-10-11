@@ -2,16 +2,57 @@
   <main>
     <div id="app">  
       <div id="row1">
-          <div class="grid-item empty s-7"></div>
-          <div v-on:click="writeText('្')" class="grid-item border subscript">&nbsp;</div>
-          <div v-on:click="writeText(' ')" class="grid-item border">SPACE</div>
-          <div v-on:click="writeText('\u200B')" class="grid-item border">ZWSP</div>
-          <div v-on:click="writeText('\t')" class="grid-item border">TAB</div>
-          <div v-on:click="writeText('\n')" class="grid-item border">ENTER</div>
-          <div v-on:click="writeText('del')" class="grid-item border">DEL</div>
-          <div v-on:click="writeText('x')" class="grid-item border">X</div>
-          <div class="grid-item empty s-7e"></div>
-          <!-- <actionkey
+        <div class="grid-item empty s-7" />
+        <div
+          @click="writeText('្')"
+          class="grid-item border subscript"
+        >
+&nbsp;
+        </div>
+        <div
+          @click="writeText(' ')"
+          class="grid-item border"
+        >
+          SPACE
+        </div>
+        <div
+          @click="writeText('\u200B')"
+          class="grid-item border"
+        >
+          ZWSP
+        </div>
+        <div
+          @click="writeText('\t')"
+          class="grid-item border"
+        >
+          TAB
+        </div>
+        <div
+          @click="writeText('\n')"
+          class="grid-item border"
+        >
+          ENTER
+        </div>
+        <div
+          @click="writeText('del')"
+          class="grid-item border"
+        >
+          DEL
+        </div>
+        <div
+          @click="writeText('x')"
+          class="grid-item border"
+        >
+          X
+        </div>
+        <!-- <div
+          v-if="isWeb"
+          @click="share()"
+          class="grid-item s-7e"
+        >
+          Share
+        </div> -->
+        <!-- <actionkey
             v-for="(item,index) in actions"
             :key="index"
             :class="item.class"
@@ -20,19 +61,23 @@
           ></actionkey> -->
       </div>
       <div>
-        <textarea ref="textInput" id="textInput" v-model="text"></textarea>
+        <textarea
+          ref="textInput"
+          id="textInput"
+          v-model="text"
+        />
       </div>
       <div id="container">  
-          <item
-            v-for="(item,index) in items"
-            :key="index"
-            :class="item.class"
-            v-bind:item="item"
-            v-on:write-text="writeText"
-          ></item>
-        
+        <item
+          v-for="(item,index) in items"
+          :key="index"
+          :class="item.class"
+          :item="item"
+          @write-text="writeText"
+        />
       </div>
     </div>
+    <v-dialog />
   </main>
 </template>
 
@@ -54,7 +99,7 @@ import Vue from "vue";
 export default {
   data() {
     return {
-      text: "",
+      text: (this.$route.params.text) ? this.$route.params.text : "" ,      
       actions: [
         { key: "្", value: "&nbsp;",class:"grid-item border subscript" },
         { key: " ", value: "SPACE",class:"grid-item border" },
@@ -240,12 +285,65 @@ export default {
 
       this.text += param;
       this.$refs.textInput.focus();
+      console.log("write text...");
+    },
+    share:function(){
+      console.log('share function...');
+      // alert(window.location.href+"/"+this.text);
+
+      // Display end modal
+        this.$modal.show('dialog', {
+          title: this.$i18n.t('Shared link is copied to clipboard'),
+          text: window.location.href+"/"+this.text,
+          buttons: [
+            {
+              title: this.$i18n.t('CLOSE'),
+              // default: true, // Will be triggered by default if 'Enter' pressed.
+              // handler: () => {
+              //   // this.$router.push('landind-page')
+              // }
+            }
+          ]
+        })
+      
+    }
+  
+  },
+  // computed:{
+  //   isWeb(){
+  //     if(window.process){
+  //       return false;
+  //     }else{
+  //       if(this.$route.params.text){
+  //         //let paramText = this.$route.params.text;
+  //         //this.text = paramText.toString();  
+  //         console.log('param'+this.$route.params.text);
+  //         this.text = this.$route.params.text; 
+  //         console.log("isweb.....");   
+  //       }else{
+  //          console.log('empty');  
+  //       }
+  //       // console.log('isweb function...');
+  //       return true;
+  //     }
+  //   }
+  // },
+  computed:{
+    isWeb(){
+      if(window.process){
+        return false;
+      }    
+      return true;      
     }
   },
   mounted() {
     this.$refs.textInput.focus();
   }
 };
+
+console.log("hello character picking...");
+
+
 </script>
 
 <style scoped>
@@ -274,7 +372,7 @@ body {
 
 /* @media (max-width: 400px) {
   #container{
-    grid-template-columns: repeat(9,auto);
+    grid-template-columns: repeat(5,auto);
   }
 } */
 
@@ -298,7 +396,7 @@ body {
   grid-column: 1/6;
 }
 .s-7e{
-  grid-column: 13/-1;
+  grid-column: 18/-1;
 }
 
 .border{

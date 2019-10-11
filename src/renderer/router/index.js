@@ -24,7 +24,7 @@ export default new Router({
     component: require('@/components/Typefast').default
   },
   {
-    path: '/characterpicking',
+    path: '/characterpicking/:text?',
     name: 'characterpicking',
     component: require('@/components/CharacterPicking').default
   },
