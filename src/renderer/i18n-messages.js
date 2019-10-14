@@ -21,6 +21,7 @@ export const messages = {
     'High scores': 'High scores',
     'Play again': 'Play again',
     'Try Character Picking':'Try Character Picking',
+    'Shared link is copied to clipboard':'Shared link is copied to clipboard',
     message: {
       finishedPlaying: 'End of the game.',
       scoreTypeFast: 'You wrote {score} words!',
@@ -65,6 +66,7 @@ export const messages = {
     'High scores': 'Meilleurs scores',
     'Play again': 'Jouer encore',
     'Try Character Picking':'Essayez la Sélection de Personnage',
+    'Shared link is copied to clipboard':'Le lien partagé est copié dans le presse-papier',
     message: {
       finishedPlaying: 'Fin du jeu.',
       scoreTypeFast: 'Vous avez saisi {score} mots !',
@@ -109,6 +111,7 @@ export const messages = {
     'High scores': 'ពិន្ទុអតិប្បរមា',
     'Play again': 'លេងម្តងទៀត',
     'Try Character Picking':'ជ្រើសរើសតួអក្សរ',
+    'Shared link is copied to clipboard':'តំណដែលបានចែករំលែកត្រូវបានចម្លង',
     message: {
       finishedPlaying: 'ហ្គេមត្រូវបានបញ្ចប់',
       scoreTypeFast: 'អ្នកបានសរសេរចំនួន {score} ពាក្យ!',

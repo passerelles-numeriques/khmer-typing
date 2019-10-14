@@ -3,18 +3,8 @@
     <div id="app">  
       <div id="row1">
         <div class="grid-item empty s-7" />
-        <div
-          @click="writeText('្')"
-          class="grid-item border subscript"
-        >
-&nbsp;
-        </div>
-        <div
-          @click="writeText(' ')"
-          class="grid-item border"
-        >
-          SPACE
-        </div>
+        <div @click="writeText('្')" class="grid-item border subscript">&nbsp;</div>
+        <div @click="writeText(' ')" class="grid-item border">SPACE</div>
         <div
           @click="writeText('\u200B')"
           class="grid-item border"
@@ -45,13 +35,8 @@
         >
           X
         </div>
-        <!-- <div
-          v-if="isWeb"
-          @click="share()"
-          class="grid-item s-7e"
-        >
-          Share
-        </div> -->
+        <div v-if="isWeb" @click="share()" class="grid-item s-7e" id="share"></div>
+        
         <!-- <actionkey
             v-for="(item,index) in actions"
             :key="index"
@@ -67,6 +52,7 @@
           v-model="text"
         />
       </div>
+      <!-- <input type="hidden" id="url" v-model="url"> -->
       <div id="container">  
         <item
           v-for="(item,index) in items"
@@ -83,7 +69,8 @@
 
 <script>
 import Vue from "vue";
-
+import Clipboard from 'v-clipboard';
+  Vue.use(Clipboard);
   Vue.component("item", {
     props: ["item"],
     template: `<div v-on:click="$emit('write-text',item.key)">{{item.value}}</div>`
@@ -99,7 +86,7 @@ import Vue from "vue";
 export default {
   data() {
     return {
-      text: (this.$route.params.text) ? this.$route.params.text : "" ,      
+      text: (this.$route.params.text) ? this.$route.params.text : "" ,         
       actions: [
         { key: "្", value: "&nbsp;",class:"grid-item border subscript" },
         { key: " ", value: "SPACE",class:"grid-item border" },
@@ -284,50 +271,23 @@ export default {
       }
 
       this.text += param;
-      this.$refs.textInput.focus();
-      console.log("write text...");
+      this.$refs.textInput.focus();     
     },
-    share:function(){
-      console.log('share function...');
-      // alert(window.location.href+"/"+this.text);
-
+    share:function(){    
+      this.$clipboard(window.location.href+"/"+this.text);
       // Display end modal
         this.$modal.show('dialog', {
           title: this.$i18n.t('Shared link is copied to clipboard'),
           text: window.location.href+"/"+this.text,
           buttons: [
             {
-              title: this.$i18n.t('CLOSE'),
-              // default: true, // Will be triggered by default if 'Enter' pressed.
-              // handler: () => {
-              //   // this.$router.push('landind-page')
-              // }
+              title: this.$i18n.t('Close'),
             }
           ]
         })
-      
     }
   
   },
-  // computed:{
-  //   isWeb(){
-  //     if(window.process){
-  //       return false;
-  //     }else{
-  //       if(this.$route.params.text){
-  //         //let paramText = this.$route.params.text;
-  //         //this.text = paramText.toString();  
-  //         console.log('param'+this.$route.params.text);
-  //         this.text = this.$route.params.text; 
-  //         console.log("isweb.....");   
-  //       }else{
-  //          console.log('empty');  
-  //       }
-  //       // console.log('isweb function...');
-  //       return true;
-  //     }
-  //   }
-  // },
   computed:{
     isWeb(){
       if(window.process){
@@ -339,6 +299,7 @@ export default {
   mounted() {
     this.$refs.textInput.focus();
   }
+
 };
 
 console.log("hello character picking...");
@@ -457,6 +418,12 @@ body {
 .subscript{
   background-image: url("../../../static/images/subscript.png");
   background-position: 50% 50%;
+  background-repeat: no-repeat;
+  background-size: 50%;
+}
+#share{
+  background-image: url("../../../static/images/share.png");
+  background-position: 100% 50%;
   background-repeat: no-repeat;
   background-size: 50%;
 }
