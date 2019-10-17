@@ -62,8 +62,7 @@
   </main>
 </template>
 
-<script>
-    console.log("hel");
+<script>  
   import splitKhmerRunes from '../../split-khmer'
   import mapping from '../../assets/mapping'
   import hands from '../../assets/hands'

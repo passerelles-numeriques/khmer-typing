@@ -3,62 +3,36 @@
     <div id="app">  
       <div id="row1">
         <div class="grid-item empty s-7" />
-        <div @click="writeText('្')" class="grid-item border subscript">&nbsp;</div>
-        <div @click="writeText(' ')" class="grid-item border">SPACE</div>
-        <div
-          @click="writeText('\u200B')"
-          class="grid-item border"
-        >
-          ZWSP
-        </div>
-        <div
-          @click="writeText('\t')"
-          class="grid-item border"
-        >
-          TAB
-        </div>
-        <div
-          @click="writeText('\n')"
-          class="grid-item border"
-        >
-          ENTER
-        </div>
-        <div
-          @click="writeText('del')"
-          class="grid-item border"
-        >
-          DEL
-        </div>
-        <div
-          @click="writeText('x')"
-          class="grid-item border"
-        >
-          X
-        </div>
-        <div v-if="isWeb" @click="share()" class="grid-item s-7e" id="share"></div>
-        
-        <!-- <actionkey
-            v-for="(item,index) in actions"
-            :key="index"
-            :class="item.class"
-            v-bind:item="item"
-            v-on:write-text="writeText"
-          ></actionkey> -->
+        <actionkey
+          v-for="(element,index) in actionitems"
+          :key="index"
+          :class="element.class"
+          :action="element"
+          @write-text="writeText" 
+        />
+
+        <div 
+          v-if="isWeb" 
+          @click="share()" 
+          class="grid-item s-7e" 
+          id="share"
+        />
       </div>
+
       <div>
         <textarea
           ref="textInput"
           id="textInput"
-          v-model="text"
+          v-model="text" 
         />
       </div>
-      <!-- <input type="hidden" id="url" v-model="url"> -->
+      
       <div id="container">  
-        <item
-          v-for="(item,index) in items"
+        <itemkey
+          v-for="(element,index) in items"
           :key="index"
-          :class="item.class"
-          :item="item"
+          :class="element.class"
+          :item="element"
           @write-text="writeText"
         />
       </div>
@@ -71,24 +45,40 @@
 import Vue from "vue";
 import Clipboard from 'v-clipboard';
   Vue.use(Clipboard);
-  Vue.component("item", {
-    props: ["item"],
-    template: `<div v-on:click="$emit('write-text',item.key)">{{item.value}}</div>`
+
+  Vue.component("actionkey", {
+    props: {
+      action:{
+        type:Object,
+        default:null
+      }
+    },
+    template: `<div 
+                  v-on:click="$emit('write-text',action.key)">
+                  {{action.value}}
+               </div>`
   });
 
-  // Vue.component("actionkey", {
-  //   props: ["actionkey"],
-  //   template: `<div v-on:click="$emit('write-text',actionkey.key)">{{actionkey.value}}</div>`
-  // });
-
- 
+  Vue.component("itemkey", {
+    props: {
+      item:{
+        type:Object,
+        default:null
+      }
+    },
+    template: `<div 
+                  v-on:click="$emit('write-text',item.key)">
+                  {{item.value}}
+               </div>`
+  });
 
 export default {
   data() {
     return {
       text: (this.$route.params.text) ? this.$route.params.text : "" ,         
-      actions: [
-        { key: "្", value: "&nbsp;",class:"grid-item border subscript" },
+      // text: (this.$route.params.text) ? this.$route.params.text : "" ,         
+      actionitems: [
+        { key: "្", value: "",class:"grid-item border subscript" },
         { key: " ", value: "SPACE",class:"grid-item border" },
         { key: "\t", value: "TAB",class:"grid-item border" },
         { key: "\n", value: "ENTER",class:"grid-item border" },
@@ -255,6 +245,7 @@ export default {
   },
   methods: {
     writeText: function(param) {
+                 
       if (param.length == 2 && param[0] === param[1]) {
         this.text += "្";
         param = param[1];
@@ -273,20 +264,28 @@ export default {
       this.text += param;
       this.$refs.textInput.focus();     
     },
-    share:function(){    
-      this.$clipboard(window.location.href+"/"+this.text);
-      // Display end modal
-        this.$modal.show('dialog', {
-          title: this.$i18n.t('Shared link is copied to clipboard'),
-          text: window.location.href+"/"+this.text,
-          buttons: [
-            {
-              title: this.$i18n.t('Close'),
-            }
-          ]
-        })
+    share:function(){  
+      var url = window.location.href.split(encodeURI(this.$route.params.text))[0];
+      if(!url.endsWith("/")){
+        url+="/"
+      }
+      url+=encodeURI(this.text);
+      this.$clipboard(url); 
+      
+            // Display end modal
+            this.$modal.show('dialog', {
+              title: this.$i18n.t('Shared link is copied to clipboard'),
+              text: url,
+              buttons: [
+                {
+                  title: this.$i18n.t('Close'),
+                }
+              ]
+            })
+      
+ 
     }
-  
+      
   },
   computed:{
     isWeb(){
@@ -295,15 +294,12 @@ export default {
       }    
       return true;      
     }
-  },
+  },  
   mounted() {
     this.$refs.textInput.focus();
   }
 
 };
-
-console.log("hello character picking...");
-
 
 </script>
 
@@ -317,6 +313,7 @@ body {
   height: 130px;
   margin-bottom: 10px;
   font-size: 2em;
+  white-space: pre-wrap;
 }
 #row1{
   display: grid;
@@ -419,7 +416,7 @@ body {
   background-image: url("../../../static/images/subscript.png");
   background-position: 50% 50%;
   background-repeat: no-repeat;
-  background-size: 50%;
+  background-size: 40%;
 }
 #share{
   background-image: url("../../../static/images/share.png");
